@@ -1,0 +1,10 @@
+import assert from "node:assert/strict";
+import test, { after } from "node:test";
+import { createServer } from "vite";
+import { fileURLToPath } from "node:url";
+const root = fileURLToPath(new URL("..", import.meta.url));
+const vite = await createServer({ appType: "custom", configFile: false, root, resolve: { alias: { "@": root } }, server: { middlewareMode: true, hmr: false } });
+after(async () => vite.close());
+test("contact validation accepts a complete enquiry", async () => { const { contactSchema } = await vite.ssrLoadModule("/lib/validation.ts"); const result = contactSchema.safeParse({ name: "Maria", businessName: "Studio One", email: "maria@example.com", phone: "+357 99000000", website: "https://example.com", service: "Web Design", packageName: "Growth", message: "We need a clearer website that generates enquiries.", companyWebsite: "", turnstileToken: "" }); assert.equal(result.success, true); });
+test("contact validation rejects an invalid email and short message", async () => { const { contactSchema } = await vite.ssrLoadModule("/lib/validation.ts"); const result = contactSchema.safeParse({ name: "M", businessName: "B", email: "invalid", message: "short" }); assert.equal(result.success, false); assert.ok(result.error.flatten().fieldErrors.email); assert.ok(result.error.flatten().fieldErrors.message); });
+test("audit validation requires consent and a complete website address", async () => { const { auditSchema } = await vite.ssrLoadModule("/lib/validation.ts"); const result = auditSchema.safeParse({ name: "Andreas", businessName: "Clinic", email: "a@example.com", phone: "+357 22000000", website: "example.com", industry: "Dental", city: "Nicosia", goal: "More bookings", problem: "The current site is difficult to use.", budget: "€1,000-€1,500", consent: false }); assert.equal(result.success, false); assert.ok(result.error.flatten().fieldErrors.website); assert.ok(result.error.flatten().fieldErrors.consent); });
