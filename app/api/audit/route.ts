@@ -1,0 +1,22 @@
+import { getDb } from "@/db";
+import { auditRequests } from "@/db/schema";
+import { BadRequestError, readJson, validationResponse } from "@/lib/api";
+import { sendEnquiryEmails, sendLeadWebhook } from "@/lib/integrations";
+import { clientIp, rateLimit, verifyTurnstile } from "@/lib/security";
+import { auditSchema } from "@/lib/validation";
+
+export async function POST(request: Request) {
+  const ip = clientIp(request); const limited = rateLimit(`audit:${ip}`, 4, 60_000);
+  if (!limited.allowed) return Response.json({ ok: false, error: "rate_limited", message: "Too many requests. Please try again shortly." }, { status: 429, headers: { "Retry-After": String(limited.retryAfter) } });
+  try {
+    const parsed = auditSchema.safeParse(await readJson(request)); if (!parsed.success) return validationResponse(parsed.error);
+    const input = parsed.data; if (input.companyWebsite) return Response.json({ ok: true }, { status: 201 });
+    if (!await verifyTurnstile(input.turnstileToken, ip)) return Response.json({ ok: false, error: "verification_failed", message: "Please complete the security check." }, { status: 422 });
+    const [audit] = await getDb().insert(auditRequests).values({ name: input.name, businessName: input.businessName, email: input.email, phone: input.phone, website: input.website, industry: input.industry, city: input.city, goal: input.goal, problem: input.problem, budget: input.budget, message: input.message, utmSource: input.utmSource, utmMedium: input.utmMedium, utmCampaign: input.utmCampaign }).returning({ id: auditRequests.id });
+    await Promise.allSettled([sendEnquiryEmails("audit", input), sendLeadWebhook("audit", input)]);
+    return Response.json({ ok: true, id: audit.id, message: "Your audit request has been received." }, { status: 201 });
+  } catch (error) {
+    if (error instanceof BadRequestError) return Response.json({ ok: false, error: "bad_request", message: error.message }, { status: 400 });
+    return Response.json({ ok: false, error: "server_error", message: "We could not submit your audit request. Please try again." }, { status: 500 });
+  }
+}

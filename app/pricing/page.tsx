@@ -1,0 +1,32 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
+import { FAQList } from "@/components/faq-list";
+import { PageTracker } from "@/components/analytics";
+
+export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Transparent website packages for Cyprus local businesses, from €550 setup.", alternates: { canonical: "/pricing" } };
+
+const plans = [
+  { name: "Starter", setup: "€550", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false, items: ["Up to 4 pages", "Responsive design", "Contact form", "Google Maps", "WhatsApp / click-to-call", "SEO foundations", "Basic analytics setup", "Managed hosting, SSL & backups", "Website Care"] },
+  { name: "Growth", setup: "€850", monthly: "€69", best: "Businesses that want a stronger website built around visibility, enquiries and bookings.", minutes: "30 minutes", popular: true, items: ["5 to 7 pages", "Premium custom design", "Conversion-focused page structure", "Copywriting assistance", "Google Business profile setup & optimisation", "Analytics & Search Console setup", "Local SEO foundations", "Conversion tracking", "WhatsApp and click-to-call", "Enquiry or booking form", "Speed optimisation", "Managed hosting, SSL, backups & monitoring", "Website Care"] },
+  { name: "Premium", setup: "€1,350", monthly: "€119", best: "Businesses that need a larger and more advanced digital presence with additional functionality, stronger conversion structure and priority care.", minutes: "60 minutes", popular: false, items: ["8 to 12 pages", "High-end custom design", "Advanced conversion-focused structure", "Premium interactions", "Advanced animations", "Multilingual-ready architecture", "CMS / blog", "Booking integration", "Enhanced Local SEO foundations", "Analytics & conversion tracking setup", "Priority support", "Managed hosting, SSL, backups & monitoring", "Post-launch technical health checks"] },
+] as const;
+
+const addons = [["Extra language setup", "€150 to €300+"], ["Advanced booking", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO", "Quote"], ["Google Business ongoing optimisation", "Quote"], ["Google Ads / Paid Acquisition", "Quote"], ["Lead & Booking Automation", "Quote"], ["AI Chatbots & Automation", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Advanced Analytics & Reporting", "Quote"], ["Content & Digital Presence", "Quote"], ["Professional photography", "Quote"], ["Videography", "Quote"], ["Advanced copywriting", "Quote"]] as const;
+
+export default function PricingPage() {
+  return <main><PageTracker event="pricing_view" />
+    <section className="page-hero pricing-hero"><div className="site-container"><p className="eyebrow">Transparent pricing</p><h1>Start with the right foundation<span>.</span></h1><p>Clear setup costs, practical ongoing care and room to add more as the business grows.</p><div className="payment-note"><strong>50%</strong><span>deposit to begin</span><strong>50%</strong><span>before launch</span></div></div></section>
+    <section className="pricing-section section-pad"><div className="site-container pricing-grid">
+      {plans.map((plan) => <article className={`pricing-card ${plan.popular ? "pricing-popular" : ""}`} key={plan.name}>
+        {plan.popular && <span className="popular-badge">Most Popular</span>}<p className="plan-name">{plan.name}</p><div className="price-line"><strong>{plan.setup}</strong><span>setup</span></div><div className="monthly-line"><strong>{plan.monthly}</strong><span>/ month</span></div><small className="care-label">Website Care after launch</small><p className="plan-best">{plan.best}</p>
+        <ul>{plan.items.map((item) => <li key={item}><Check />{item}</li>)}<li><Check />Up to {plan.minutes} minor updates/month</li></ul>
+        <Link className={`button button-large ${plan.popular ? "button-accent" : "button-dark"}`} href={`/contact?package=${plan.name}`} data-track="pricing_cta_click" data-track-label={plan.name}>Choose {plan.name}<ArrowRight /></Link>
+      </article>)}
+    </div></section>
+    <section className="maintenance-policy"><div className="site-container policy-grid"><div><p className="eyebrow">Website Care policy</p><h2>Small updates, handled.</h2></div><div><h3>Included</h3><p>Text changes, image replacements, contact details, opening hours and small content adjustments.</p></div><div><h3>Quoted separately</h3><p>New pages, systems, full redesigns, integrations, large content uploads and custom development.</p></div><p className="policy-note">Unused maintenance time does not roll over.</p></div></section>
+    <section className="addons-section section-pad"><div className="site-container"><p className="eyebrow">Optional growth services</p><h2>Build around what the business actually needs.</h2><div className="addons-list">{addons.map(([name, price]) => <div key={name}><span>{name}</span><strong>{price}</strong></div>)}</div></div></section>
+    <section className="pricing-faq section-pad"><div className="site-container faq-grid"><div><p className="eyebrow">Questions before you choose</p><h2>What business owners usually want to know.</h2></div><FAQList limit={8} /></div></section>
+    <section className="cta-section"><div className="site-container cta-inner"><div><p className="eyebrow">Not sure which plan fits?</p><h2>Let the audit make it clearer.</h2><p>We will review the current position and recommend the most sensible starting point.</p></div><Link className="button button-dark button-large" href="/free-audit">Get a Free Website Audit<ArrowRight /></Link></div></section>
+  </main>;
+}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 990" role="img" aria-labelledby="title desc">
+  <title id="title">VELA Studio concept direction</title>
+  <desc id="desc">A warm editorial beauty studio concept with a sculptural arch, appointment-led layout and premium product still life.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4e9df"/><stop offset="1" stop-color="#dbc5b8"/></linearGradient>
+    <linearGradient id="shadow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2b2521"/><stop offset="1" stop-color="#75635a"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaf4" stop-opacity=".72"/><stop offset="1" stop-color="#b98f7d" stop-opacity=".42"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="28"/></filter>
+  </defs>
+  <rect width="1584" height="990" fill="url(#paper)"/>
+  <circle cx="1280" cy="120" r="230" fill="#f9f1eb" opacity=".45" filter="url(#blur)"/>
+  <path d="M180 990V365c0-170 138-308 308-308s308 138 308 308v625Z" fill="url(#shadow)"/>
+  <path d="M255 990V382c0-129 104-233 233-233s233 104 233 233v608Z" fill="#b99b8b"/>
+  <path d="M328 990V400c0-89 72-161 160-161s160 72 160 161v590Z" fill="#3c322d"/>
+  <path d="M830 120h540" stroke="#332b26" stroke-width="2" opacity=".35"/>
+  <text x="830" y="202" fill="#332b26" font-family="Georgia,serif" font-size="96" font-style="italic">VELA</text>
+  <text x="837" y="252" fill="#62554d" font-family="Arial,sans-serif" font-size="18" letter-spacing="8">STUDIO / BEAUTY / WELLNESS</text>
+  <text x="837" y="368" fill="#332b26" font-family="Arial,sans-serif" font-size="20" letter-spacing="4">A QUIETER KIND OF</text>
+  <text x="837" y="430" fill="#332b26" font-family="Georgia,serif" font-size="62">confidence.</text>
+  <rect x="837" y="510" width="232" height="62" rx="31" fill="#332b26"/>
+  <text x="884" y="549" fill="#f6ede6" font-family="Arial,sans-serif" font-size="16" letter-spacing="2">BOOK YOUR VISIT</text>
+  <g transform="translate(1170 570)">
+    <ellipse cx="115" cy="230" rx="135" ry="28" fill="#5e4b43" opacity=".22"/>
+    <path d="M58 210V45c0-18 14-32 32-32h52c18 0 32 14 32 32v165Z" fill="url(#glass)" stroke="#725c50" stroke-width="3"/>
+    <path d="M76 18h88v-17H76Z" fill="#332b26"/>
+    <path d="M92 76h48" stroke="#f8eee7" stroke-width="4" opacity=".72"/>
+    <path d="M95 106h42" stroke="#f8eee7" stroke-width="3" opacity=".52"/>
+    <path d="M216 211V75c0-15 12-27 27-27h43c15 0 27 12 27 27v136Z" fill="#c98f80" stroke="#725c50" stroke-width="3"/>
+    <path d="M231 47h67V29h-67Z" fill="#332b26"/>
+  </g>
+  <text x="837" y="895" fill="#62554d" font-family="Arial,sans-serif" font-size="15" letter-spacing="3">TREATMENTS / TEAM / JOURNEY</text>
+</svg>
