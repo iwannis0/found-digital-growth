@@ -1,7 +1,14 @@
 import { getChatGPTUser, requireChatGPTUser } from "@/app/chatgpt-auth";
+import { redirect } from "next/navigation";
 
 function allowlist() { return (process.env.ADMIN_EMAILS ?? "").split(",").map((value) => value.trim().toLowerCase()).filter(Boolean); }
-function isAllowed(email: string) { const allowed = allowlist(); return allowed.length === 0 || allowed.includes(email.toLowerCase()); }
+function isAllowed(email: string) { return allowlist().includes(email.trim().toLowerCase()); }
+
+export async function requireAdminPage(returnTo = "/admin") {
+  const { user, authorized } = await requireAdmin(returnTo);
+  if (!authorized) redirect("/");
+  return user;
+}
 
 export async function requireAdmin(returnTo = "/admin") { const user = await requireChatGPTUser(returnTo); return { user, authorized: isAllowed(user.email) }; }
 export async function getAdmin() { const user = await getChatGPTUser(); return user && isAllowed(user.email) ? user : null; }

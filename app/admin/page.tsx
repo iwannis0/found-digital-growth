@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin";
 import { count, eq, sql } from "drizzle-orm";
 import { getDb } from "@/db";
 import { auditRequests, leads } from "@/db/schema";
@@ -5,6 +6,7 @@ import { auditRequests, leads } from "@/db/schema";
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
+  await requireAdminPage("/admin");
   const db = getDb();
   const [leadCount] = await db.select({ value: count() }).from(leads); const [newCount] = await db.select({ value: count() }).from(leads).where(eq(leads.status, "NEW")); const [auditCount] = await db.select({ value: count() }).from(auditRequests); const [wonCount] = await db.select({ value: count() }).from(leads).where(eq(leads.status, "WON")); const [meetingCount] = await db.select({ value: count() }).from(leads).where(eq(leads.status, "MEETING_BOOKED")); const [proposalCount] = await db.select({ value: count() }).from(leads).where(eq(leads.status, "PROPOSAL_SENT")); const [revenue] = await db.select({ value: sql<number>`coalesce(sum(${leads.estimatedValue}), 0)` }).from(leads).where(eq(leads.status, "WON"));
   const metrics = [["Total Leads", leadCount.value], ["New Leads", newCount.value], ["Audits", auditCount.value], ["Meetings", meetingCount.value], ["Proposals", proposalCount.value], ["Won", wonCount.value], ["Won Value", `€${Number(revenue.value).toLocaleString()}`]];

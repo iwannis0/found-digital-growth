@@ -67,6 +67,9 @@ Press `Ctrl+C` in the terminal to stop the website.
 Open `http://localhost:5173/admin`. Local development uses the
 `LOCAL_ADMIN_EMAIL` value in `.env.local`. This local shortcut works only while
 `NODE_ENV` is `development` and does not replace production authentication.
+Set it explicitly to one of the emails listed in `ADMIN_EMAILS`. A blank
+`ADMIN_EMAILS` denies access to everyone. Do not expose the development server
+to untrusted users while the local shortcut is enabled.
 
 ## Environment settings
 

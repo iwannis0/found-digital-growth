@@ -53,7 +53,9 @@ Public settings use `NEXT_PUBLIC_` only when the browser needs them. Secrets sta
 - `ADMIN_EMAILS`: comma-separated ChatGPT account emails allowed into `/admin`
 - optional Instagram and LinkedIn URLs
 
-If `ADMIN_EMAILS` is empty, any signed-in viewer who already has access to the owner-only Site can use the admin. Configure the allowlist before widening Site access.
+Set `ADMIN_EMAILS` to the two administrators' sign-in emails, separated by a comma. An empty list denies everyone, including local development users. Both administrators have the same permissions. Email matching ignores case and surrounding spaces.
+
+Production authentication currently requires the Sites authentication gateway to supply trusted identity headers and strip client-supplied identity headers. Do not expose this application directly on another host without replacing that authentication boundary. The email allowlist authorizes an authenticated identity; it does not verify the identity itself.
 
 ## Database and admin
 
