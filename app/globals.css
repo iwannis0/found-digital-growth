@@ -580,6 +580,18 @@ button { cursor: pointer; }
 .found-form input, .found-form textarea, .found-select { width: 100% !important; min-height: 50px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent !important; padding: 8px 0; box-shadow: none; }
 .found-form textarea { min-height: 135px; resize: vertical; }
 .found-select { justify-content: space-between; }
+.found-form select.found-select { cursor: pointer; color: var(--ink); appearance: auto; }
+.found-form select.found-select option { background: var(--paper); color: var(--ink); }
+.consent-checkbox { width: 18px !important; min-height: 18px !important; flex: 0 0 18px; cursor: pointer; accent-color: var(--ink); }
+.consent-field label { cursor: pointer; }
+.admin-native-select { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); padding: 0 34px 0 12px; cursor: pointer; }
+.admin-detail-body select.found-select { width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); padding: 8px 12px; cursor: pointer; }
+.admin-panel-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.recent-audits { display: grid; margin-top: 24px; border-top: 1px solid var(--line); }
+.recent-audits > a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
+.recent-audits span { display: grid; gap: 4px; }
+.recent-audits small { color: var(--ink-soft); }
+.recent-audits em { font-style: normal; font-size: 12px; font-weight: 700; }
 .field-error { margin: 0; color: var(--destructive); font-size: .72rem; line-height: 1.4; }
 .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 .consent-field { display: flex; align-items: flex-start; gap: 12px; }

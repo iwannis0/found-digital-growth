@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { CTASection } from "@/components/cta-section";
 import { customCapabilities, services } from "@/lib/content";
 
-export const metadata: Metadata = { title: "Website Design, SEO & Digital Foundations", description: "Premium websites, local SEO, Google Business, website care, analytics and conversion-focused design for Cyprus businesses." };
+export const metadata: Metadata = { title: "Website Design, SEO & Digital Foundations", description: "Premium websites, local SEO, Google Business, website care, analytics and conversion-focused design for Cyprus businesses.", alternates: { canonical: "/services" } };
 
 const orderedServices = ["web-design", "conversion-design", "local-seo", "google-business", "analytics", "website-care"].map((slug) => services.find((service) => service.slug === slug)!);
 const capabilityDescriptions: Record<string, string> = {

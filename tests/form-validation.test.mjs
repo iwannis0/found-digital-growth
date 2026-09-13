@@ -3,7 +3,7 @@ import test, { after } from "node:test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("..", import.meta.url));
-const vite = await createServer({ appType: "custom", configFile: false, root, resolve: { alias: { "@": root } }, server: { middlewareMode: true, hmr: false } });
+const vite = await createServer({ appType: "custom", cacheDir: ".sites-runtime/tests/form-validation", configFile: false, root, resolve: { alias: { "@": root } }, server: { middlewareMode: true, hmr: false, ws: false } });
 after(async () => vite.close());
 test("contact validation accepts a complete enquiry", async () => { const { contactSchema } = await vite.ssrLoadModule("/lib/validation.ts"); const result = contactSchema.safeParse({ name: "Maria", businessName: "Studio One", email: "maria@example.com", phone: "+357 99000000", website: "https://example.com", service: "Web Design", packageName: "Growth", message: "We need a clearer website that generates enquiries.", companyWebsite: "", turnstileToken: "" }); assert.equal(result.success, true); });
 test("contact validation rejects an invalid email and short message", async () => { const { contactSchema } = await vite.ssrLoadModule("/lib/validation.ts"); const result = contactSchema.safeParse({ name: "M", businessName: "B", email: "invalid", message: "short" }); assert.equal(result.success, false); assert.ok(result.error.flatten().fieldErrors.email); assert.ok(result.error.flatten().fieldErrors.message); });

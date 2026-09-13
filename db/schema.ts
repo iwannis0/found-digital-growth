@@ -54,6 +54,7 @@ export const auditRequests = sqliteTable(
     conversionScore: integer("conversion_score"),
     seoScore: integer("seo_score"),
     googleScore: integer("google_score"),
+    performanceScore: integer("performance_score"),
     trustScore: integer("trust_score"),
     notes: text("notes").notNull().default(""),
     utmSource: text("utm_source").notNull().default(""),

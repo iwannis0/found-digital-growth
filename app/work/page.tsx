@@ -29,7 +29,7 @@ const customerJourneys = [
   ["LEAD GENERATION", "For businesses where the website starts a longer sales process."],
 ] as const;
 
-export const metadata: Metadata = { title: "What We Can Build", description: "See how FOUND. shapes websites around different businesses, customer journeys and commercial goals." };
+export const metadata: Metadata = { title: "What We Can Build", description: "See how FOUND. shapes websites around different businesses, customer journeys and commercial goals.", alternates: { canonical: "/work" }, openGraph: { images: ["/images/social/found-og-work.jpg"] }, twitter: { card: "summary_large_image", images: ["/images/social/found-og-work.jpg"] } };
 
 export default function WorkPage() {
   return <main>

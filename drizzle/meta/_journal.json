@@ -8,6 +8,13 @@
       "when": 1788101117116,
       "tag": "0000_hot_warpath",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789297002450,
+      "tag": "0001_secret_ares",
+      "breakpoints": true
     }
   ]
 }

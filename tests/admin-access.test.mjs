@@ -7,6 +7,7 @@ const original = Object.fromEntries(["ADMIN_EMAILS", "LOCAL_ADMIN_EMAIL", "NODE_
 const root = fileURLToPath(new URL("..", import.meta.url));
 const vite = await createServer({
   configFile: false, appType: "custom", root,
+  cacheDir: ".sites-runtime/tests/admin-access",
   resolve: { alias: { "@": root, "next/headers": "virtual:test-headers", "next/navigation": "virtual:test-navigation" } },
   server: { middlewareMode: true, hmr: false, ws: false },
   plugins: [{

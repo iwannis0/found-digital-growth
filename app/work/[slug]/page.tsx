@@ -7,7 +7,7 @@ import { projects } from "@/lib/content";
 import { PageTracker } from "@/components/analytics";
 
 export function generateStaticParams() { return projects.map(({ slug }) => ({ slug })); }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const project = projects.find((item) => item.slug === slug); return project ? { title: `${project.name} Concept Project`, description: project.concept } : {}; }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const project = projects.find((item) => item.slug === slug); return project ? { title: `${project.name} Concept Project`, description: project.concept, alternates: { canonical: `/work/${project.slug}` } } : {}; }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const project = projects.find((item) => item.slug === slug); if (!project) notFound();

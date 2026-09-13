@@ -11,10 +11,11 @@ import { createServer } from "vite";
 const root = fileURLToPath(new URL("..", import.meta.url));
 const vite = await createServer({
   appType: "custom",
+  cacheDir: ".sites-runtime/tests/ui-components",
   configFile: false,
   root,
   resolve: { alias: { "@": root } },
-  server: { middlewareMode: true, hmr: false },
+  server: { middlewareMode: true, hmr: false, ws: false },
 });
 
 after(async () => {
