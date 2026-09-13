@@ -528,7 +528,9 @@ button { cursor: pointer; }
 .policy-grid h2 { margin: 0; font-size: 3.8rem; font-weight: 500; letter-spacing: -.07em; line-height: .95; }
 .policy-grid h3 { margin: 44px 0 15px; font-size: 1.1rem; }
 .policy-grid p { line-height: 1.65; }
-.policy-note { grid-column: 2 / -1; border-top: 1px solid #9ab52c; margin: 30px 0 0 !important; padding-top: 18px; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+.policy-note { grid-column: 2 / -1; border-top: 1px solid #9ab52c; margin-top: 30px; padding-top: 18px; }
+.policy-note p { margin: 0; font-size: .78rem; font-weight: 700; line-height: 1.65; }
+.policy-note p + p { margin-top: 10px; }
 .addons-section h2 { max-width: 760px; margin: 0 0 60px; font-size: clamp(2.8rem, 5.3vw, 5.5rem); font-weight: 500; letter-spacing: -.065em; line-height: .98; }
 .addons-list { border-top: 1px solid var(--line); }
 .addons-list div { display: flex; justify-content: space-between; gap: 30px; border-bottom: 1px solid var(--line); padding: 19px 0; }
@@ -541,7 +543,7 @@ button { cursor: pointer; }
 .faq-list [data-slot="accordion-trigger"] { padding: 24px 0; font-size: 1rem; text-decoration: none !important; }
 .faq-list [data-slot="accordion-trigger"] > span { display: flex; gap: 20px; }
 .faq-list [data-slot="accordion-trigger"] small { color: #85837b; font-size: .58rem; }
-.faq-list [data-slot="accordion-content"] p { max-width: 680px; margin: 0; color: var(--ink-soft); font-size: .9rem; line-height: 1.7; }
+.faq-list [data-slot="accordion-content"] p { max-width: 680px; margin: 0; color: var(--ink-soft); font-size: .9rem; line-height: 1.7; white-space: pre-line; }
 .faq-sticky { position: sticky; top: 120px; align-self: start; }
 .belief-section { background: var(--white); }
 .belief-grid { display: grid; grid-template-columns: .3fr 1.2fr .5fr; gap: 70px; }
@@ -729,6 +731,8 @@ button { cursor: pointer; }
 }
 
 @media (max-width: 620px) {
+  .home-hero-copy h1 { font-size: clamp(3.25rem, 15vw, 3.65rem); line-height: .9; }
+  .case-hero-nova-estates h1, .case-hero-ora-jewellery h1 { font-size: clamp(4rem, 17vw, 5rem); line-height: .8; overflow-wrap: normal; }
   .page-hero { padding: 80px 0 70px; }
   .page-hero h1 { font-size: clamp(3.7rem, 17vw, 6rem); }
   .service-directory { grid-template-columns: 1fr; }

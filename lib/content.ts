@@ -188,7 +188,7 @@ export const archivedCapabilities = customCapabilities.filter(({ slug }) => slug
 export const projects = [
   {
     slug: "aura-dental",
-    image: "/images/work/aura-dental-cover.png",
+    image: "/images/work/aura-dental-cover.webp",
     name: "AURA Dental",
     industry: "Dental Clinic",
     tone: "aura",
@@ -199,7 +199,7 @@ export const projects = [
   },
   {
     slug: "nova-estates",
-    image: "/images/work/nova-estates-cover.png",
+    image: "/images/work/nova-estates-cover.webp",
     name: "NOVA Estates",
     industry: "Luxury Real Estate",
     tone: "nova",
@@ -210,7 +210,7 @@ export const projects = [
   },
   {
     slug: "form-developments",
-    image: "/images/work/form-developments-cover.png",
+    image: "/images/work/form-developments-cover.webp",
     name: "FORM Developments",
     industry: "Construction / Architecture",
     tone: "form",
@@ -221,7 +221,7 @@ export const projects = [
   },
   {
     slug: "vela-studio",
-    image: "/images/work/vela-studio-cover.png",
+    image: "/images/work/vela-studio-cover.webp",
     name: "VELA Studio",
     industry: "Beauty / Wellness",
     tone: "vela",
@@ -232,7 +232,7 @@ export const projects = [
   },
   {
     slug: "ora-jewellery",
-    image: "/images/work/ora-jewellery-cover.png",
+    image: "/images/work/ora-jewellery-cover.webp",
     name: "ORA Jewellery",
     industry: "Retail / E-commerce",
     tone: "ora",

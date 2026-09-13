@@ -11,7 +11,7 @@ export default function HomePage() {
     <main>
       <section className="hero">
         <div className="site-container hero-grid">
-          <div className="hero-copy reveal-up">
+          <div className="hero-copy home-hero-copy reveal-up">
             <p className="eyebrow"><span className="status-dot" /> Local digital growth company, Cyprus</p>
             <h1>Your website should <em>bring you business.</em></h1>
             <p className="hero-lead">We build premium websites and digital foundations designed to turn searches and visitors into enquiries, bookings and customers.</p>
