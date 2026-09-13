@@ -687,7 +687,7 @@ button { cursor: pointer; }
 .detail-pairs span, .detail-message > span { color: #77766e; font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; }
 .detail-pairs a, .detail-pairs strong { overflow-wrap: anywhere; font-size: .78rem; }
 .detail-message { border: 1px solid var(--line); padding: 15px; }
-.detail-message p { margin: 10px 0 0; font-size: .82rem; line-height: 1.6; }
+.detail-message p { margin: 10px 0 0; font-size: .82rem; line-height: 1.6; overflow-wrap: anywhere; white-space: pre-wrap; }
 .score-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .audit-total { display: flex; align-items: center; justify-content: space-between; background: var(--acid); padding: 18px; }
 .audit-total strong { font-size: 1.4rem; }
