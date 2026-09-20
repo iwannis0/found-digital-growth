@@ -9,7 +9,7 @@ const [css, home, project] = await Promise.all([
 ]);
 
 test("mobile hero sizing is scoped to the three affected routes", () => {
-  assert.match(home, /hero-copy home-hero-copy/);
+  assert.match(home, /className="home-hero-copy/);
   assert.match(project, /case-hero-\$\{project\.slug\}/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*\.home-hero-copy h1 \{ font-size: clamp\(3\.25rem, 15vw, 3\.65rem\); line-height: \.9; \}/);
   assert.match(css, /\.case-hero-nova-estates h1, \.case-hero-ora-jewellery h1 \{ font-size: clamp\(4rem, 17vw, 5rem\); line-height: \.8; overflow-wrap: normal; \}/);

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, Phone, Search, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { BeforeAfter } from "@/components/before-after";
 import { CTASection } from "@/components/cta-section";
 import { SectionHeading } from "@/components/section-heading";
@@ -9,34 +9,35 @@ import { processSteps, projects, services } from "@/lib/content";
 export default function HomePage() {
   return (
     <main>
-      <section className="hero">
-        <div className="site-container hero-grid">
-          <div className="hero-copy home-hero-copy reveal-up">
-            <p className="eyebrow"><span className="status-dot" /> Local digital growth company, Cyprus</p>
-            <h1>Your website should <em>bring you business.</em></h1>
-            <p className="hero-lead">We build premium websites and digital foundations designed to turn searches and visitors into enquiries, bookings and customers.</p>
-            <div className="hero-actions">
-              <Link className="button button-dark button-large" href="/free-audit">Get a Free Website Audit <ArrowRight aria-hidden="true" /></Link>
-              <Link className="text-link" href="/work">View our work <ArrowUpRight aria-hidden="true" /></Link>
-            </div>
-            <div className="hero-proof">
-              <span><Check /> Clear pricing</span><span><Check /> Built for Cyprus</span><span><Check /> Ongoing support</span>
+      <section className="hero home-hero">
+        <div className="site-container home-hero-grid">
+          <div className="home-hero-copy reveal-up">
+            <p className="home-hero-eyebrow">Ideas to impact</p>
+            <h1>Build smarter<br />digital growth<span>.</span></h1>
+            <p className="home-hero-lead">We build premium websites and practical digital foundations that help Cyprus businesses get found, trusted and chosen.</p>
+            <div className="home-hero-actions">
+              <Link className="button button-dark home-hero-button" href="/free-audit">Get a Free Website Audit <ArrowRight aria-hidden="true" /></Link>
+              <Link className="button button-outline home-hero-button" href="/work">View our work <ArrowRight aria-hidden="true" /></Link>
             </div>
           </div>
-          <div className="hero-visual reveal-up delay-1" aria-label="Concept website performance dashboard">
-            <div className="browser-chrome"><span /><span /><span /><small>yourbusiness.cy</small></div>
-            <div className="showcase-site">
-              <div className="showcase-nav"><b>STUDIO<span>.</span></b><span>Services &nbsp; Work &nbsp; Contact</span></div>
-              <p>BUILT FOR ATTENTION.<br /><i>DESIGNED FOR ACTION.</i></p>
-              <div className="showcase-bottom"><span>Premium digital presence</span><button aria-label="Concept call to action">Start a project ↗</button></div>
+          <div className="home-hero-art reveal-up delay-1" aria-label="Illustrative FOUND. website concept">
+            <p className="home-handwritten" aria-hidden="true">Growth<br />looks good<br />on you.</p>
+            <div className="home-growth-card" aria-hidden="true"><span>Strategy<br />to impact</span><div className="home-growth-bars"><i /><i /><i /><i /></div><strong>Seven focus areas</strong><small>One clearer direction</small></div>
+            <div className="home-screen" aria-hidden="true">
+              <div className="home-screen-top"><b>FOUND<span>.</span></b><span>Websites &nbsp; Visibility &nbsp; Growth</span><i>☰</i></div>
+              <div className="home-screen-image"><Image src="/images/home-hero-architecture.webp" alt="" fill sizes="(max-width: 760px) 90vw, 650px" priority /></div>
+              <div className="home-screen-copy"><p>Better<br />Brands.<br />Real<br />Growth.</p><small>Made to be found.<br />Built to be chosen.</small></div>
+              <div className="home-screen-footer"><span>Ideas / Impact</span><span>01 / 04</span></div>
             </div>
-            <div className="metric-float metric-a"><Search /><span><small>Google visibility</small><strong>Ready to grow</strong></span></div>
-            <div className="metric-float metric-b"><Phone /><span><small>Conversion focus</small><strong>Calls · Leads · Bookings</strong></span></div>
+            <div className="home-brand-card" aria-hidden="true"><strong>f<span>.</span></strong><small>A growth partner<br />for what&apos;s next.</small></div>
+            <div className="home-analytics-card" aria-hidden="true"><small>Example dashboard</small><strong>Meaningful actions</strong><svg viewBox="0 0 230 62" preserveAspectRatio="none"><path d="M0 52 C22 50 27 36 43 41 S72 52 89 30 S116 43 132 29 S157 37 173 15 S205 29 230 5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" /></svg><span>Calls · enquiries · bookings</span></div>
+            <p className="home-art-caption" aria-hidden="true">From ideas<br />to impact.<br />Together.</p>
+          </div>
+          <div className="home-service-index" aria-label="What FOUND. can help with">
+            {[["01", "Web Design"], ["02", "Development"], ["03", "Local SEO"], ["04", "Google Business"], ["05", "Analytics"], ["06", "Conversion Design"]].map(([number, label]) => <div key={number}><span>{number}</span><strong>{label}</strong></div>)}
           </div>
         </div>
-        <div className="site-container capabilities" aria-label="Core capabilities">
-          {['Web Design', 'Development', 'Local SEO', 'Google Business', 'Analytics', 'Conversion Design'].map((item) => <span key={item}>{item}</span>)}
-        </div>
+        <div className="site-container home-hero-footnote"><span>Cyprus-based digital growth</span><span>Websites are only the beginning</span></div>
       </section>
 
       <section className="problem-section section-pad">

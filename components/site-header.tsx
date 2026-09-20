@@ -28,7 +28,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <Link className="button button-dark header-cta" href="/free-audit">
-          Get a Free Website Audit
+          Get a Free Audit
         </Link>
         <Sheet>
           <SheetTrigger className="mobile-menu-trigger" aria-label="Open navigation">

@@ -4,8 +4,8 @@ export const siteConfig = {
   title: "FOUND. Local Digital Growth Company",
   description:
     "Premium websites and the digital foundations that help ambitious Cyprus businesses get found, trusted and chosen.",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@found.cy",
-  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+357 22 000000",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "found.growthcy@gmail.com",
+  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+357 99900853",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "35722000000",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://found.cy",
   address: "Cyprus",
