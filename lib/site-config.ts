@@ -3,7 +3,7 @@ export const siteConfig = {
   tagline: "Get found. Get chosen.",
   title: "FOUND. Local Digital Growth Company",
   description:
-    "Premium websites and the digital foundations that help ambitious Cyprus businesses get found, trusted and chosen.",
+    "Websites and digital foundations that help ambitious Cyprus businesses get found, trusted and chosen.",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "found.growthcy@gmail.com",
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+357 99900853",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "35722000000",

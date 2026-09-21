@@ -14,17 +14,17 @@ export const metadata: Metadata = {
 const founders = [
   {
     name: "Ioannis Georgiou",
-    role: "Co-founder · Client strategy",
-    description: "Ioannis is a Computer Science graduate of the University of Cyprus and is currently completing an MSc in Artificial Intelligence at UCY. He works with clients to define a clear scope and keep the work focused on useful outcomes.",
-    education: "Practical branch graduate · BSc Computer Science, University of Cyprus · MSc Artificial Intelligence, UCY (in progress)",
+    role: "Co-founder · Strategy, structure & communication",
+    description: "Ioannis leads discovery, website structure and client communication. He works hands-on across both design and code to turn business priorities into clear customer journeys.",
+    education: "Background: Practical branch graduate · BSc Computer Science, University of Cyprus · MSc Artificial Intelligence, UCY (in progress)",
     image: "/images/team/ioannis.webp",
     linkedin: "https://www.linkedin.com/in/ioannis-georgiou-86b304273/",
   },
   {
     name: "Stylianos Panagiotou",
-    role: "Co-founder · Design & delivery",
-    description: "Stylianos is a Computer Science graduate of the University of Cyprus and is currently completing an MSc in Artificial Intelligence at UCY. He focuses on how each website looks, works and comes together, from the first direction through to launch.",
-    education: "Practical branch graduate · BSc Computer Science, University of Cyprus · MSc Artificial Intelligence, UCY (in progress)",
+    role: "Co-founder · Design, development & delivery",
+    description: "Stylianos leads design direction, development and delivery. He works hands-on across both design and code to make every website clear, reliable and ready to launch.",
+    education: "Background: Practical branch graduate · BSc Computer Science, University of Cyprus · MSc Artificial Intelligence, UCY (in progress)",
     image: "/images/team/stylianos.webp",
     linkedin: "https://www.linkedin.com/in/stylianos-panagiotou-0444552a6/",
   },
@@ -37,7 +37,7 @@ export default function AboutPage() {
         <div className="founders-intro">
           <p className="eyebrow">The people behind FOUND.</p>
           <h1 id="founders-heading">Two people. One clear direction.</h1>
-          <p>FOUND. is built by Ioannis and Stylianos in Cyprus. We bring business thinking and hands-on website work together, so clients know who they are speaking with and who is responsible for the work.</p>
+          <p>Every project is shaped directly by both founders. We share the design and code, while Ioannis leads business clarity, structure and communication, and Stylianos leads visual direction, build quality and delivery.</p>
         </div>
         <div className="founders-grid">
           {founders.map((founder, index) => <article className="founder-profile" key={founder.name}>

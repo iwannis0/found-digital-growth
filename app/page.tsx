@@ -36,7 +36,7 @@ export default function HomePage() {
             <p className="home-art-caption" aria-hidden="true">From ideas<br />to impact.<br />Together.</p>
           </div>
           <div className="home-service-index" aria-label="What FOUND. can help with">
-            {[["01", "Web Design"], ["02", "Development"], ["03", "Local SEO"], ["04", "Google Business"], ["05", "Analytics"], ["06", "Conversion Design"]].map(([number, label]) => <div key={number}><span>{number}</span><strong>{label}</strong></div>)}
+            {[["01", "Website Design & Development"], ["02", "Local SEO"], ["03", "Google Business"], ["04", "Website Care"], ["05", "Analytics"], ["06", "Conversion Design"]].map(([number, label]) => <div key={number}><span>{number}</span><strong>{label}</strong></div>)}
           </div>
         </div>
         <div className="site-container home-hero-footnote"><span>Cyprus-based digital growth</span><span>Websites are only the beginning</span></div>

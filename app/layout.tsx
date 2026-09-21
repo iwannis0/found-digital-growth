@@ -10,13 +10,13 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "FOUND. | Premium Websites & Digital Growth Cyprus",
+    default: "FOUND. | Website Design & Digital Growth Cyprus",
     template: "%s | FOUND.",
   },
   description: siteConfig.description,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "FOUND. | Premium Websites & Digital Growth Cyprus",
+    title: "FOUND. | Website Design & Digital Growth Cyprus",
     description: siteConfig.description,
     type: "website",
     locale: "en_CY",

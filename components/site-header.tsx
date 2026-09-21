@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { navigation, siteConfig } from "@/lib/site-config";
 import {
   Sheet,
@@ -14,6 +15,9 @@ import {
 } from "@/components/ui/sheet";
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
   return (
     <header className="site-header">
       <div className="site-container header-inner">
@@ -22,7 +26,7 @@ export function SiteHeader() {
         </Link>
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navigation.map((item) => (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href} className={isActive(item.href) ? "is-active" : undefined} aria-current={isActive(item.href) ? "page" : undefined}>
               {item.label}
             </Link>
           ))}
@@ -37,12 +41,12 @@ export function SiteHeader() {
           <SheetContent className="mobile-sheet" side="right">
             <SheetHeader className="mobile-sheet-header">
               <SheetTitle className="wordmark">FOUND<span>.</span></SheetTitle>
-              <SheetDescription>Premium digital growth for Cyprus businesses.</SheetDescription>
+              <SheetDescription>Practical digital growth for Cyprus businesses.</SheetDescription>
             </SheetHeader>
             <nav className="mobile-nav" aria-label="Mobile navigation">
               {navigation.map((item) => (
                 <SheetClose asChild key={item.href}>
-                  <Link href={item.href}>{item.label}</Link>
+                  <Link href={item.href} className={isActive(item.href) ? "is-active" : undefined} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</Link>
                 </SheetClose>
               ))}
               <SheetClose asChild>

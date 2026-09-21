@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 const columns = [
@@ -11,7 +11,7 @@ const columns = [
   },
   {
     title: "Services",
-    links: [["Premium Websites", "/services/web-design"], ["Local SEO", "/services/local-seo"], ["Google Business", "/services/google-business"], ["Website Care", "/services/website-care"], ["Analytics & Tracking", "/services/analytics"], ["Conversion Design", "/services/conversion-design"]],
+    links: [["Website Design & Development", "/services/web-design"], ["Local SEO", "/services/local-seo"], ["Google Business", "/services/google-business"], ["Website Care", "/services/website-care"], ["Analytics & Tracking", "/services/analytics"], ["Conversion Design", "/services/conversion-design"], ["Lead & Booking Automation", "/services/automation"]],
   },
   {
     title: "Legal",
@@ -46,6 +46,11 @@ export function SiteFooter() {
               ))}
             </div>
           ))}
+          <div className="footer-contact">
+            <h2>Contact</h2>
+            <a href={`mailto:${siteConfig.email}`}><Mail aria-hidden="true" />{siteConfig.email}</a>
+            <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}><Phone aria-hidden="true" />{siteConfig.phone}</a>
+          </div>
         </div>
       </div>
       <div className="site-container footer-bottom">

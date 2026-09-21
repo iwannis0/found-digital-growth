@@ -1,7 +1,6 @@
 import {
   BarChart3,
   Bot,
-  Building2,
   Crosshair,
   Globe2,
   MapPin,
@@ -12,7 +11,7 @@ import {
 export const services = [
   {
     slug: "web-design",
-    title: "Premium Websites",
+    title: "Website Design & Development",
     short: "Modern websites designed and developed around the business goals that matter: enquiries, bookings, calls and sales.",
     icon: Globe2,
     eyebrow: "Design & development",
@@ -22,7 +21,7 @@ export const services = [
     benefits: [
       "Business and competitor discovery",
       "Customer journey and conversion strategy",
-      "Premium responsive design",
+      "Tailored responsive design",
       "Fast, secure development and deployment",
       "WhatsApp, click-to-call and booking journeys",
       "Google Maps and contact integrations",
@@ -92,7 +91,7 @@ export const services = [
       "Practical support when something needs attention",
     ],
     result:
-      "Minor updates cover small content changes. New pages, systems, integrations and redesign work are quoted separately, and unused time does not roll over.",
+      "Small content updates are covered. New pages and larger changes are quoted separately.",
   },
   {
     slug: "analytics",
@@ -156,34 +155,12 @@ export const customCapabilities = [
     ],
     result: "A practical workflow that removes a repetitive step while keeping the business in control.",
   },
-  {
-    slug: "3d-virtual-tours",
-    title: "3D Virtual Tours",
-    short: "Interactive browser-based walkthroughs for properties and physical spaces.",
-    icon: Building2,
-    eyebrow: "Immersive presentation",
-    headline: "Let people explore a space before they arrive.",
-    intro:
-      "For real estate, Airbnb, hospitality, developments and commercial spaces, we can plan a browser-based 3D experience using the capture workflow best suited to the project.",
-    benefits: [
-      "Project and location assessment",
-      "Interactive browser-based walkthrough",
-      "Website and listing integration",
-      "Mobile and desktop viewing",
-      "Matterport, Gaussian Splatting or modern capture options",
-      "Optional property lead capture",
-      "Hosting and presentation guidance",
-    ],
-    result: "A more immersive way to present a property, with technology selected after scoping.",
-  },
 ] as const;
 
 export const legacyServiceAliases = {
   maintenance: "website-care",
   "conversion-optimisation": "conversion-design",
 } as const;
-
-export const archivedCapabilities = customCapabilities.filter(({ slug }) => slug === "3d-virtual-tours");
 
 export const projects = [
   {
@@ -239,7 +216,7 @@ export const projects = [
     statement: "Cyprus properties, precisely presented.",
     problem: "Premium listings lose impact when search, imagery and enquiry journeys feel ordinary.",
     concept: "A dark editorial property platform with immersive detail and effortless lead capture.",
-    features: ["Property listings", "Search and filters", "Property detail", "Gallery", "Agent profile", "WhatsApp", "Enquiry", "Map", "Virtual tour", "3D capability"],
+    features: ["Property listings", "Search and filters", "Property detail", "Gallery", "Agent profile", "WhatsApp", "Enquiry", "Map"],
   },
 ] as const;
 

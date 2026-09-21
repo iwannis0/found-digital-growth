@@ -1,7 +1,7 @@
 export const faqs = [
   ["How much does a website cost?", "Our current packages start at €550 setup. Optional Website Care after launch starts at €49 per month. The right package depends on page count, integrations, content and the role the website plays in your business."],
   ["Is Website Care mandatory?", "No. Website Care is optional after launch. It is available for businesses that want managed hosting, backups, monitoring, technical support and ongoing minor updates."],
-  ["How many design revisions are included?", "Starter includes 1 revision round, Growth includes 2 revision rounds, and Premium includes 3 revision rounds during the agreed design phase.\n\nA revision round means one consolidated set of feedback on the current design direction. Additional revision rounds or significant changes outside the agreed scope may be quoted separately."],
+  ["How many design revisions are included?", "Professional Website Foundation includes 1 revision round, Custom Growth Website includes 2 revision rounds, and Advanced Digital Presence includes 3 revision rounds during the agreed design phase.\n\nA revision round means one consolidated set of feedback on the current design direction. Additional revision rounds or significant changes outside the agreed scope may be quoted separately."],
   ["Who owns the website?", "Once the project has been paid in full, the client owns the final website content and agreed project deliverables.\n\nThird-party platforms, software, fonts, plugins or services remain subject to their own licences and terms."],
   ["Who owns the domain?", "The domain should be registered in the client’s name. FOUND. can assist with setup and management where required."],
   ["What happens if I cancel Website Care?", "After the initial 3-month period, Website Care can be cancelled with 30 days’ notice.\n\nIf the website is hosted or managed through FOUND., we will explain the available handover or migration options before the service ends."],
@@ -15,7 +15,7 @@ export const faqs = [
   ["Do you guarantee first place on Google?", "No responsible provider can guarantee a ranking. We build a sound SEO foundation and improve relevance, quality and visibility over time."],
   ["Can you write the website content?", "All packages include content structure and guidance. Growth includes copywriting assistance. Full or specialist copywriting can be quoted separately."],
   ["What about photography and video?", "We can work with your existing assets, recommend a shoot or coordinate professional photography and videography as an add-on."],
-  ["Can the website be in Greek and English?", "Premium includes a multilingual-ready architecture. Translation, content entry and complete second-language setup can be scoped separately."],
+  ["Can the website be in Greek and English?", "Advanced Digital Presence includes a multilingual-ready architecture. Translation, content entry and complete second-language setup can be scoped separately."],
   ["Will I see calls and enquiries in analytics?", "Yes. Where consent and technology allow, we track meaningful actions such as phone, WhatsApp, email, booking and form interactions."],
   ["Can you connect a booking system?", "Yes. We can connect an existing booking platform or scope a more advanced booking workflow as an add-on."],
   ["Can you redesign my existing website?", "Yes. We can audit the current site, retain what is useful and rebuild the experience around clearer goals."],
