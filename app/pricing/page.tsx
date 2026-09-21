@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
+import { PageMotion } from "@/components/page-motion";
 
 export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Transparent website packages for Cyprus local businesses, from €550 setup.", alternates: { canonical: "/pricing" } };
 
@@ -15,10 +16,10 @@ const plans = [
 const addons = [["Extra language setup", "€150 to €300+"], ["Advanced booking", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO", "Quote"], ["Google Business ongoing optimisation", "Quote"], ["Google Ads / Paid Acquisition", "Quote"], ["Lead & Booking Automation", "Quote"], ["AI Chatbots & Automation", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Advanced Analytics & Reporting", "Quote"], ["Content & Digital Presence", "Quote"], ["Professional photography", "Quote"], ["Videography", "Quote"], ["Advanced copywriting", "Quote"]] as const;
 
 export default function PricingPage() {
-  return <main><PageTracker event="pricing_view" />
+  return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />
     <section className="page-hero pricing-hero"><div className="site-container"><p className="eyebrow">Transparent pricing</p><h1>Start with the right foundation<span>.</span></h1><p>Clear setup costs, practical ongoing care and room to add more as the business grows.</p><div className="payment-note"><strong>50%</strong><span>deposit to begin</span><strong>50%</strong><span>before launch</span></div></div></section>
     <section className="pricing-section section-pad"><div className="site-container pricing-grid">
-      {plans.map((plan) => <article className={`pricing-card ${plan.popular ? "pricing-popular" : ""}`} key={plan.name}>
+      {plans.map((plan) => <article className={`pricing-card ${plan.popular ? "pricing-popular" : ""}`} data-motion="fade" key={plan.name}>
         {plan.popular && <span className="popular-badge">Most Popular</span>}<p className="plan-name">{plan.name}</p><div className="price-line"><strong>{plan.setup}</strong><span>setup</span></div><div className="monthly-line"><strong>{plan.monthly}</strong><span>/ month</span></div><small className="care-label">Optional Website Care after launch</small><p className="plan-best">{plan.best}</p>
         <ul>{plan.items.map((item) => <li key={item}><Check />{item}</li>)}<li><Check />Up to {plan.minutes} minor updates/month</li></ul>
         <Link className={`button button-large ${plan.popular ? "button-accent" : "button-dark"}`} href={`/contact?package=${plan.name}`} data-track="pricing_cta_click" data-track-label={plan.name}>Choose {plan.name}<ArrowRight /></Link>

@@ -3,26 +3,28 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { BeforeAfter } from "@/components/before-after";
 import { CTASection } from "@/components/cta-section";
+import { PageMotion } from "@/components/page-motion";
 import { SectionHeading } from "@/components/section-heading";
 import { processSteps, projects, services } from "@/lib/content";
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="motion-page home-motion-page">
+      <PageMotion />
       <section className="hero home-hero">
         <div className="site-container home-hero-grid">
-          <div className="home-hero-copy reveal-up">
+          <div className="home-hero-copy">
             <p className="home-hero-eyebrow">Ideas to impact</p>
             <h1>Build smarter<br />digital growth<span>.</span></h1>
-            <p className="home-hero-lead">We build premium websites and practical digital foundations that help Cyprus businesses get found, trusted and chosen.</p>
+            <p className="home-hero-lead">We build websites designed around enquiries and practical digital foundations that help Cyprus businesses get found, trusted and chosen.</p>
             <div className="home-hero-actions">
               <Link className="button button-dark home-hero-button" href="/free-audit">Get a Free Website Audit <ArrowRight aria-hidden="true" /></Link>
               <Link className="button button-outline home-hero-button" href="/work">View our work <ArrowRight aria-hidden="true" /></Link>
             </div>
           </div>
-          <div className="home-hero-art reveal-up delay-1" aria-label="Illustrative FOUND. website concept">
+          <div className="home-hero-art" aria-label="Illustrative FOUND. website concept">
             <p className="home-handwritten" aria-hidden="true">Growth<br />looks good<br />on you.</p>
-            <div className="home-growth-card" aria-hidden="true"><span>Strategy<br />to impact</span><div className="home-growth-bars"><i /><i /><i /><i /></div><strong>Seven focus areas</strong><small>One clearer direction</small></div>
+            <div className="home-growth-card" aria-hidden="true"><span>Strategy<br />to impact</span><div className="home-growth-bars"><i /><i /><i /><i /></div><strong>Six focus areas</strong><small>One clearer direction</small></div>
             <div className="home-screen" aria-hidden="true">
               <div className="home-screen-top"><b>FOUND<span>.</span></b><span>Websites &nbsp; Visibility &nbsp; Growth</span><i>☰</i></div>
               <div className="home-screen-image"><Image src="/images/home-hero-architecture.webp" alt="" fill sizes="(max-width: 760px) 90vw, 650px" priority /></div>
@@ -42,26 +44,26 @@ export default function HomePage() {
 
       <section className="problem-section section-pad">
         <div className="site-container">
-          <SectionHeading eyebrow="The hidden cost" title="Is your online presence costing you customers?" body="A weak or outdated digital presence doesn’t just look bad. It creates doubt, loses visibility and makes the next step harder." />
+          <SectionHeading className="motion-reveal" eyebrow="The hidden cost" title="Is your online presence costing you customers?" body="A weak or outdated digital presence doesn’t just look bad. It creates doubt, loses visibility and makes the next step harder." />
           <div className="problem-grid">
             {[
               ["01", "Looks outdated", "A poor first impression makes even an excellent business feel less credible than it really is."],
               ["02", "Hard to find", "A beautiful website has little value when customers cannot discover it at the moment they need you."],
               ["03", "Doesn't convert", "Visitors should immediately know how to call, message, book or make an enquiry."],
-            ].map(([number, title, body]) => <article key={number} className="problem-item"><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
+            ].map(([number, title, body]) => <article key={number} className="problem-item" data-motion="rise"><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
-          <p className="fix-statement">We fix all three<span>.</span></p>
+          <p className="fix-statement" data-motion="rise">We fix all three<span>.</span></p>
         </div>
       </section>
 
       <section className="services-section section-pad">
         <div className="site-container">
-          <SectionHeading eyebrow="More than a website" title="A connected digital presence, built around growth." body="Start with the foundation you need today, then add visibility, measurement and practical support as the business grows." />
+          <SectionHeading className="motion-reveal" eyebrow="More than a website" title="A connected digital presence, built around growth." body="Start with the foundation you need today, then add visibility, measurement and practical support as the business grows." />
           <div className="service-list">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Link key={service.slug} href={`/services/${service.slug}`} className="service-row">
+                <Link key={service.slug} href={`/services/${service.slug}`} className="service-row" data-motion="rise">
                   <span className="service-number">{String(index + 1).padStart(2, '0')}</span>
                   <Icon aria-hidden="true" />
                   <div><h3>{service.title}</h3><p>{service.short}</p></div>
@@ -75,11 +77,11 @@ export default function HomePage() {
 
       <section className="work-section section-pad">
         <div className="site-container">
-          <div className="section-topline"><SectionHeading eyebrow="Selected directions" title="Built to look better. Designed to perform better." body="Five internal concepts, each built around a different customer journey. FOUND. adapts the experience to the business, from appointments and property enquiries to e-commerce and local services." /><Link className="text-link" href="/work">See all concept work <ArrowUpRight /></Link></div>
+          <div className="section-topline"><SectionHeading className="motion-reveal" eyebrow="Selected directions" title="Built to look better. Designed to perform better." body="Five internal concepts, each built around a different customer journey. FOUND. adapts the experience to the business, from appointments and property enquiries to e-commerce and local services." /><Link className="text-link" href="/work">See all concept work <ArrowUpRight /></Link></div>
           <div className="project-grid">
             {projects.map((project, index) => (
-              <Link href={`/work/${project.slug}`} className={`project-card project-${project.tone}`} key={project.slug}>
-                <div className="project-image-wrap">
+              <Link href={`/work/${project.slug}`} className={`project-card project-${project.tone}`} key={project.slug} data-motion="rise">
+                <div className="project-image-wrap" data-motion-parallax>
                   <Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 900px) 100vw, 50vw" className="project-image" />
                   <span className="concept-badge">Concept Project</span>
                 </div>
@@ -94,9 +96,9 @@ export default function HomePage() {
 
       <section className="process-section section-pad">
         <div className="site-container">
-          <SectionHeading eyebrow="From idea to growth" title="A clear process, without the mystery." body="You always know what is happening, what we need from you and what comes next." light />
+          <SectionHeading className="motion-reveal" eyebrow="From idea to growth" title="A clear process, without the mystery." body="You always know what is happening, what we need from you and what comes next." light />
           <div className="process-list">
-            {processSteps.map(([number, title, body]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
+            {processSteps.map(([number, title, body]) => <article key={number} data-motion="rise"><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
           <div className="workflow-line" aria-label="Client workflow">
             <Sparkles aria-hidden="true" />
