@@ -25,8 +25,8 @@ const serviceDetails: Record<string, ServiceDetail> = {
   },
   "local-seo": {
     eyebrow: "The first 90 days",
-    title: "Search foundations are built in stages.",
-    intro: "Local SEO is not an overnight ranking promise. The first three months focus on making the website, services and location easier for search engines to understand.",
+    title: "Search visibility grows from consistent local signals.",
+    intro: "Local SEO is not an overnight ranking promise. The first three months focus on making your services, service areas and website signals easier for search engines to understand.",
     items: [
       { label: "Days 1–30", body: "Research the business, local searches, competitors and technical priorities." },
       { label: "Days 31–60", body: "Improve service and location structure, metadata, internal links and search setup." },
@@ -45,18 +45,18 @@ const serviceDetails: Record<string, ServiceDetail> = {
   },
   analytics: {
     eyebrow: "What we measure",
-    title: "Track the actions that show real intent.",
-    intro: "Traffic alone does not tell you whether the website is helping the business. We configure measurement around the actions that matter after a visit.",
+    title: "Measure the actions that show real intent.",
+    intro: "Traffic alone does not tell you whether the website is helping the business. We configure measurement around the customer signals that matter after a visit.",
     items: [
       { label: "Calls & WhatsApp", body: "See when visitors choose a direct conversation from the website." },
       { label: "Forms & bookings", body: "Track submitted enquiries and clicks that begin an appointment or booking journey." },
-      { label: "Campaign source", body: "Understand which search, social or campaign source led to an action." },
+      { label: "Campaign source", body: "Understand which search, social or campaign source created useful evidence for an action." },
     ],
   },
   "conversion-design": {
     eyebrow: "Customer journeys",
-    title: "The best next step depends on the business.",
-    intro: "Conversion design means choosing the clearest action for the way customers decide, rather than adding the same button to every page.",
+    title: "The right action depends on the business.",
+    intro: "Conversion design means choosing the most useful action for the way customers decide, rather than adding the same button to every page.",
     items: [
       { label: "Calls & WhatsApp", body: "For local services where a fast conversation is the easiest route forward." },
       { label: "Bookings", body: "For consultations, treatments, classes and appointments where availability matters." },
@@ -65,8 +65,8 @@ const serviceDetails: Record<string, ServiceDetail> = {
   },
   "website-care": {
     eyebrow: "What care covers",
-    title: "Keep routine website work simple and clear.",
-    intro: "Website Care is designed for ongoing health and small monthly changes. Larger improvements are scoped separately so there are no surprises.",
+    title: "Keep routine website work consistent and well maintained.",
+    intro: "Website Care supports technical health and small monthly changes. Larger improvements are scoped separately so there are no surprises.",
     items: [
       { label: "Minor updates", body: "Text, images, contact details, opening hours and small content adjustments." },
       { label: "Technical care", body: "Hosting, backups, monitoring, updates and routine form or performance checks." },
@@ -102,8 +102,8 @@ const serviceApproaches: Record<string, ServiceApproach> = {
   ],
   "local-seo": [
     { title: "Understand local demand", body: "We review the services, locations and searches that matter most to the business." },
-    { title: "Strengthen the foundation", body: "We improve the technical, content and location signals search engines need to understand." },
-    { title: "Review the evidence", body: "We check indexing, visibility and the next priorities without promising unrealistic rankings." },
+    { title: "Strengthen local signals", body: "We improve the technical, content and location signals search engines need to understand." },
+    { title: "Review the evidence", body: "We check indexing, visibility and the priorities that follow without promising unrealistic rankings." },
   ],
   "google-business": [
     { title: "Audit the profile", body: "We check categories, contact details, services, photos and the information customers see first." },
@@ -111,14 +111,14 @@ const serviceApproaches: Record<string, ServiceApproach> = {
     { title: "Keep it accurate", body: "The profile is left clear and practical for the business to keep current after launch." },
   ],
   "website-care": [
-    { title: "Protect the foundation", body: "Hosting, backups, monitoring and technical updates keep the website dependable." },
+    { title: "Protect technical health", body: "Hosting, backups, monitoring and technical updates keep the website dependable." },
     { title: "Handle routine changes", body: "Small content updates stay simple, from opening hours to text and image changes." },
     { title: "Scope larger work clearly", body: "New pages, redesigns and integrations are discussed separately before work begins." },
   ],
   analytics: [
     { title: "Choose meaningful actions", body: "We identify the calls, forms, bookings and journeys that show real customer intent." },
-    { title: "Configure the signals", body: "Analytics and tracking are set up around those actions, with a practical reporting foundation." },
-    { title: "Use the evidence", body: "The resulting data helps guide the next website or marketing decision." },
+    { title: "Connect the signals", body: "Analytics and tracking are set up around those actions, with reporting that stays useful." },
+    { title: "Use the evidence", body: "The resulting data helps guide future website or marketing decisions." },
   ],
   "conversion-design": [
     { title: "Clarify the decision", body: "We identify what visitors need to understand before they are ready to act." },

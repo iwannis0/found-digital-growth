@@ -11,7 +11,7 @@ const columns = [
   },
   {
     title: "Services",
-    links: [["Website Design & Development", "/services/web-design"], ["Local SEO", "/services/local-seo"], ["Google Business", "/services/google-business"], ["Website Care", "/services/website-care"], ["Analytics & Tracking", "/services/analytics"], ["Conversion Design", "/services/conversion-design"], ["Lead & Booking Automation", "/services/automation"]],
+    links: [["Website Design & Development", "/services/web-design"], ["Local SEO", "/services/local-seo"], ["Google Business", "/services/google-business"], ["Website Care", "/services/website-care"], ["Analytics & Tracking", "/services/analytics"], ["Conversion Design", "/services/conversion-design"]],
   },
   {
     title: "Legal",

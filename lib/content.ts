@@ -34,12 +34,12 @@ export const services = [
   {
     slug: "local-seo",
     title: "Local SEO",
-    short: "Strong local search foundations that help search engines understand the business, services and location.",
+    short: "Search visibility shaped around your services, locations and the demand nearby customers show.",
     icon: Search,
     eyebrow: "Organic visibility",
     headline: "Be present when local customers are actively searching.",
     intro:
-      "Local SEO connects your services to the searches people make in Nicosia, Limassol, Larnaca, Paphos and across Cyprus. We build a strong search foundation with the structure your visibility can grow from over time.",
+      "Local SEO connects your services with the searches people make in Nicosia, Limassol, Larnaca, Paphos and across Cyprus. We map local demand, service areas and the website signals search engines need to understand over time.",
     benefits: [
       "Local keyword and competitor research",
       "Service and location content planning",
@@ -75,12 +75,12 @@ export const services = [
   {
     slug: "website-care",
     title: "Website Care",
-    short: "Hosting, monitoring, updates, backups and practical support after launch.",
+    short: "Hosting, monitoring, backups and routine updates that keep the website dependable after launch.",
     icon: ShieldCheck,
     eyebrow: "Ongoing care",
     headline: "Your website should stay fast, secure and up to date.",
     intro:
-      "Launch is the beginning. Our care plans keep the technical foundation healthy and give you a reliable place to send small monthly updates.",
+      "Launch is the beginning. Our care plans keep technical health in good order and make routine monthly changes easy to manage.",
     benefits: [
       "Managed hosting, SSL and backups",
       "Security and uptime monitoring",
@@ -88,20 +88,20 @@ export const services = [
       "Form and performance checks",
       "Analytics health checks",
       "Text, image, contact detail and opening-hour changes",
-      "Practical support when something needs attention",
+      "Support when a routine change needs attention",
     ],
     result:
-      "Small content updates are covered. New pages and larger changes are quoted separately.",
+      "A dependable website with routine changes handled and larger improvements scoped separately.",
   },
   {
     slug: "analytics",
     title: "Analytics & Tracking",
-    short: "Track visits, calls, messages, bookings, form submissions and other important customer actions.",
+    short: "Measure calls, messages, bookings and forms so decisions are based on real customer signals.",
     icon: BarChart3,
     eyebrow: "Measurement",
     headline: "Visitors are useful. Actions are more useful.",
     intro:
-      "We configure privacy-aware analytics around the actions that show commercial intent, giving you a clearer view of what generates interest.",
+      "We configure privacy-aware measurement around the actions that show commercial intent, giving you evidence for what generates interest.",
     benefits: [
       "Phone and WhatsApp click tracking",
       "Email and booking click tracking",
@@ -111,27 +111,27 @@ export const services = [
       "Campaign and UTM attribution",
       "Conversion and engagement reporting",
     ],
-    result: "A measurement system that helps you make better marketing decisions.",
+    result: "A measurement setup that turns customer signals into better marketing decisions.",
   },
   {
     slug: "conversion-design",
     title: "Conversion-Focused Design",
-    short: "Clear customer journeys built around trust and meaningful actions.",
+    short: "Decision paths shaped around trust, reassurance and the action customers are ready to take.",
     icon: Crosshair,
-    eyebrow: "Clearer customer journeys",
-    headline: "Make the next step obvious.",
+    eyebrow: "Decision paths",
+    headline: "Help customers move from interest to action.",
     intro:
       "We shape page structure, content hierarchy and calls to action around how people decide to call, message, book, enquire or buy.",
     benefits: [
       "Message and offer clarity",
-      "Clear call-to-action strategy",
+      "Action-led call-to-action strategy",
       "Enquiry and booking paths",
       "WhatsApp and click-to-call actions",
       "Trust signals, reviews and reassurance",
       "Simplified forms and mobile usability",
-      "Analytics-informed next steps",
+      "Evidence-led journey improvements",
     ],
-    result: "A clearer route from first impression to the action that matters to the business.",
+    result: "A confident route from first impression to the action that matters to the business.",
   },
 ] as const;
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/site-config";
-
 export const metadata: Metadata = { title: "Terms of Use", alternates: { canonical: "/terms" } };
+
+const termsEmail = "found.growthcy@gmail.com";
 
 export default function TermsPage() {
   return <main>
@@ -17,8 +17,7 @@ export default function TermsPage() {
       <section><h2>8. Third-party services</h2><p>Websites may depend on hosting services, integrations, platforms or other third-party providers. Those services may have their own terms, pricing and availability. FOUND. is not responsible for changes, interruptions or outages caused by third-party providers beyond its reasonable control.</p></section>
       <section><h2>9. Results and responsibilities</h2><p>Digital, SEO, advertising and marketing outcomes cannot be guaranteed. Search platforms, customer behaviour and third-party systems can change. Specific responsibilities, warranties and reasonable limitations for paid client work should be set out in the relevant project or service agreement.</p></section>
       <section><h2>10. Changes to these terms</h2><p>These terms may be updated as the website and service offering develop. The version available on this page applies to website use from the time it is published.</p></section>
-      <section><h2>11. Contact</h2><p>Questions about these terms can be sent to <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.</p></section>
-      <aside className="legal-prelaunch-note"><strong>Pre-launch note</strong><p>The final legal business identity, contact details and governing-law position must be confirmed before production launch. These terms have been prepared for pre-launch review and have not been presented as legally reviewed.</p></aside>
+      <section><h2>11. Contact</h2><p>Questions about these terms can be sent to <a href={`mailto:${termsEmail}`}>{termsEmail}</a>.</p></section>
     </article>
   </main>;
 }

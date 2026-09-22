@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export function CTASection({ title = "Not sure where to begin?", body = "Start with a clear, practical review of your current digital presence.", label = "Get a Free Website Audit", href = "/free-audit" }: { title?: string; body?: string; label?: string; href?: string }) {
+export function CTASection({ title = "Not sure where to begin?", body = "Start with a focused review of your website, visibility and customer journey.", label = "Get a Free Website Audit", href = "/free-audit" }: { title?: string; body?: string; label?: string; href?: string }) {
   return (
     <section className="cta-section">
       <div className="site-container cta-inner">
