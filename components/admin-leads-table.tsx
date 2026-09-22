@@ -12,7 +12,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { leadStatuses } from "@/lib/site-config";
 import { notifyAdminDataChanged } from "@/components/admin-dashboard-sync";
 
-type Lead = { id: number; createdAt: string; name: string; businessName: string; email: string; phone: string; website: string; service: string; packageName: string; message: string; status: string; source: string; priority: string; estimatedValue: number | null; notes: string; utmSource: string; utmMedium: string; utmCampaign: string; updatedAt: string; utmContent: string; utmTerm: string };
+type Lead = { id: number; createdAt: Date | string; name: string; businessName: string; email: string; phone: string; website: string; service: string; packageName: string; message: string; status: string; source: string; priority: string; estimatedValue: number | null; notes: string; utmSource: string; utmMedium: string; utmCampaign: string; updatedAt: Date | string; utmContent: string; utmTerm: string };
 
 export function AdminLeadsTable({ initialRows }: { initialRows: Lead[] }) {
   const [rows, setRows] = useState(initialRows); const [query, setQuery] = useState(""); const [filter, setFilter] = useState("ALL"); const [sourceFilter, setSourceFilter] = useState("ALL"); const [campaignFilter, setCampaignFilter] = useState("ALL");

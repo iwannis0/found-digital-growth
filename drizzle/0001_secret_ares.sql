@@ -1,1 +1,0 @@
-ALTER TABLE `audit_requests` ADD `performance_score` integer;

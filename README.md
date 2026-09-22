@@ -4,9 +4,9 @@ Production website and lead-management application for FOUND., a Cyprus-based lo
 
 ## Stack
 
-- Next.js App Router through the Sites Vinext runtime
+- Next.js App Router, deployed on Vercel
 - React 19, TypeScript and Tailwind CSS
-- Cloudflare D1 with Drizzle ORM and versioned migrations
+- Supabase Postgres with Drizzle ORM and versioned migrations
 - Zod validation on every public and admin write route
 - Resend REST API for notification and confirmation email
 - Cloudflare Turnstile, honeypot and server-side rate limiting
@@ -15,28 +15,29 @@ Production website and lead-management application for FOUND., a Cyprus-based lo
 
 ## Local setup
 
-Requirements: Node.js 22.13 or later and npm.
+Requirements: Node.js 22.13 or later, npm, and a Supabase project (for `DATABASE_URL`).
 
 For Windows and Visual Studio Code, follow `SETUP-WINDOWS.md`. The included
 `setup-windows.ps1` script installs dependencies, creates the local environment
-file, applies the local database migration and inserts the initial settings.
+file, applies the database migration and inserts the initial settings.
 
-1. Copy `.env.example` to `.env.local` and fill the values needed for local testing.
-2. Run `npm ci`.
-3. Run `npm run db:generate` after schema changes.
-4. Run `npm run db:migrate` to apply D1 migrations locally.
-5. Run `npm run dev` and open the local address printed by Vite.
+1. Create a Supabase project and copy its Postgres connection string.
+2. Copy `.env.example` to `.env.local` and set `DATABASE_URL` plus any other values needed for local testing.
+3. Run `npm ci`.
+4. Run `npm run db:generate` after schema changes.
+5. Run `npm run db:migrate` to apply migrations to the Supabase database.
+6. Run `npm run dev` and open http://localhost:3000.
 
 ## Commands
 
 - `npm run dev`: local development server
-- `npm run build`: production Sites build
-- `npm run start`: run a built Vinext application
+- `npm run build`: production Next.js build
+- `npm run start`: run the built Next.js app
 - `npm run lint`: ESLint
 - `npm run typecheck`: strict TypeScript checking
 - `npm test`: production build plus automated tests
 - `npm run db:generate`: generate a migration from `db/schema.ts`
-- `npm run db:migrate`: apply migrations to the local D1 database
+- `npm run db:migrate`: apply migrations to the Supabase Postgres database
 - `npm run db:seed`: apply the optional local seed file when present
 - `npm run db:studio`: open Drizzle Studio when the environment supports it
 
@@ -59,13 +60,13 @@ Production authentication currently requires the Sites authentication gateway to
 
 ## Database and admin
 
-The Sites platform provisions the production D1 database through the logical `DB` binding in `.openai/hosting.json`. The schema stores leads, audit requests, newsletter subscribers and settings. Generated SQL in `drizzle/` is applied during publication.
+The production database is a Supabase Postgres project, connected through `DATABASE_URL`. The schema stores leads, audit requests, newsletter subscribers and settings. Generated SQL in `drizzle/` is applied with `npm run db:migrate`.
 
 The admin area uses ChatGPT sign-in and a server-side email allowlist. It includes dashboard metrics, local search and status filters, lead details, pipeline status, HOT/WARM/COLD priority, estimated value, notes, deletion, CSV export and manual audit scoring out of 100.
 
 ## Email, webhooks and spam protection
 
-Create and verify a sending domain in Resend, then configure `RESEND_API_KEY`, `EMAIL_FROM` and `EMAIL_TO`. Add every internal recipient to `EMAIL_TO`, separated by commas. A successful public submission is written to D1 first. Email or webhook failure is isolated so a saved enquiry is not lost.
+Create and verify a sending domain in Resend, then configure `RESEND_API_KEY`, `EMAIL_FROM` and `EMAIL_TO`. Add every internal recipient to `EMAIL_TO`, separated by commas. A successful public submission is written to Postgres first. Email or webhook failure is isolated so a saved enquiry is not lost.
 
 Create a Turnstile widget for the production hostname and configure both keys. Without keys, verification is intentionally bypassed for local development. The hidden honeypot and rate limiter remain active.
 
