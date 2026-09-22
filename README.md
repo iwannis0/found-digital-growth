@@ -48,7 +48,7 @@ Public settings use `NEXT_PUBLIC_` only when the browser needs them. Secrets sta
 - `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_CONTACT_PHONE`, `NEXT_PUBLIC_WHATSAPP_NUMBER`: central contact details
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID`: GA4 measurement ID
 - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile
-- `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO`: Resend email delivery
+- `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO`: Resend email delivery. `EMAIL_TO` accepts a comma-separated list of team recipients for every new Contact or Free Audit submission; the person submitting the form also receives an automatic confirmation.
 - `LEAD_WEBHOOK_URL`: optional n8n, Make, Zapier, HubSpot or custom CRM endpoint
 - `ADMIN_EMAILS`: comma-separated ChatGPT account emails allowed into `/admin`
 - optional Instagram and LinkedIn URLs
@@ -65,7 +65,7 @@ The admin area uses ChatGPT sign-in and a server-side email allowlist. It includ
 
 ## Email, webhooks and spam protection
 
-Create and verify a sending domain in Resend, then configure `RESEND_API_KEY`, `EMAIL_FROM` and `EMAIL_TO`. A successful public submission is written to D1 first. Email or webhook failure is isolated so a saved enquiry is not lost.
+Create and verify a sending domain in Resend, then configure `RESEND_API_KEY`, `EMAIL_FROM` and `EMAIL_TO`. Add every internal recipient to `EMAIL_TO`, separated by commas. A successful public submission is written to D1 first. Email or webhook failure is isolated so a saved enquiry is not lost.
 
 Create a Turnstile widget for the production hostname and configure both keys. Without keys, verification is intentionally bypassed for local development. The hidden honeypot and rate limiter remain active.
 

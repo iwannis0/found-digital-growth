@@ -41,13 +41,13 @@ export async function deliverLeadIntegrations(kind: "contact" | "audit", recordI
 export async function sendEnquiryEmails(kind: "contact" | "audit", payload: Record<string, unknown>) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
-  const to = process.env.EMAIL_TO;
-  if (!apiKey || !from || !to) return;
+  const recipients = [...new Set((process.env.EMAIL_TO ?? "").split(",").map((email) => email.trim()).filter(Boolean))];
+  if (!apiKey || !from || recipients.length === 0) return;
   const business = safeHtml(payload.businessName || "New business");
   const person = safeHtml(payload.name);
   const rows = Object.entries(payload).filter(([key]) => !["companyWebsite", "turnstileToken", "consent"].includes(key)).map(([key, value]) => `<tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>${safeHtml(key)}</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${safeHtml(value)}</td></tr>`).join("");
   const deliveries = await Promise.allSettled([
-    resend(apiKey, { from, to: [to], subject: kind === "audit" ? `New FOUND. audit request - ${business}` : `New FOUND. enquiry - ${business}`, html: `<div style="font-family:Arial,sans-serif;max-width:680px"><h1>New ${kind === "audit" ? "audit request" : "enquiry"}</h1><table style="border-collapse:collapse;width:100%">${rows}</table></div>` }),
+    resend(apiKey, { from, to: recipients, subject: kind === "audit" ? `New FOUND. audit request - ${business}` : `New FOUND. enquiry - ${business}`, html: `<div style="font-family:Arial,sans-serif;max-width:680px"><h1>New ${kind === "audit" ? "audit request" : "enquiry"}</h1><p>A new form submission is ready to review in the FOUND. admin area.</p><table style="border-collapse:collapse;width:100%">${rows}</table></div>` }),
     resend(apiKey, { from, to: [String(payload.email)], subject: kind === "audit" ? "We received your audit request | FOUND." : "We received your enquiry | FOUND.", html: `<div style="font-family:Arial,sans-serif;max-width:600px"><h1>FOUND.</h1><p>Hi ${person},</p><p>Thank you for contacting FOUND. We have received the details for ${business} and will review them carefully.</p><p>We usually reply within two working days.</p><p>Get found. Get chosen.</p></div>` }),
   ]);
   const failures = deliveries.filter((result) => result.status === "rejected");
