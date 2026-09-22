@@ -16,7 +16,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply site-creator-d1 --config wrangler.local.jsonc --local --persist-to .wrangler/state",
     "db:seed": "wrangler d1 execute site-creator-d1 --config wrangler.local.jsonc --local --persist-to .wrangler/state --file=scripts/seed.sql",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "admin:hash-password": "node scripts/hash-admin-password.mjs",
+    "admin:verify-password": "node scripts/verify-admin-password.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
