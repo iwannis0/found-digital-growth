@@ -9,6 +9,11 @@ Install the following programs if they are not already available:
 
 Restart Visual Studio Code after installing Node.js.
 
+You will also need a free Supabase project (https://supabase.com/) for the database.
+After creating one, copy its Postgres connection string from
+**Project Settings > Database > Connection string** (use the pooled "Transaction"
+connection on port 6543).
+
 ## 2. Open the project
 
 1. Extract the ZIP file.
@@ -30,8 +35,10 @@ The setup script will:
 - verify the installed Node.js version;
 - create `.env.local` from `.env.example`;
 - install the required packages;
-- create the local D1 database;
-- apply the database schema from `drizzle` and initial settings.
+- apply the database schema from `drizzle` and initial settings to your Supabase database (if `DATABASE_URL` is already set in `.env.local`).
+
+If `DATABASE_URL` is not set yet, open `.env.local`, paste in your Supabase
+connection string, then run `npm run db:migrate` and `npm run db:seed` manually.
 
 ## 4. Start the website
 
@@ -42,7 +49,7 @@ npm run dev
 Open the local address shown in the terminal. It is normally:
 
 ```text
-http://localhost:5173
+http://localhost:3000
 ```
 
 Press `Ctrl+C` in the terminal to stop the website.
@@ -64,7 +71,7 @@ Press `Ctrl+C` in the terminal to stop the website.
 
 ## Local admin area
 
-Open `http://localhost:5173/admin`. Local development uses the
+Open `http://localhost:3000/admin`. Local development uses the
 `LOCAL_ADMIN_EMAIL` value in `.env.local`. This local shortcut works only while
 `NODE_ENV` is `development` and does not replace production authentication.
 Set it explicitly to one of the emails listed in `ADMIN_EMAILS`. A blank

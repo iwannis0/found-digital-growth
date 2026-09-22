@@ -1,10 +1,9 @@
-import { sql } from "drizzle-orm";
-import { index, integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { boolean, doublePrecision, index, integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
-export const leads = sqliteTable(
+export const leads = pgTable(
   "leads",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     name: text("name").notNull(),
     businessName: text("business_name").notNull(),
     email: text("email").notNull(),
@@ -16,15 +15,15 @@ export const leads = sqliteTable(
     status: text("status").notNull().default("NEW"),
     source: text("source").notNull().default("website"),
     priority: text("priority").notNull().default("WARM"),
-    estimatedValue: real("estimated_value"),
+    estimatedValue: doublePrecision("estimated_value"),
     notes: text("notes").notNull().default(""),
     utmSource: text("utm_source").notNull().default(""),
     utmMedium: text("utm_medium").notNull().default(""),
     utmCampaign: text("utm_campaign").notNull().default(""),
     utmContent: text("utm_content").notNull().default(""),
     utmTerm: text("utm_term").notNull().default(""),
-    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("leads_status_idx").on(table.status),
@@ -33,10 +32,10 @@ export const leads = sqliteTable(
   ],
 );
 
-export const auditRequests = sqliteTable(
+export const auditRequests = pgTable(
   "audit_requests",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     name: text("name").notNull(),
     businessName: text("business_name").notNull(),
     email: text("email").notNull(),
@@ -60,8 +59,8 @@ export const auditRequests = sqliteTable(
     utmSource: text("utm_source").notNull().default(""),
     utmMedium: text("utm_medium").notNull().default(""),
     utmCampaign: text("utm_campaign").notNull().default(""),
-    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("audits_status_idx").on(table.status),
@@ -70,19 +69,19 @@ export const auditRequests = sqliteTable(
   ],
 );
 
-export const newsletterSubscribers = sqliteTable(
+export const newsletterSubscribers = pgTable(
   "newsletter_subscribers",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     email: text("email").notNull().unique(),
-    active: integer("active", { mode: "boolean" }).notNull().default(true),
-    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    active: boolean("active").notNull().default(true),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [index("newsletter_email_idx").on(table.email)],
 );
 
-export const settings = sqliteTable("settings", {
+export const settings = pgTable("settings", {
   key: text("key").primaryKey(),
   value: text("value").notNull(),
-  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });

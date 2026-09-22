@@ -13,7 +13,7 @@ import { leadStatuses } from "@/lib/site-config";
 import { auditTotal } from "@/lib/audit-scoring";
 import { notifyAdminDataChanged } from "@/components/admin-dashboard-sync";
 
-type Audit = { id: number; createdAt: string; name: string; businessName: string; email: string; phone: string; website: string; industry: string; city: string; goal: string; problem: string; budget: string; message: string; status: string; designScore: number | null; mobileScore: number | null; conversionScore: number | null; seoScore: number | null; googleScore: number | null; performanceScore: number | null; trustScore: number | null; notes: string; utmSource: string; utmMedium: string; utmCampaign: string; updatedAt: string };
+type Audit = { id: number; createdAt: Date | string; name: string; businessName: string; email: string; phone: string; website: string; industry: string; city: string; goal: string; problem: string; budget: string; message: string; status: string; designScore: number | null; mobileScore: number | null; conversionScore: number | null; seoScore: number | null; googleScore: number | null; performanceScore: number | null; trustScore: number | null; notes: string; utmSource: string; utmMedium: string; utmCampaign: string; updatedAt: Date | string };
 
 export function AdminAuditsTable({ initialRows, selectedAuditId }: { initialRows: Audit[]; selectedAuditId?: number }) {
   const [rows, setRows] = useState(initialRows);
