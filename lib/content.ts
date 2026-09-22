@@ -165,7 +165,7 @@ export const legacyServiceAliases = {
 export const projects = [
   {
     slug: "aura-dental",
-    image: "/images/work/aura-dental-cover.webp",
+    image: "/images/aura-demo/treatment-hero.png",
     name: "AURA Dental",
     industry: "Dental Clinic",
     tone: "aura",

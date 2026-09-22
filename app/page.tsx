@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AuraCover } from "@/components/aura-cover";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { BeforeAfter } from "@/components/before-after";
@@ -83,7 +84,7 @@ export default function HomePage() {
               <Link href={`/work/${project.slug}`} className={`project-card project-${project.tone}`} key={project.slug} data-motion="rise">
                 <div className="project-image-wrap" data-motion-parallax>
                   <Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 900px) 100vw, 50vw" className="project-image" />
-                  <span className="concept-badge">Concept Project</span>
+                  {project.slug === "aura-dental" ? <AuraCover /> : <span className="concept-badge">Concept Project</span>}
                 </div>
                 <div className="project-meta"><div><span>{project.industry}</span><h3>{project.name}</h3></div><span className="project-index">0{index + 1}</span></div>
               </Link>

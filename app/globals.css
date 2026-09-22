@@ -684,6 +684,44 @@ button { cursor: pointer; }
 .case-hero > .site-container > p { margin: 45px 0 0 auto; max-width: 530px; font-family: Georgia, serif; font-size: 2.2rem; font-style: italic; line-height: 1.2; }
 .case-image { overflow: hidden; }
 .case-image img { width: 100%; height: auto; }
+.case-aura .case-image img { aspect-ratio: 16 / 10; object-fit: cover; object-position: 58% center; }
+
+/* The AURA cover previews the actual demo hero at each project-card size. */
+.project-image-wrap:has(.aura-cover), .concept-preview-image:has(.aura-cover), .aura-case-cover { container-type: inline-size; }
+.aura-case-cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; background: #201d19; }
+.aura-case-cover img { height: 100% !important; }
+.aura-cover { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; padding: 2.7% 4.3% 2.1%; color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: clamp(4px, 1.05cqw, 16px); line-height: 1.2; pointer-events: none; isolation: isolate; }
+.aura-cover::before { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #171512d9 0%, #171512b0 35%, #1715124d 65%, transparent 100%); content: ""; }
+.aura-cover-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 2em; min-height: 8%; border-bottom: 1px solid #ffffff50; }
+.aura-cover-brand { display: flex; flex-direction: column; margin-top: -.25em; line-height: .9; }
+.aura-cover-brand strong { font-family: Georgia, serif; font-size: 3em; font-weight: 400; letter-spacing: .18em; }
+.aura-cover-brand span { margin-top: .65em; font-size: .56em; font-weight: 700; letter-spacing: .55em; }
+.aura-cover-nav { display: flex; gap: 2.4em; padding-top: .5em; font-size: .7em; font-weight: 700; letter-spacing: .16em; white-space: nowrap; }
+.aura-cover-visit { display: flex; align-items: center; gap: 1.8em; margin-top: -.4em; border: 1px solid #ffffff8c; border-radius: 100em; padding: 1.1em 1.45em; font-size: .75em; font-weight: 700; letter-spacing: .15em; white-space: nowrap; }
+.aura-cover-visit span { font-size: 1.4em; line-height: .5; }
+.aura-cover-content { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; flex: 1; width: 57%; padding-bottom: 4%; }
+.aura-cover-eyebrow { margin-bottom: 3.1em; font-size: .67em; font-weight: 700; letter-spacing: .18em; }
+.aura-cover-title { max-width: 10em; font-size: 6.8em; font-weight: 400; letter-spacing: -.065em; line-height: .98; white-space: nowrap; }
+.aura-cover-description { max-width: 31em; margin-top: 2.4em; font-size: 1.04em; line-height: 1.55; }
+.aura-cover-actions { display: flex; gap: .9em; margin-top: 2.1em; font-size: .82em; font-weight: 700; }
+.aura-cover-actions > span { display: flex; align-items: center; justify-content: space-between; gap: 2.8em; border: 1px solid #ffffffa6; border-radius: .22em; padding: 1.15em 1.35em; white-space: nowrap; }
+.aura-cover-actions > span:first-child { border-color: #fff; background: #fff; color: #181716; }
+.aura-cover-actions b { font-size: 1.3em; font-weight: 400; line-height: .6; }
+.aura-cover-note { margin-top: 2.3em; border-left: 1px solid #e2cdb2; padding-left: 1.3em; font-size: .8em; }
+.aura-cover-bottom { display: flex; justify-content: space-between; gap: 2em; font-size: .63em; font-weight: 700; letter-spacing: .17em; }
+.aura-cover-concept { position: absolute; top: 14%; left: 4.3%; border-radius: 100em; background: #151411e8; padding: .7em 1.1em; font-size: .61em; font-weight: 700; letter-spacing: .14em; }
+@container (max-width: 700px) {
+  .aura-cover-nav { display: none; }
+  .aura-cover-title { font-size: 6.4em; }
+}
+@container (max-width: 480px) {
+  .aura-cover { padding-top: 3.2%; }
+  .aura-cover-content { padding-bottom: 2%; }
+  .aura-cover-eyebrow { margin-bottom: 2em; }
+  .aura-cover-description { margin-top: 1.3em; }
+  .aura-cover-actions { margin-top: 1.2em; }
+  .aura-cover-note { margin-top: 1.4em; }
+}
 .aura-preview-entry { padding: 58px 0; background: #f1ece4; }
 .aura-preview-entry > .site-container { display: flex; align-items: center; justify-content: space-between; gap: 42px; }
 .aura-preview-entry h2 { margin: 12px 0 8px; font-size: clamp(2rem, 3.5vw, 3.6rem); font-weight: 500; letter-spacing: -.06em; line-height: 1; }
