@@ -710,6 +710,19 @@ button { cursor: pointer; }
 .aura-cover-note { margin-top: 2.3em; border-left: 1px solid #e2cdb2; padding-left: 1.3em; font-size: .8em; }
 .aura-cover-bottom { display: flex; justify-content: space-between; gap: 2em; font-size: .63em; font-weight: 700; letter-spacing: .17em; }
 .aura-cover-concept { position: absolute; top: 14%; left: 4.3%; border-radius: 100em; background: #151411e8; padding: .7em 1.1em; font-size: .61em; font-weight: 700; letter-spacing: .14em; }
+
+/* NOVA demo preview, shown on the home, work and case-study covers. */
+.project-image-wrap:has(.nova-cover), .concept-preview-image:has(.nova-cover), .nova-case-cover { container-type: inline-size; }
+.nova-case-cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; background: #0d1927; }
+.nova-case-cover img { height: 100% !important; }
+.nova-cover { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; padding: 3.2% 4.2% 3.4%; color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: clamp(4px, 1.05cqw, 16px); pointer-events: none; isolation: isolate; }
+.nova-cover::before { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(90deg, rgba(5,17,30,.91) 0%, rgba(5,17,30,.7) 34%, rgba(5,17,30,.1) 72%); }
+.nova-cover-top { display: flex; min-height: 14%; align-items: flex-start; justify-content: space-between; gap: 2em; border-bottom: 1px solid rgba(255,255,255,.22); }
+.nova-cover-brand { font: 400 2.8em/.8 Georgia, serif; letter-spacing: .2em; }.nova-cover-brand span { display: block; margin-top: .8em; color: #cfad69; font: 700 .5em/1 Arial, sans-serif; letter-spacing: .5em; }
+.nova-cover-nav { display: flex; gap: 2.2em; padding-top: .55em; font-size: .64em; font-weight: 700; letter-spacing: .13em; }.nova-cover-cta { border: 1px solid rgba(255,255,255,.55); border-radius: 100em; padding: .85em 1.2em; font-size: .64em; font-weight: 700; letter-spacing: .1em; white-space: nowrap; }.nova-cover-cta b { margin-left: 1.8em; font-size: 1.25em; }
+.nova-cover-copy { display: flex; flex: 1; width: 51%; flex-direction: column; justify-content:center; align-items: flex-start; padding: 2% 0 7%; }.nova-cover-copy>span { color: #d1ad67; font-size: .62em; font-weight: 700; letter-spacing: .22em; }.nova-cover-copy strong { margin-top: .7em; font: 400 5em/.85 Georgia,serif; letter-spacing: -.055em; }.nova-cover-copy strong em { color: #caaa6c; font-weight: 400; }.nova-cover-copy p { max-width: 28em; margin: 1.55em 0 1.35em; font-size: .85em; line-height: 1.5; }.nova-cover-copy i { border-radius: 100em; padding: 1em 1.5em; background: #f7f4ed; color: #162333; font-size: .67em; font-style: normal; font-weight: 700; }
+.nova-cover-search { width: 78%; align-self: center; background: rgba(248,247,242,.97); color: #162333; padding: .8em 1.2em 1em; box-shadow: 0 12px 30px rgba(0,0,0,.18); }.nova-cover-search>div { display: flex; gap: 2.5em; padding-bottom: .65em; border-bottom: 1px solid #d8d1c5; font-size: .52em; letter-spacing: .1em; }.nova-cover-search>div b { color: #162333; }.nova-cover-search>div span { color: #697078; }.nova-cover-search section { display: grid; grid-template-columns: 1fr 1fr .65fr auto; gap: 1.3em; padding-top: .8em; align-items:end; }.nova-cover-search label { font-size: .48em; font-weight: 700; letter-spacing: .1em; }.nova-cover-search small { display: block; margin-top: .7em; border-bottom: 1px solid #c8c1b7; padding-bottom: .45em; font-size: 1.35em; font-weight: 400; letter-spacing: 0; }.nova-cover-search section>b { border-radius: 100em; padding: .85em 1.4em; background: #111e2d; color: #fff; font-size: .65em; }
+@container (max-width: 420px) { .nova-cover { padding: 4% 5%; }.nova-cover-nav,.nova-cover-cta { display: none; }.nova-cover-top { min-height: 12%; }.nova-cover-copy { width: 58%; padding-bottom: 3%; }.nova-cover-copy strong { font-size: 4.5em; }.nova-cover-copy p { display: none; }.nova-cover-search { width: 88%; padding: .65em .85em .75em; }.nova-cover-search>div { gap: 1.25em; }.nova-cover-search>div span:nth-of-type(n+3),.nova-cover-search label:nth-child(2) { display:none; }.nova-cover-search section { grid-template-columns:1fr .62fr auto; gap:.8em; } }
 @container (max-width: 700px) {
   .aura-cover-nav { display: none; }
   .aura-cover-title { font-size: 6.4em; }
@@ -744,6 +757,7 @@ button { cursor: pointer; }
 .case-next p { margin: 0; font-size: clamp(2rem, 4vw, 4.5rem); letter-spacing: -.06em; }
 @media (max-width: 700px) { .aura-preview-entry > .site-container { align-items: flex-start; flex-direction: column; gap: 25px; } }
 .case-nova { background: #111; color: #f5f1e9; }
+.case-nova .aura-preview-entry h2 { color: var(--ink); }
 .case-nova .case-story, .case-nova .case-features { background: #111; }
 .case-nova .case-story-grid > div:last-child > p:not(.eyebrow), .case-nova .eyebrow { color: #a7a49d; }
 .case-nova .feature-cloud span { border-color: #3a3935; background: #1d1c1a; }
