@@ -1,3 +1,3 @@
-import type { Metadata } from "next"; import { NovaHeader } from "../nova-header"; import { NovaFooter } from "../page"; import { PropertiesExplorer } from "./properties-explorer"; import "../nova-demo.css";
+import type { Metadata } from "next"; import { NovaHeader } from "../nova-header"; import { NovaFooter } from "../nova-footer"; import { PropertiesExplorer } from "./properties-explorer"; import "../nova-demo.css";
 export const metadata:Metadata={title:"Properties | NOVA Estates",description:"Explore the NOVA Estates curated property collection."};
 export default function PropertiesPage(){return <main className="nova-demo nova-inner"><NovaHeader solid/><section className="nova-page-title"><p className="nova-eyebrow">The collection</p><h1>Properties of<br/><em>lasting character.</em></h1></section><PropertiesExplorer/><NovaFooter/></main>}
