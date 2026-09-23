@@ -11,11 +11,11 @@ const assets = [
 
 const galleries = {
   azure: [assets[1], "/images/nova-demo/azure-cliff-exterior.png", "/images/nova-demo/azure-cliff-interior.png"],
-  horizon: [assets[2], "/images/nova-demo/horizon-penthouse-exterior.png?v=2", "/images/nova-demo/horizon-penthouse-interior.png?v=2"],
-  olive: [assets[3], "/images/nova-demo/olive-grove-exterior.png?v=2", "/images/nova-demo/olive-grove-interior.png"],
+  horizon: [assets[2], "/images/nova-demo/horizon-penthouse-exterior.png", "/images/nova-demo/horizon-penthouse-interior.png"],
+  olive: [assets[3], "/images/nova-demo/olive-grove-exterior.png", "/images/nova-demo/olive-grove-interior.png"],
   cove: [assets[4], "/images/nova-demo/cove-residences-exterior.png", "/images/nova-demo/cove-residences-interior.png"],
   astra: [assets[5], "/images/nova-demo/astra-house-exterior.png", "/images/nova-demo/astra-house-interior.png"],
-  nocturne: [assets[0], "/images/nova-demo/nocturne-hillside-exterior.png?v=2", "/images/nova-demo/nocturne-hillside-interior.png"],
+  nocturne: [assets[0], "/images/nova-demo/nocturne-hillside-exterior.png", "/images/nova-demo/nocturne-hillside-interior.png"],
 };
 
 export const novaProperties: NovaProperty[] = [
