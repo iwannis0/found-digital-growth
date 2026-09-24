@@ -241,8 +241,8 @@ button { cursor: pointer; }
 .compare-slider-control { position: absolute; z-index: 5; inset: 0; cursor: ew-resize; opacity: .001; }
 .compare-slider-control [data-slot="slider"] { width: 100%; height: 100%; }
 .compare-slider-control [data-slot="slider-track"] { width: 100%; height: 100%; }
-.compare-frame.is-introducing .compare-before { transition: clip-path .72s cubic-bezier(.22,.7,.25,1); }
-.compare-frame.is-introducing .compare-handle { transition: left .72s cubic-bezier(.22,.7,.25,1); }
+.compare-frame.is-introducing .compare-before { transition: clip-path .9s cubic-bezier(.65,0,.35,1); }
+.compare-frame.is-introducing .compare-handle { transition: left .9s cubic-bezier(.65,0,.35,1); }
 .compare-outcome { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 20px; color: #5f5e57; font-size: .76rem; font-weight: 700; letter-spacing: .02em; }
 .compare-outcome span { display: inline-flex; align-items: center; gap: 9px; }
 .compare-outcome span::before { width: 7px; height: 7px; border-radius: 50%; background: #2E2690; content: ""; }
@@ -1786,3 +1786,26 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .motion-page.motion-ready [data-motion]:not(.is-visible), .motion-page.motion-ready .motion-reveal:not(.is-visible) { transform: translateY(38px); }
   .motion-page.motion-ready [data-motion], .motion-page.motion-ready .motion-reveal { transition-duration: .9s; }
 }
+
+/* Service hero emblem: the service icon in a lit, orbiting badge. */
+.service-emblem { position: relative; display: grid; width: min(100%, 440px); aspect-ratio: 1; margin-left: auto; place-items: center; }
+.service-emblem::before { position: absolute; inset: 14%; z-index: -1; border-radius: 50%; content: ""; background: radial-gradient(circle, #3F35B599 0%, #3F35B522 45%, transparent 70%); filter: blur(10px); }
+.service-emblem svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.service-emblem circle { fill: none; }
+.service-emblem-ring { stroke: #ffffff1c; stroke-width: .35; }
+.service-emblem-dash { stroke: #A29BF655; stroke-width: .3; stroke-dasharray: 1 2.2; transform-origin: 50% 50%; }
+.service-emblem-comet { stroke: var(--acid-light); stroke-width: .9; stroke-linecap: round; stroke-dasharray: 9 91; transform-origin: 50% 50%; filter: drop-shadow(0 0 3px #A29BF6); }
+.service-emblem-core { display: grid; width: 42%; aspect-ratio: 1; place-items: center; border: 1px solid #ffffff26; border-radius: 30%; background: linear-gradient(150deg, #5B50D6 0%, #2E2690 60%, #1c1760 100%); box-shadow: 0 30px 70px #3F35B566, inset 0 1px 0 #ffffff33; color: var(--white); }
+.service-emblem-core svg { position: static; width: 42%; height: 42%; stroke-width: 1.4; }
+.service-emblem > span { position: absolute; bottom: 6%; color: #A29BF6; font-size: .64rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+@media (max-width: 760px) { .service-emblem { width: min(78%, 320px); margin: 30px auto 0; } }
+@keyframes emblemSpin { to { transform: rotate(360deg); } }
+@keyframes emblemCore { from { opacity: 0; transform: scale(.7) rotate(-10deg); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .service-emblem-comet { animation: emblemSpin 9s linear infinite; }
+  .service-emblem-dash { animation: emblemSpin 60s linear infinite reverse; }
+  .service-emblem-core { animation: emblemCore 1s cubic-bezier(.3,1.4,.5,1) .35s both; }
+  .service-emblem-core svg { stroke-dasharray: 220; stroke-dashoffset: 220; animation: iconDraw 1.4s ease-out .8s forwards; }
+  .service-emblem::before { animation: emblemGlow 5s ease-in-out infinite alternate; }
+}
+@keyframes emblemGlow { from { opacity: .65; transform: scale(.94); } to { opacity: 1; transform: scale(1.04); } }

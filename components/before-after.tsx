@@ -20,10 +20,10 @@ export function BeforeAfter() {
       if (!entry.isIntersecting || hasInteracted.current) return;
       observer.disconnect();
       setIsIntroducing(true);
-      timers.current.push(setTimeout(() => { if (!hasInteracted.current) setValue(55); }, 350));
-      timers.current.push(setTimeout(() => { if (!hasInteracted.current) setValue(38); }, 1120));
-      timers.current.push(setTimeout(() => setIsIntroducing(false), 1900));
-    }, { threshold: 0.55 });
+      // Sweep across once so both versions are seen, then settle.
+      [[300, 86], [1300, 12], [2300, 38]].forEach(([delay, position]) => timers.current.push(setTimeout(() => { if (!hasInteracted.current) setValue(position); }, delay)));
+      timers.current.push(setTimeout(() => setIsIntroducing(false), 3300));
+    }, { threshold: 0.4 });
     observer.observe(frame);
     return () => { observer.disconnect(); timers.current.forEach(clearTimeout); };
   }, []);
