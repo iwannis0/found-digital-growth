@@ -59,7 +59,7 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
             checked={showCare}
             onCheckedChange={handleToggle}
             aria-label="Show monthly Website Care pricing"
-            className="h-7 w-12 data-[state=unchecked]:bg-[#bdb9ae] data-[state=checked]:bg-[var(--acid)] [&_[data-slot=switch-thumb]]:size-6 data-[state=checked]:[&_[data-slot=switch-thumb]]:translate-x-[calc(100%-2px)]"
+            className="data-[size=default]:h-7 data-[size=default]:w-12 data-[state=unchecked]:bg-[#bdb9ae] data-[state=checked]:bg-[var(--acid)] [&_[data-slot=switch-thumb]]:!size-6 data-[state=checked]:[&_[data-slot=switch-thumb]]:!translate-x-[calc(100%-2px)]"
           />
         </Label>
         <span className={cn("transition-colors", showCare ? "text-foreground" : "text-muted-foreground")}>

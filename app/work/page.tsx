@@ -1,34 +1,44 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ProjectCover } from "@/components/project-cover";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CalendarCheck, FileText, House, MessageSquareText, Phone, ShoppingBag, Target, UtensilsCrossed } from "lucide-react";
 import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
+import { ProjectCover } from "@/components/project-cover";
 import { deployedProjects, projects } from "@/lib/content";
 
+const auraImage = projects.find((project) => project.slug === "aura-dental")?.image ?? "";
+const novaImage = projects.find((project) => project.slug === "nova-estates")?.image ?? "";
+// Back-to-front order so the live store sits in front of the stack.
+const heroFrames = [
+  ["nova", novaImage],
+  ["discount", deployedProjects[1].image],
+  ["aura", auraImage],
+  ["front", deployedProjects[0].image],
+] as const;
+
 const businessTypes = [
-  ["FOOD & HOSPITALITY", "Restaurants, cafés, bakeries, hotels, villas and event venues.", "Menus · Reservations · Booking journeys · Galleries · Maps · Local discovery"],
-  ["BEAUTY & WELLNESS", "Barbers, salons, nail studios, clinics, gyms, personal trainers and wellness businesses.", "Appointments · Services · Reviews · Before & after · Calls · Google presence"],
-  ["RETAIL & E-COMMERCE", "Jewellery, fashion, pet shops, furniture, florists and specialty stores.", "Products · Collections · Checkout · Offers · Enquiries · Email capture"],
-  ["PROFESSIONAL SERVICES", "Lawyers, accountants, consultants, financial firms and other professional practices.", "Credibility · Services · Expertise · Lead generation · Enquiries · Calls"],
-  ["PROPERTY & PLACES", "Real estate agencies, developers, architects, interior studios and construction companies.", "Listings · Project galleries · Property enquiries · Maps · WhatsApp · Lead capture"],
-  ["HOME & LOCAL SERVICES", "Renovations, kitchens, solar, cleaning, car detailing, trades and service businesses.", "Quote requests · Service areas · Reviews · Calls · WhatsApp · Local SEO"],
-  ["FITNESS & TRAINING", "Gyms, personal trainers, sports academies, studios and coaches.", "Classes · Timetables · Memberships · Bookings · Enquiries · Lead capture"],
-  ["EDUCATION & TRAINING", "Schools, tutors, language centres, academies and training providers.", "Courses · Programmes · Registrations · Resources · Enquiries · Contact"],
-  ["AUTOMOTIVE", "Car detailing, garages, rentals, dealerships and automotive services.", "Services · Booking · Galleries · Quote requests · Calls · Location"],
-  ["B2B & CORPORATE", "Technology companies, agencies, suppliers, manufacturers and B2B service companies.", "Solutions · Expertise · Case studies · Lead capture · CRM connections · Analytics"],
+  ["Food & Hospitality", "Restaurants, cafés, bakeries, hotels, villas and event venues."],
+  ["Beauty & Wellness", "Barbers, salons, nail studios, clinics, gyms, personal trainers and wellness businesses."],
+  ["Retail & E-commerce", "Jewellery, fashion, pet shops, furniture, florists and specialty stores."],
+  ["Professional Services", "Lawyers, accountants, consultants, financial firms and other professional practices."],
+  ["Property & Places", "Real estate agencies, developers, architects, interior studios and construction companies."],
+  ["Home & Local Services", "Renovations, kitchens, solar, cleaning, car detailing, trades and service businesses."],
+  ["Fitness & Training", "Gyms, personal trainers, sports academies, studios and coaches."],
+  ["Education & Training", "Schools, tutors, language centres, academies and training providers."],
+  ["Automotive", "Car detailing, garages, rentals, dealerships and automotive services."],
+  ["B2B & Corporate", "Technology companies, agencies, suppliers, manufacturers and B2B service companies."],
 ] as const;
 
 const customerJourneys = [
-  ["BOOKINGS", "For appointments, consultations, classes and experiences."],
-  ["ENQUIRIES", "For professional services, property, B2B and considered purchases."],
-  ["CALLS & WHATSAPP", "For local businesses where customers want a fast conversation."],
-  ["E-COMMERCE", "For businesses selling products directly online."],
-  ["RESERVATIONS", "For restaurants, hospitality and experiences."],
-  ["QUOTE REQUESTS", "For construction, trades and service businesses."],
-  ["PROPERTY ENQUIRIES", "For real estate, developments and property businesses."],
-  ["LEAD GENERATION", "For businesses where the website starts a longer sales process."],
+  ["Bookings", CalendarCheck],
+  ["Enquiries", MessageSquareText],
+  ["Calls & WhatsApp", Phone],
+  ["E-commerce", ShoppingBag],
+  ["Reservations", UtensilsCrossed],
+  ["Quote requests", FileText],
+  ["Property enquiries", House],
+  ["Lead generation", Target],
 ] as const;
 
 export const metadata: Metadata = { title: "What We Can Build", description: "See how FOUND. shapes websites around different businesses, customer journeys and commercial goals.", alternates: { canonical: "/work" }, openGraph: { images: ["/images/social/found-og-work.jpg"] }, twitter: { card: "summary_large_image", images: ["/images/social/found-og-work.jpg"] } };
@@ -36,12 +46,31 @@ export const metadata: Metadata = { title: "What We Can Build", description: "Se
 export default function WorkPage() {
   return <main className="motion-page work-motion-page">
     <PageMotion />
-    <section className="page-hero work-page-hero"><div className="site-container"><p className="eyebrow">What we can build</p><h1>Different businesses.<br /><em>Different websites.</em></h1><p>A restaurant, a law firm, an online store and a local service business should not have the same website. FOUND. shapes the structure, customer journey and functionality around how each business actually works.</p></div></section>
-    <section className="business-types-section section-pad"><div className="site-container"><div className="business-types-intro" data-motion="rise"><p className="eyebrow">Built around your business</p><h2>What does your business<br /><em>need its website to do?</em></h2><p>Different businesses need different paths to action. We design around the way your customers discover you, evaluate you and choose what to do next.</p></div><div className="business-type-list">{businessTypes.map(([title, examples, capabilities], index) => <article key={title} data-motion="rise"><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{examples}</p><strong>{capabilities}</strong></div></article>)}</div></div></section>
-    <section className="journeys-section section-pad"><div className="site-container"><div className="journeys-intro" data-motion="rise"><p className="eyebrow">Built around the action</p><h2>The right website depends<br /><em>on what needs to happen next.</em></h2><p>Some businesses need a booking. Others need a call, a quote, a purchase or a qualified enquiry. The website should make that next step clear.</p></div><div className="journey-list">{customerJourneys.map(([title, description], index) => <div key={title} data-motion="rise"><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p></div>)}</div></div></section>
-    <section className="deployed-section section-pad"><div className="site-container"><div className="deployed-intro" data-motion="rise"><p className="eyebrow">Deployed projects</p><h2>Finished builds,<br /><em>live in production.</em></h2><p>Complete websites and platforms we have designed, built and deployed. Open any of them to see the live site.</p></div><div className="deployed-grid">{deployedProjects.map((project) => <a href={project.url} target="_blank" rel="noopener noreferrer" className="deployed-card" key={project.slug} data-motion="rise"><div className="deployed-card-image" data-motion-parallax><Image src={project.image} alt={`${project.name} live website`} fill sizes="(max-width: 900px) 100vw, 50vw" /></div><div className="deployed-card-meta"><div><small>{project.industry}</small><h3>{project.name}</h3><p>{project.summary}</p></div><span className="deployed-card-visit">Visit live site <ArrowUpRight aria-hidden="true" /></span></div></a>)}</div></div></section>
-    <section className="concepts-section section-pad"><div className="site-container"><div className="concepts-intro" data-motion="rise"><p className="eyebrow">Explore the concepts</p><h2>Four complete examples<br /><em>of our approach.</em></h2><p>Explore four internal concept projects built to demonstrate how strategy, structure, conversion paths and visual direction can change from one business model to another.</p></div><div className="concept-grid">{projects.map((project, index) => <Link href={`/work/${project.slug}`} className="concept-preview" key={project.slug} data-motion="rise"><div className="concept-preview-image" data-motion-parallax><Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 700px) 100vw, 33vw" /><ProjectCover slug={project.slug} fallback={<span>Concept Project</span>} /></div><div className="concept-preview-meta"><div><small>0{index + 1} / {project.industry}</small><h3>{project.name}</h3></div><ArrowUpRight aria-hidden="true" /></div></Link>)}</div></div></section>
-    <section className="beyond-section section-pad"><div className="site-container" data-motion="rise"><p className="eyebrow">And beyond</p><h2>Your business does not need<br /><em>to fit a template.</em></h2><p>Not seeing your industry? If your business needs to be found, trusted and chosen online, we can shape the website around how it actually works.</p></div></section>
+    <section className="lit-hero"><div className="site-container lit-hero-grid">
+      <div className="work-hero-copy"><p className="eyebrow">Our work</p><h1>Different businesses. <em>Different websites.</em></h1><p className="lit-hero-lead">Live builds and concept projects, each shaped around how the business actually works.</p></div>
+      <div className="work-hero-stage" aria-hidden="true">
+        {heroFrames.map(([key, src]) => <div className={`work-hero-frame work-hero-frame-${key}`} key={key}><b><i /><i /><i /></b><div><Image src={src} alt="" fill sizes="(max-width: 900px) 70vw, 40vw" priority={key === "front"} /></div></div>)}
+      </div>
+    </div></section>
+
+    <section className="work-showcase section-pad"><div className="site-container">
+      <div className="work-group-head" data-motion="rise"><p className="eyebrow">Live projects</p><h2>Finished builds, <em>live in production.</em></h2></div>
+      <div className="deployed-grid">{deployedProjects.map((project) => <a href={project.url} target="_blank" rel="noopener noreferrer" className="deployed-card" key={project.slug} data-motion="rise"><div className="deployed-card-image" data-motion-parallax><Image src={project.image} alt={`${project.name} live website`} fill sizes="(max-width: 900px) 100vw, 50vw" /></div><div className="deployed-card-meta"><div><small>{project.industry}</small><h3>{project.name}</h3></div><span className="deployed-card-visit">Visit live site <ArrowUpRight aria-hidden="true" /></span></div></a>)}</div>
+
+      <div className="work-group-head work-group-head-concepts" data-motion="rise"><p className="eyebrow">Concept projects</p><h2>Four examples <em>of our approach.</em></h2></div>
+      <div className="concept-grid">{projects.map((project, index) => <Link href={`/work/${project.slug}`} className="concept-preview" key={project.slug} data-motion="rise"><div className="concept-preview-image" data-motion-parallax><Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 700px) 100vw, 33vw" /><ProjectCover slug={project.slug} fallback={<span>Concept Project</span>} /></div><div className="concept-preview-meta"><div><small>0{index + 1} / {project.industry}</small><h3>{project.name}</h3></div><ArrowUpRight aria-hidden="true" /></div></Link>)}</div>
+    </div></section>
+
+    <section className="business-types-section section-pad"><div className="site-container">
+      <div className="work-group-head" data-motion="rise"><p className="eyebrow">Built around your business</p><h2>What does your business <em>need its website to do?</em></h2></div>
+      <div className="business-type-grid">{businessTypes.map(([title, examples], index) => <article key={title} data-motion="rise"><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{examples}</p></article>)}</div>
+    </div></section>
+
+    <section className="journeys-section section-pad"><div className="site-container">
+      <div className="work-group-head" data-motion="rise"><p className="eyebrow">Built around the action</p><h2>The right website depends <em>on what needs to happen next.</em></h2></div>
+      <div className="journey-grid">{customerJourneys.map(([title, Icon]) => <div key={title} data-motion="rise"><i aria-hidden="true"><Icon /></i><h3>{title}</h3></div>)}</div>
+    </div></section>
+
     <CTASection title="Not sure what your website needs?" body="Start with a focused review of your website, visibility and customer journey." />
   </main>;
 }

@@ -8,7 +8,7 @@ export function FAQList({ limit }: { limit?: number }) {
   return (
     <Accordion className="faq-list" type="single" collapsible>
       {items.map(([question, answer], index) => (
-        <AccordionItem key={question} value={`faq-${index}`}>
+        <AccordionItem key={question} value={`faq-${index}`} data-motion="rise">
           <AccordionTrigger><span><small>{String(index + 1).padStart(2, "0")}</small>{question}</span></AccordionTrigger>
           <AccordionContent><p>{answer}</p></AccordionContent>
         </AccordionItem>

@@ -8,11 +8,18 @@ export function PageMotion() {
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const targets = root.querySelectorAll<HTMLElement>("[data-motion], .motion-reveal");
+    const timers: number[] = [];
     const observer = new IntersectionObserver((entries) => {
+      let batchIndex = 0;
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+        const target = entry.target as HTMLElement;
+        if (batchIndex) target.style.setProperty("--motion-i", String(Math.min(batchIndex, 5)));
+        batchIndex += 1;
+        target.classList.add("is-visible");
+        observer.unobserve(target);
+        // Drop the stagger once revealed so hover transitions are not delayed.
+        timers.push(window.setTimeout(() => target.style.removeProperty("--motion-i"), 1400));
       }
     }, { threshold: 0.08, rootMargin: "0px 0px -28px 0px" });
 
@@ -39,6 +46,7 @@ export function PageMotion() {
 
     return () => {
       observer.disconnect();
+      timers.forEach((timer) => window.clearTimeout(timer));
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
       if (frame) cancelAnimationFrame(frame);

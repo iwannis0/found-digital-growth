@@ -18,10 +18,28 @@ const capabilityDescriptions: Record<string, string> = {
   "custom-functionality": "Extra features and integrations scoped around the needs of the project.",
 };
 
+const coreService = services.find((service) => service.slug === "web-design")!;
+// Six supporting services evenly spaced on a ring around the website (radius 38%).
+const orbitNodes = ([
+  ["conversion-design", "Conversion"], ["local-seo", "Local SEO"], ["google-business", "Google Business"],
+  ["analytics", "Analytics"], ["website-care", "Website Care"], ["automation", "Automation"],
+] as const).map(([slug, label], index) => {
+  const angle = (-90 + index * 60) * (Math.PI / 180);
+  const Icon = (services.find((service) => service.slug === slug) ?? customCapabilities.find((item) => item.slug === slug))!.icon;
+  return { slug, label, Icon, x: +(50 + 38 * Math.cos(angle)).toFixed(2), y: +(50 + 38 * Math.sin(angle)).toFixed(2) };
+});
+
 export default function ServicesPage() {
   return (
     <main className="motion-page services-motion-page"><PageMotion />
-      <section className="page-hero"><div className="site-container"><p className="eyebrow">Services</p><h1>More than a website<span>.</span></h1><p>FOUND. builds the digital foundation, then adds the visibility, measurement and support your business actually needs.</p></div></section>
+      <section className="lit-hero services-lit-hero"><div className="site-container lit-hero-grid">
+        <div><p className="eyebrow">Services</p><h1>More than <em>a website.</em></h1><p className="lit-hero-lead">FOUND. builds the digital foundation, then adds the visibility, measurement and support your business actually needs.</p></div>
+        <div className="service-orbit">
+          <svg className="service-orbit-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><circle cx="50" cy="50" r="38" /><circle className="service-orbit-comet" cx="50" cy="50" r="38" pathLength="100" />{orbitNodes.map(({ slug, x, y }) => <line key={slug} x1="50" y1="50" x2={x} y2={y} />)}</svg>
+          <Link href={`/services/${coreService.slug}`} className="service-orbit-core"><i><coreService.icon aria-hidden="true" /></i><span>Website</span></Link>
+          {orbitNodes.map(({ slug, label, Icon, x, y }) => <Link key={slug} href={`/services/${slug}`} className="service-orbit-node" style={{ left: `${x}%`, top: `${y}%` }}><i><Icon aria-hidden="true" /></i><span>{label}</span></Link>)}
+        </div>
+      </div></section>
       <section className="directory-section"><div className="site-container service-directory">
         {orderedServices.map((service, index) => { const Icon = service.icon; return (
           <Link href={`/services/${service.slug}`} key={service.slug} className="directory-card" data-motion="rise">
