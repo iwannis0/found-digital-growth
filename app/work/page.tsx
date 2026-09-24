@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, CalendarCheck, FileText, House, MessageSquareText, Phone, ShoppingBag, Target, UtensilsCrossed } from "lucide-react";
-import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
 import { ProjectCover } from "@/components/project-cover";
 import { deployedProjects, projects } from "@/lib/content";
@@ -70,7 +69,5 @@ export default function WorkPage() {
       <div className="work-group-head" data-motion="rise"><p className="eyebrow">Built around the action</p><h2>The right website depends <em>on what needs to happen next.</em></h2></div>
       <div className="journey-grid">{customerJourneys.map(([title, Icon]) => <div key={title} data-motion="rise"><i aria-hidden="true"><Icon /></i><h3>{title}</h3></div>)}</div>
     </div></section>
-
-    <CTASection title="Not sure what your website needs?" body="Start with a focused review of your website, visibility and customer journey." />
   </main>;
 }

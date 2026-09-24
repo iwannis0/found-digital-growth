@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowUpRight, ChartNoAxesColumnIncreasing, Gem, MessageSquareText, Rocket, TrendingUp, Wrench } from "lucide-react";
-import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
 
 export const metadata: Metadata = {
@@ -69,6 +68,5 @@ export default function AboutPage() {
       <article data-motion="rise"><span>02</span><i className="value-icon" aria-hidden="true"><Gem /></i><h3>Care in the details</h3><p>Thoughtful design and a website that works as well as it looks.</p></article>
       <article data-motion="rise"><span>03</span><i className="value-icon" aria-hidden="true"><TrendingUp /></i><h3>Progress with purpose</h3><p>Decisions guided by what the business and its customers need.</p></article>
     </div></div></section>
-    <CTASection />
   </main>;
 }

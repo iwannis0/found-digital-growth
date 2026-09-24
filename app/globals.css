@@ -1736,29 +1736,3 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .cta-actions .button { flex: 1 1 100%; justify-content: center; }
 }
 
-/* Light closing strip for pages that do not need the full panel. */
-.cta-strip { padding: 80px 0; background: var(--paper); color: var(--ink); }
-.cta-strip-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-.cta-strip .eyebrow { margin: 0 0 12px; color: var(--acid); }
-.cta-strip h2 { margin: 0; font-size: clamp(1.9rem, 3vw, 2.8rem); font-weight: 500; letter-spacing: -.055em; line-height: 1; }
-.cta-strip-inner p:not(.eyebrow) { max-width: 520px; margin: 12px 0 0; color: var(--ink-soft); line-height: 1.6; }
-.cta-strip-inner .button { flex: 0 0 auto; }
-@media (max-width: 760px) {
-  .cta-strip { padding: 56px 0; }
-  .cta-strip-inner { align-items: stretch; flex-direction: column; gap: 24px; }
-  .cta-strip-inner .button { justify-content: center; }
-}
-
-/* Services closing panel: indigo, with numbered next steps. */
-.cta-panel-steps { background: var(--acid); }
-.cta-panel-steps::before { background: radial-gradient(55% 90% at 100% 0%, #ffffff26, transparent 70%), radial-gradient(60% 80% at 0% 100%, #0b0b0a40, transparent 70%); }
-.cta-panel-steps .cta-copy .eyebrow { color: #ffffffb3; }
-.cta-panel-steps .cta-copy > p:not(.eyebrow) { color: #e4e2ff; }
-.cta-panel-steps .button-accent { background: var(--white); color: var(--ink); }
-.cta-panel-steps .button-accent:hover { background: var(--paper); }
-.cta-steps { display: grid; margin: 0; padding: 0; list-style: none; }
-.cta-steps li { display: flex; gap: 18px; border-top: 1px solid #ffffff33; padding: 18px 0; }
-.cta-steps li:last-child { border-bottom: 1px solid #ffffff33; }
-.cta-steps span { flex: 0 0 auto; color: #ffffff99; font-size: .8rem; font-weight: 700; letter-spacing: .08em; line-height: 1.6; }
-.cta-steps strong { display: block; font-size: 1.05rem; font-weight: 600; }
-.cta-steps small { display: block; margin-top: 4px; color: #e4e2ff; font-size: .88rem; line-height: 1.5; }

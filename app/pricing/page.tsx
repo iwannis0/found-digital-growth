@@ -4,7 +4,6 @@ import { Pricing } from "@/components/blocks/pricing";
 import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
 import { PageMotion } from "@/components/page-motion";
-import { CTASection } from "@/components/cta-section";
 
 export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Transparent website packages for Cyprus local businesses, from €550 setup.", alternates: { canonical: "/pricing" } };
 
@@ -30,6 +29,5 @@ export default function PricingPage() {
     <section className="maintenance-policy"><div className="site-container policy-grid"><div data-motion="rise"><p className="eyebrow">Website Care policy</p><h2>Small updates, handled.</h2><p>Website Care is available after launch for businesses that want ongoing hosting, backups, monitoring, technical support and minor content updates.</p></div><div className="policy-item" data-motion="rise"><i aria-hidden="true"><PencilLine /></i><h3>Included minor updates</h3><p>Included minor updates can cover text changes, image replacements, contact details, opening hours and small content adjustments.</p></div><div className="policy-item" data-motion="rise"><i aria-hidden="true"><Receipt /></i><h3>Quoted separately</h3><p>New pages, custom functionality, integrations, redesign work, large content uploads and other work outside the agreed package are quoted separately.</p></div><div className="policy-note" data-motion="rise"><i aria-hidden="true"><CalendarClock /></i><div><p>Unused maintenance time does not roll over.</p><p>Website Care has an initial 3-month minimum term. After that, it continues month-to-month and can be cancelled with 30 days’ notice.</p></div></div></div></section>
     <section className="addons-section section-pad"><div className="site-container"><div data-motion="rise"><p className="eyebrow">Optional growth services</p><h2>Build around what the business actually needs.</h2></div><div className="addons-list">{addons.map(([name, price]) => <div key={name} data-motion="rise"><span>{name}</span><strong>{price}</strong></div>)}</div></div></section>
     <section className="pricing-faq section-pad"><div className="site-container faq-grid"><div data-motion="rise"><p className="eyebrow">Questions before you choose</p><h2>What business owners usually want to know.</h2></div><FAQList limit={8} /></div></section>
-    <CTASection eyebrow="Not sure which plan fits?" title="Let the audit make it clearer." body="We will review the current position and recommend the most sensible starting point." />
   </main>;
 }

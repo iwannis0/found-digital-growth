@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
-import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
 import { ServiceProgress } from "@/components/service-progress";
 import { PageTracker } from "@/components/analytics";
@@ -174,7 +173,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       {detail && <section id="service-detail" className="service-detail-section section-pad"><div className="site-container"><div className="service-detail-intro" data-motion="rise"><p className="eyebrow">{detail.eyebrow}</p><h2>{detail.title}</h2><p>{detail.intro}</p></div><div className="service-detail-grid">{detail.items.map((item, index) => <article data-motion="rise" key={item.label}><span>0{index + 1}</span><h3>{item.label}</h3><p>{item.body}</p></article>)}</div></div></section>}
       <section id="service-outcome" className="result-section"><div className="site-container" data-motion="rise"><p className="eyebrow">The outcome</p><blockquote>{service.result}</blockquote></div></section>
       <section id="service-approach" className="service-note"><div className="site-container">{approach.map((step, index) => <div data-motion="rise" key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><h2>{step.title}</h2><p>{step.body}</p></div>)}</div></section>
-      {custom && <CTASection title="Need a practical workflow?" label="Discuss a custom capability" href="/contact?service=Lead+%26+Booking+Automation" />}
     </main>
   );
 }
