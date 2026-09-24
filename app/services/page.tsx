@@ -52,7 +52,7 @@ export default function ServicesPage() {
         </Link>
       </div></section>
       <section className="custom-capabilities section-pad"><div className="site-container"><p className="eyebrow">Custom capabilities</p><h2 data-motion="rise">More when the project needs it.</h2><p className="custom-capabilities-intro" data-motion="rise">Some projects need extra functionality. We add the right systems, integrations and workflows around the core website when they genuinely help the business.</p><div className="custom-capability-list">{[{ slug: "e-commerce", title: "E-commerce" }, { slug: "booking-systems", title: "Booking systems" }, { slug: "crm-integrations", title: "CRM integrations" }, { slug: "newsletter-integrations", title: "Newsletter integrations" }, { slug: "multilingual", title: "Multilingual websites" }, { slug: "custom-functionality", title: "Custom functionality" }].map((capability, index) => <div data-motion="rise" key={capability.slug}><span>0{index + 1}</span><strong>{capability.title}</strong><small>{capabilityDescriptions[capability.slug]}</small></div>)}</div></div></section>
-      <CTASection />
+      <CTASection variant="panel" eyebrow="Where to start" title="Not sure which service comes first?" body="The audit shows which change will make the biggest difference right now." steps={[["Share your website", "Send the link and a few words about the business."], ["We review it properly", "Design, speed, search and the customer journey."], ["Get a written plan", "Clear priorities, in the order that matters."]]} />
     </main>
   );
 }

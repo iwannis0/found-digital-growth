@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ChartNoAxesColumnIncreasing, Gem, MessageSquareText, Rocket, TrendingUp, Wrench } from "lucide-react";
+import { ArrowUpRight, ChartNoAxesColumnIncreasing, Gem, MessageSquareText, Rocket, TrendingUp, Wrench } from "lucide-react";
 import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
 
@@ -70,7 +69,6 @@ export default function AboutPage() {
       <article data-motion="rise"><span>02</span><i className="value-icon" aria-hidden="true"><Gem /></i><h3>Care in the details</h3><p>Thoughtful design and a website that works as well as it looks.</p></article>
       <article data-motion="rise"><span>03</span><i className="value-icon" aria-hidden="true"><TrendingUp /></i><h3>Progress with purpose</h3><p>Decisions guided by what the business and its customers need.</p></article>
     </div></div></section>
-    <section className="audience-section section-pad"><div className="site-container"><p className="eyebrow" data-motion="rise">Built for local ambition</p><h2 data-motion="rise">From retail and local services to property, hospitality and professional expertise.</h2><p data-motion="rise">We work across industries with businesses that value credibility, want a clearer customer journey and are ready to treat digital presence as an ongoing business function.</p><Link className="text-link" href="/services">Explore our services<ArrowRight /></Link></div></section>
     <CTASection />
   </main>;
 }

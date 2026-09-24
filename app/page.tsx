@@ -119,7 +119,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <CTASection title="Your digital presence can do more." body="Tell us where the business is today. We will show you the clearest next step." />
+      <CTASection variant="panel" title="Your digital presence can do more." body="Tell us where the business is today. We will show you the clearest next step." />
     </main>
   );
 }
