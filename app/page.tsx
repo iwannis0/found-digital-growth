@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ProjectCover } from "@/components/project-cover";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, History, MousePointerClick, SearchX, Sparkles } from "lucide-react";
 import { BeforeAfter } from "@/components/before-after";
 import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
@@ -49,11 +49,11 @@ export default function HomePage() {
         <div className="site-container">
           <SectionHeading className="motion-reveal" eyebrow="The hidden cost" title="Is your online presence costing you customers?" body="A weak or outdated digital presence doesn’t just look bad. It creates doubt, loses visibility and makes the next step harder." />
           <div className="problem-grid">
-            {[
-              ["01", "Looks outdated", "A poor first impression makes even an excellent business feel less credible than it really is."],
-              ["02", "Hard to find", "A beautiful website has little value when customers cannot discover it at the moment they need you."],
-              ["03", "Doesn't convert", "Visitors should immediately know how to call, message, book or make an enquiry."],
-            ].map(([number, title, body]) => <article key={number} className="problem-item" data-motion="rise"><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
+            {([
+              ["01", "Looks outdated", "A poor first impression makes even an excellent business feel less credible than it really is.", History],
+              ["02", "Hard to find", "A beautiful website has little value when customers cannot discover it at the moment they need you.", SearchX],
+              ["03", "Doesn't convert", "Visitors should immediately know how to call, message, book or make an enquiry.", MousePointerClick],
+            ] as const).map(([number, title, body, Icon]) => <article key={number} className="problem-item" data-motion="rise"><span>{number}</span><i className="problem-icon" aria-hidden="true"><Icon /></i><h3>{title}</h3><p>{body}</p></article>)}
           </div>
           <p className="fix-statement" data-motion="rise">We fix all three<span>.</span></p>
         </div>
