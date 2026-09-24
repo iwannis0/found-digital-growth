@@ -1,14 +1,14 @@
 import type { NextConfig } from "next";
+import { withBotId } from "botid/next/config";
 
 const devEval = process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : "";
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${devEval} https://www.googletagmanager.com https://challenges.cloudflare.com`,
+  `script-src 'self' 'unsafe-inline'${devEval} https://www.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.google-analytics.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://challenges.cloudflare.com",
-  "frame-src https://challenges.cloudflare.com",
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -31,4 +31,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBotId(nextConfig);

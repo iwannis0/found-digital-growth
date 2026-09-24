@@ -19,7 +19,6 @@ export const contactSchema = z.object({
   packageName: z.string().trim().max(80).optional().default(""),
   message: z.string().trim().min(10, "Tell us a little more about the project").max(3000),
   companyWebsite: z.string().max(0).optional().default(""),
-  turnstileToken: z.string().optional().default(""),
   ...attribution,
 });
 
@@ -37,7 +36,6 @@ export const auditSchema = z.object({
   message: z.string().trim().max(3000).optional().default(""),
   consent: z.literal(true, { errorMap: () => ({ message: "Consent is required" }) }),
   companyWebsite: z.string().max(0).optional().default(""),
-  turnstileToken: z.string().optional().default(""),
   ...attribution,
 });
 

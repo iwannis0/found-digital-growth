@@ -6,7 +6,9 @@ import { BeforeAfter } from "@/components/before-after";
 import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
 import { SectionHeading } from "@/components/section-heading";
-import { processSteps, projects, services } from "@/lib/content";
+import { deployedProjects, processSteps, projects, services } from "@/lib/content";
+
+const featuredConcepts = projects.filter((project) => project.slug === "aura-dental" || project.slug === "nova-estates");
 
 export default function HomePage() {
   return (
@@ -78,15 +80,24 @@ export default function HomePage() {
 
       <section className="work-section section-pad">
         <div className="site-container">
-          <div className="section-topline"><SectionHeading className="motion-reveal" eyebrow="Selected directions" title="Built to look better. Designed to perform better." body="Four internal concepts, each built around a different customer journey. FOUND. adapts the experience to the business, from appointments and property enquiries to e-commerce and local services." /><Link className="text-link" href="/work">See all concept work <ArrowUpRight /></Link></div>
+          <div className="section-topline"><SectionHeading className="motion-reveal" eyebrow="Selected work" title="Built to look better. Designed to perform better." body="Two live builds and two concept projects, each shaped around a different customer journey, from e-commerce and retail loyalty to appointments and property enquiries." /><Link className="text-link" href="/work">See all work <ArrowUpRight /></Link></div>
           <div className="project-grid">
-            {projects.map((project, index) => (
+            {deployedProjects.map((project, index) => (
+              <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-card project-live" key={project.slug} data-motion="rise">
+                <div className="project-image-wrap" data-motion-parallax>
+                  <Image src={project.image} alt={`${project.name} live website`} fill sizes="(max-width: 900px) 100vw, 50vw" className="project-image project-image-live" />
+                  <span className="concept-badge live-badge">Live site ↗</span>
+                </div>
+                <div className="project-meta"><div><span>{project.industry}</span><h3>{project.name}</h3></div><span className="project-index">0{index + 1}</span></div>
+              </a>
+            ))}
+            {featuredConcepts.map((project, index) => (
               <Link href={`/work/${project.slug}`} className={`project-card project-${project.tone}`} key={project.slug} data-motion="rise">
                 <div className="project-image-wrap" data-motion-parallax>
                   <Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 900px) 100vw, 50vw" className="project-image" />
                   <ProjectCover slug={project.slug} fallback={<span className="concept-badge">Concept Project</span>} />
                 </div>
-                <div className="project-meta"><div><span>{project.industry}</span><h3>{project.name}</h3></div><span className="project-index">0{index + 1}</span></div>
+                <div className="project-meta"><div><span>{project.industry}</span><h3>{project.name}</h3></div><span className="project-index">0{deployedProjects.length + index + 1}</span></div>
               </Link>
             ))}
           </div>

@@ -1,7 +1,9 @@
+import { checkBotId } from "botid/server";
+
 const windows = new Map<string, { count: number; resetAt: number }>();
 
 export function clientIp(request: Request) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? request.headers.get("cf-connecting-ip") ?? "unknown";
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 }
 
 export function rateLimit(key: string, limit = 6, windowMs = 60_000) {
@@ -15,15 +17,21 @@ export function rateLimit(key: string, limit = 6, windowMs = 60_000) {
   return { allowed: current.count <= limit, retryAfter: Math.max(1, Math.ceil((current.resetAt - now) / 1000)) };
 }
 
-export async function verifyTurnstile(token: string, ip: string) {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true;
-  if (!token) return false;
-  const body = new URLSearchParams({ secret, response: token, remoteip: ip });
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
-  if (!response.ok) return false;
-  const result = await response.json() as { success?: boolean };
-  return result.success === true;
+// BotID can only classify traffic on Vercel (it needs the platform's OIDC token), so
+// skip it elsewhere. If the check itself fails, let the lead through: the honeypot and
+// rate limit still apply, and a lost enquiry costs more than a stray spam submission.
+export async function isLikelyBot() {
+  if (process.env.VERCEL !== "1") return false;
+  try {
+    return (await checkBotId()).isBot;
+  } catch (error) {
+    console.error("BotID check failed, allowing request", error instanceof Error ? error.message : error);
+    return false;
+  }
+}
+
+export function botRejectedResponse() {
+  return Response.json({ ok: false, error: "verification_failed", message: "We could not verify this request. Please refresh the page and try again." }, { status: 403 });
 }
 
 export function safeHtml(value: unknown) {

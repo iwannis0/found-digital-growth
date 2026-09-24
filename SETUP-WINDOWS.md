@@ -81,7 +81,7 @@ to untrusted users while the local shortcut is enabled.
 ## Environment settings
 
 Edit `.env.local` to change the contact details or connect optional services.
-The website works locally without Resend, Turnstile, GA4 or a CRM webhook.
+The website works locally without Resend, GA4 or a CRM webhook.
 
 ## Useful commands
 

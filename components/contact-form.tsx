@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Turnstile } from "@/components/turnstile";
 import { getAttribution } from "@/lib/client-attribution";
 import { trackEvent } from "@/components/analytics";
 
@@ -19,7 +18,7 @@ export function ContactForm({ initialPackage = "", initialService = "" }: { init
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setStatus("loading"); setFields({}); setMessage("");
     const form = event.currentTarget; const data = new FormData(form);
-    const payload = { name: data.get("name"), businessName: data.get("businessName"), email: data.get("email"), phone: data.get("phone"), website: data.get("website"), service, packageName, message: data.get("message"), companyWebsite: data.get("companyWebsite"), turnstileToken: data.get("cf-turnstile-response") ?? "", ...getAttribution() };
+    const payload = { name: data.get("name"), businessName: data.get("businessName"), email: data.get("email"), phone: data.get("phone"), website: data.get("website"), service, packageName, message: data.get("message"), companyWebsite: data.get("companyWebsite"), ...getAttribution() };
     try {
       const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }); const result = await response.json() as { message?: string; fields?: Record<string, string[]> };
       if (!response.ok) { setFields(result.fields ?? {}); throw new Error(result.message ?? "We could not send your enquiry."); }
@@ -40,7 +39,6 @@ export function ContactForm({ initialPackage = "", initialService = "" }: { init
     </div>
     <div className="form-field"><Label htmlFor="message">Message *</Label><Textarea id="message" name="message" rows={7} required aria-invalid={Boolean(fields.message)} /><FieldError value={fields.message?.[0]} /></div>
     <div className="honeypot" aria-hidden="true"><label>Company website<input name="companyWebsite" tabIndex={-1} autoComplete="off" /></label></div>
-    <Turnstile />
     {status === "error" && <p className="form-error-banner" role="alert">{message}</p>}
     <button className="button button-accent button-large form-submit" type="submit" disabled={status === "loading"}>{status === "loading" ? "Sending..." : <>Send Enquiry <ArrowRight /></>}</button>
   </form>;

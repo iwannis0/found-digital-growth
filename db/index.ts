@@ -16,7 +16,14 @@ export function getDb() {
 
   const client =
     globalThis.__dbClient ??
-    (globalThis.__dbClient = postgres(connectionString, { prepare: false }));
+    (globalThis.__dbClient = postgres(connectionString, {
+      // Transaction pooler: no prepared statements; release idle sockets so serverless
+      // instances don't hold pool slots between requests.
+      prepare: false,
+      max: 5,
+      idle_timeout: 20,
+      connect_timeout: 15,
+    }));
 
   return drizzle(client, { schema });
 }

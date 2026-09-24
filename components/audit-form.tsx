@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Turnstile } from "@/components/turnstile";
 import { getAttribution } from "@/lib/client-attribution";
 import { trackEvent } from "@/components/analytics";
 
@@ -16,7 +15,7 @@ export function AuditForm() {
   const [goal, setGoal] = useState(""); const [budget, setBudget] = useState(""); const [consent, setConsent] = useState(false); const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle"); const [message, setMessage] = useState(""); const [fields, setFields] = useState<Record<string, string[]>>({});
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setStatus("loading"); setMessage(""); setFields({}); const form = event.currentTarget; const data = new FormData(form);
-    const payload = { name: data.get("name"), businessName: data.get("businessName"), email: data.get("email"), phone: data.get("phone"), website: data.get("website"), industry: data.get("industry"), city: data.get("city"), goal, problem: data.get("problem"), budget, message: data.get("message"), consent, companyWebsite: data.get("companyWebsite"), turnstileToken: data.get("cf-turnstile-response") ?? "", ...getAttribution() };
+    const payload = { name: data.get("name"), businessName: data.get("businessName"), email: data.get("email"), phone: data.get("phone"), website: data.get("website"), industry: data.get("industry"), city: data.get("city"), goal, problem: data.get("problem"), budget, message: data.get("message"), consent, companyWebsite: data.get("companyWebsite"), ...getAttribution() };
     try { const response = await fetch("/api/audit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }); const result = await response.json() as { message?: string; fields?: Record<string, string[]> }; if (!response.ok) { setFields(result.fields ?? {}); throw new Error(result.message ?? "We could not submit your request."); } form.reset(); setGoal(""); setBudget(""); setConsent(false); setStatus("success"); trackEvent("audit_submit"); } catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "Please try again."); }
   }
   if (status === "success") return <div className="form-success" role="status"><CheckCircle2 /><p className="eyebrow">Audit request saved</p><h2>Your audit request is in.</h2><p>We usually send the practical written review by email within two working days.</p><button className="text-link" onClick={() => setStatus("idle")}>Submit another website</button></div>;
@@ -30,7 +29,7 @@ export function AuditForm() {
     <div className="form-field"><Label htmlFor="problem">Current Problem</Label><Textarea id="problem" name="problem" rows={5} aria-invalid={Boolean(fields.problem)} /><FieldError value={fields.problem?.[0]} /></div>
     <div className="form-field"><Label htmlFor="audit-message">Anything else we should know?</Label><Textarea id="audit-message" name="message" rows={5} /></div>
     <div className="consent-field"><input id="consent" name="consent" type="checkbox" className="consent-checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required aria-invalid={Boolean(fields.consent)} /><Label htmlFor="consent">I agree that FOUND. may use these details to review my request and contact me.</Label></div><FieldError value={fields.consent?.[0]} />
-    <div className="honeypot" aria-hidden="true"><label>Company website<input name="companyWebsite" tabIndex={-1} autoComplete="off" /></label></div><Turnstile />
+    <div className="honeypot" aria-hidden="true"><label>Company website<input name="companyWebsite" tabIndex={-1} autoComplete="off" /></label></div>
     {status === "error" && <p className="form-error-banner" role="alert">{message}</p>}
     <button className="button button-accent button-large form-submit" type="submit" disabled={status === "loading"}>{status === "loading" ? "Submitting..." : <>Get My Free Audit <ArrowRight /></>}</button>
   </form>;

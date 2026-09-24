@@ -11,7 +11,10 @@ if (password.length < 12) {
 const iterations = 210_000;
 const salt = randomBytes(16).toString("base64url");
 const hash = pbkdf2Sync(password, salt, iterations, 32, "sha256").toString("base64url");
-console.log(`pbkdf2$${iterations}$${salt}$${hash}`);
+const value = `pbkdf2$${iterations}$${salt}$${hash}`;
+console.log(`Vercel / hosting dashboard:\n${value}`);
+// Next.js expands $NAME inside .env files, so each $ must be escaped there.
+console.log(`.env.local:\n${value.replaceAll("$", "\\$")}`);
 
 function readPassword(prompt) {
   output.write(prompt);

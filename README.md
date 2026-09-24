@@ -9,7 +9,7 @@ Production website and lead-management application for FOUND., a Cyprus-based lo
 - Supabase Postgres with Drizzle ORM and versioned migrations
 - Zod validation on every public and admin write route
 - Resend REST API for notification and confirmation email
-- Cloudflare Turnstile, honeypot and server-side rate limiting
+- Vercel BotID, honeypot and server-side rate limiting
 - ChatGPT sign-in for protected admin routes
 - Google Analytics 4 after explicit analytics consent
 
@@ -48,7 +48,6 @@ Public settings use `NEXT_PUBLIC_` only when the browser needs them. Secrets sta
 - `NEXT_PUBLIC_SITE_URL`: canonical production origin
 - `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_CONTACT_PHONE`, `NEXT_PUBLIC_WHATSAPP_NUMBER`: central contact details
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID`: GA4 measurement ID
-- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile
 - `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO`: Resend email delivery. `EMAIL_TO` accepts a comma-separated list of team recipients for every new Contact or Free Audit submission; the person submitting the form also receives an automatic confirmation.
 - `LEAD_WEBHOOK_URL`: optional n8n, Make, Zapier, HubSpot or custom CRM endpoint
 - `ADMIN_EMAILS`: comma-separated ChatGPT account emails allowed into `/admin`
@@ -68,7 +67,7 @@ The admin area uses ChatGPT sign-in and a server-side email allowlist. It includ
 
 Create and verify a sending domain in Resend, then configure `RESEND_API_KEY`, `EMAIL_FROM` and `EMAIL_TO`. Add every internal recipient to `EMAIL_TO`, separated by commas. A successful public submission is written to Postgres first. Email or webhook failure is isolated so a saved enquiry is not lost.
 
-Create a Turnstile widget for the production hostname and configure both keys. Without keys, verification is intentionally bypassed for local development. The hidden honeypot and rate limiter remain active.
+Public form endpoints are protected by Vercel BotID, which runs invisibly and needs no keys. It only classifies traffic on Vercel deployments; locally every request is treated as human. The hidden honeypot and rate limiter remain active.
 
 ## Analytics and consent
 
@@ -80,11 +79,10 @@ GA4 loads only after the visitor accepts analytics. The central event utility su
 2. Set the final canonical domain.
 3. Configure `ADMIN_EMAILS`.
 4. Verify the Resend sending domain.
-5. Create production Turnstile keys.
-6. Add the GA4 measurement ID if analytics is required.
-7. Add an optional CRM webhook.
-8. Have the Privacy Policy, Terms and client agreement reviewed by a Cyprus-qualified legal professional.
-9. Confirm real social URLs before setting them.
-10. Test a contact enquiry, audit request, confirmation email, admin update and CSV export after launch.
+5. Add the GA4 measurement ID if analytics is required.
+6. Add an optional CRM webhook.
+7. Have the Privacy Policy, Terms and client agreement reviewed by a Cyprus-qualified legal professional.
+8. Confirm real social URLs before setting them.
+9. Test a contact enquiry, audit request, confirmation email, admin update and CSV export after launch.
 
 The three portfolio items are intentionally labelled Concept Project and do not claim paid client work, testimonials, results or commercial relationships.

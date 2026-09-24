@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Pricing } from "@/components/blocks/pricing";
 import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
 import { PageMotion } from "@/components/page-motion";
@@ -18,13 +19,7 @@ const addons = [["Extra language setup", "€150 to €300+"], ["Advanced bookin
 export default function PricingPage() {
   return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />
     <section className="page-hero pricing-hero"><div className="site-container"><p className="eyebrow">Transparent pricing</p><h1>Start with the right foundation<span>.</span></h1><p>Clear setup costs, practical ongoing care and room to add more as the business grows.</p><div className="payment-note"><strong>50%</strong><span>deposit to begin</span><strong>50%</strong><span>before launch</span></div></div></section>
-    <section className="pricing-section section-pad"><div className="site-container"><p className="pricing-scope-note">Prices are starting points. Final scope, content, integrations and timeline are agreed before work begins.</p><div className="pricing-grid">
-      {plans.map((plan) => <article className={`pricing-card ${plan.popular ? "pricing-popular" : ""}`} data-motion="fade" key={plan.name}>
-        {plan.popular && <span className="popular-badge">Most Popular</span>}<p className="plan-name">{plan.name}</p><div className="price-line"><strong>{plan.setup}</strong><span>setup</span></div><div className="monthly-line"><strong>{plan.monthly}</strong><span>/ month</span></div><small className="care-label">Optional Website Care after launch</small><p className="plan-best">{plan.best}</p>
-        <ul>{plan.items.map((item) => <li key={item}><Check />{item}</li>)}<li><Check />Up to {plan.minutes} minor updates/month</li></ul>
-        <Link className={`button button-large ${plan.popular ? "button-accent" : "button-dark"}`} href={`/contact?package=${plan.name}`} data-track="pricing_cta_click" data-track-label={plan.name}>Choose this package<ArrowRight /></Link>
-      </article>)}
-    </div></div></section>
+    <section className="pricing-section section-pad"><div className="site-container"><p className="pricing-scope-note">Prices are starting points. Final scope, content, integrations and timeline are agreed before work begins.</p><Pricing plans={plans} /></div></section>
     <section className="maintenance-policy"><div className="site-container policy-grid"><div><p className="eyebrow">Website Care policy</p><h2>Small updates, handled.</h2><p>Website Care is available after launch for businesses that want ongoing hosting, backups, monitoring, technical support and minor content updates.</p></div><div className="policy-item"><h3>Included minor updates</h3><p>Included minor updates can cover text changes, image replacements, contact details, opening hours and small content adjustments.</p></div><div className="policy-item"><h3>Quoted separately</h3><p>New pages, custom functionality, integrations, redesign work, large content uploads and other work outside the agreed package are quoted separately.</p></div><div className="policy-note"><p>Unused maintenance time does not roll over.</p><p>Website Care has an initial 3-month minimum term. After that, it continues month-to-month and can be cancelled with 30 days’ notice.</p></div></div></section>
     <section className="addons-section section-pad"><div className="site-container"><p className="eyebrow">Optional growth services</p><h2>Build around what the business actually needs.</h2><div className="addons-list">{addons.map(([name, price]) => <div key={name}><span>{name}</span><strong>{price}</strong></div>)}</div></div></section>
     <section className="pricing-faq section-pad"><div className="site-container faq-grid"><div><p className="eyebrow">Questions before you choose</p><h2>What business owners usually want to know.</h2></div><FAQList limit={8} /></div></section>

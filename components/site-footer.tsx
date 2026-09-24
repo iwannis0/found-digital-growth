@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, LockKeyhole, Mail, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 const columns = [
@@ -55,7 +55,10 @@ export function SiteFooter() {
       </div>
       <div className="site-container footer-bottom">
         <p>© {new Date().getFullYear()} FOUND. Cyprus.</p>
-        <p>Websites are only the beginning.</p>
+        <div className="footer-bottom-end">
+          <p>Websites are only the beginning.</p>
+          <Link href="/admin" className="footer-admin-link" rel="nofollow"><LockKeyhole aria-hidden="true" />Admin login</Link>
+        </div>
       </div>
     </footer>
   );
