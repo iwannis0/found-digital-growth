@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, CalendarClock, PencilLine, Receipt } from "lucide-react";
+import { CalendarClock, PencilLine, Receipt } from "lucide-react";
 import { Pricing } from "@/components/blocks/pricing";
 import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
 import { PageMotion } from "@/components/page-motion";
+import { CTASection } from "@/components/cta-section";
 
 export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Transparent website packages for Cyprus local businesses, from €550 setup.", alternates: { canonical: "/pricing" } };
 
@@ -14,7 +14,7 @@ const plans = [
   { name: "Advanced Digital Presence", short: "Advanced", setup: "€1,350", monthly: "€119", best: "Businesses that need a larger and more advanced digital presence with additional functionality, stronger conversion structure and priority care.", minutes: "60 minutes", popular: false, items: ["8 to 12 pages", "3 design revision rounds", "Tailored design direction", "Advanced conversion-focused structure", "Refined interactions", "Advanced animations", "Multilingual-ready architecture", "CMS / blog", "Booking integration", "Enhanced Local SEO foundations", "Analytics & conversion tracking setup", "Priority support", "Managed hosting, SSL, backups & monitoring", "Post-launch technical health checks"] },
 ] as const;
 
-const addons = [["Extra language setup", "€150 to €300+"], ["Advanced booking", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO", "Quote"], ["Google Business ongoing optimisation", "Quote"], ["Google Ads / Paid Acquisition", "Quote"], ["Lead & Booking Automation", "Quote"], ["AI Chatbots & Automation", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Advanced Analytics & Reporting", "Quote"], ["Content & Digital Presence", "Quote"], ["Professional photography", "Quote"], ["Videography", "Quote"], ["Advanced copywriting", "Quote"]] as const;
+const addons = [["Extra language setup", "€150 to €300+"], ["Advanced booking", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO", "Quote"], ["Google Business ongoing optimisation", "Quote"], ["Google Ads / Paid Acquisition", "Quote"], ["Lead & Booking Automation", "Quote"], ["AI Chatbots & Automation", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Advanced Analytics & Reporting", "Quote"], ["Content & Digital Presence", "Quote"], ["Professional photography", "Quote"], ["Videography", "Quote"], ["Advanced copywriting", "Quote"], ["Website migration", "Quote"]] as const;
 
 export default function PricingPage() {
   return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />
@@ -30,6 +30,6 @@ export default function PricingPage() {
     <section className="maintenance-policy"><div className="site-container policy-grid"><div data-motion="rise"><p className="eyebrow">Website Care policy</p><h2>Small updates, handled.</h2><p>Website Care is available after launch for businesses that want ongoing hosting, backups, monitoring, technical support and minor content updates.</p></div><div className="policy-item" data-motion="rise"><i aria-hidden="true"><PencilLine /></i><h3>Included minor updates</h3><p>Included minor updates can cover text changes, image replacements, contact details, opening hours and small content adjustments.</p></div><div className="policy-item" data-motion="rise"><i aria-hidden="true"><Receipt /></i><h3>Quoted separately</h3><p>New pages, custom functionality, integrations, redesign work, large content uploads and other work outside the agreed package are quoted separately.</p></div><div className="policy-note" data-motion="rise"><i aria-hidden="true"><CalendarClock /></i><div><p>Unused maintenance time does not roll over.</p><p>Website Care has an initial 3-month minimum term. After that, it continues month-to-month and can be cancelled with 30 days’ notice.</p></div></div></div></section>
     <section className="addons-section section-pad"><div className="site-container"><div data-motion="rise"><p className="eyebrow">Optional growth services</p><h2>Build around what the business actually needs.</h2></div><div className="addons-list">{addons.map(([name, price]) => <div key={name} data-motion="rise"><span>{name}</span><strong>{price}</strong></div>)}</div></div></section>
     <section className="pricing-faq section-pad"><div className="site-container faq-grid"><div data-motion="rise"><p className="eyebrow">Questions before you choose</p><h2>What business owners usually want to know.</h2></div><FAQList limit={8} /></div></section>
-    <section className="cta-section"><div className="site-container cta-inner" data-motion="rise"><div><p className="eyebrow">Not sure which plan fits?</p><h2>Let the audit make it clearer.</h2><p>We will review the current position and recommend the most sensible starting point.</p></div><Link className="button button-dark button-large" href="/free-audit">Get a Free Website Audit<ArrowRight /></Link></div></section>
+    <CTASection eyebrow="Not sure which plan fits?" title="Let the audit make it clearer." body="We will review the current position and recommend the most sensible starting point." />
   </main>;
 }
