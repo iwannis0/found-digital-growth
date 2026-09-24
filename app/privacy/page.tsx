@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = { title: "Privacy Policy", robots: { index: true, follow: true }, alternates: { canonical: "/privacy" } };
 
-const privacyEmail = "found.growthcy@gmail.com";
+const privacyEmail = siteConfig.email;
 
 export default function PrivacyPage() {
   return <main>

@@ -47,7 +47,7 @@ export function CookieConsent() {
           </div>
           <div className="cookie-actions">
             <Button variant="ghost" onClick={() => { setAnalytics(hasAnalyticsConsent()); setManage(true); }}>Manage</Button>
-            <Button variant="outline" onClick={() => save("rejected")}>Reject</Button>
+            <Button variant="outline" className="cookie-reject" onClick={() => save("rejected")}>Reject</Button>
             <Button onClick={() => save("accepted")}>Accept</Button>
           </div>
         </aside>

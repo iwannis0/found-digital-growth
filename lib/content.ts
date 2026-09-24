@@ -207,16 +207,25 @@ export const projects = [
     concept: "A warm, appointment-led beauty experience that makes choosing a treatment feel calm and personal.",
     features: ["Service menu", "Appointment booking", "Team profiles", "Treatment gallery", "Reviews section", "WhatsApp", "Instagram integration", "Location and hours", "FAQ"],
   },
+] as const;
+
+/** Finished builds that are live in production. Cards link straight to the deployment. */
+export const deployedProjects = [
   {
-    slug: "ora-jewellery",
-    image: "/images/work/ora-jewellery-cover.webp",
-    name: "ORA Jewellery",
+    slug: "mavrikios-jewellery",
+    image: "/images/work/mavrikios-jewellery-cover.webp",
+    name: "Mavrikios Jewellery",
     industry: "Retail / E-commerce",
-    tone: "ora",
-    statement: "Wear the moment.",
-    problem: "Product-led retail loses desire when collections, craftsmanship and the path to purchase feel disconnected.",
-    concept: "A dark editorial jewellery store built around product storytelling, considered browsing and confident conversion.",
-    features: ["Collections", "Product detail", "E-commerce journey", "Editorial stories", "Product filters", "Size and care guidance", "Wishlist", "Secure checkout", "Delivery information"],
+    url: "https://mavrikios-jewellery.vercel.app/",
+    summary: "A premium jewellery boutique store with engagement guidance, bespoke commissions, wishlist and secure checkout.",
+  },
+  {
+    slug: "super-discount",
+    image: "/images/work/super-discount-cover.webp",
+    name: "Super Discount",
+    industry: "Retail / Loyalty Platform",
+    url: "https://superdiscount-platform.vercel.app/",
+    summary: "A clearance retail platform running four connected apps: public store, customer loyalty app, admin dashboard and cashier till.",
   },
 ] as const;
 

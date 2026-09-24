@@ -8,9 +8,9 @@ const [pricing, faqs] = await Promise.all([
 ]);
 
 test("pricing packages show their included design revision rounds", () => {
-  assert.match(pricing, /Starter[\s\S]*"1 design revision round"/);
-  assert.match(pricing, /Growth[\s\S]*"2 design revision rounds"/);
-  assert.match(pricing, /Premium[\s\S]*"3 design revision rounds"/);
+  assert.match(pricing, /Professional Website Foundation[\s\S]*"1 design revision round"/);
+  assert.match(pricing, /Custom Growth Website[\s\S]*"2 design revision rounds"/);
+  assert.match(pricing, /Advanced Digital Presence[\s\S]*"3 design revision rounds"/);
 });
 
 test("Website Care policy defines optional care, scope and cancellation terms", () => {

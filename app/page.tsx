@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { AuraCover } from "@/components/aura-cover";
-import { NovaCover } from "@/components/nova-cover";
+import { ProjectCover } from "@/components/project-cover";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { BeforeAfter } from "@/components/before-after";
@@ -79,13 +78,13 @@ export default function HomePage() {
 
       <section className="work-section section-pad">
         <div className="site-container">
-          <div className="section-topline"><SectionHeading className="motion-reveal" eyebrow="Selected directions" title="Built to look better. Designed to perform better." body="Five internal concepts, each built around a different customer journey. FOUND. adapts the experience to the business, from appointments and property enquiries to e-commerce and local services." /><Link className="text-link" href="/work">See all concept work <ArrowUpRight /></Link></div>
+          <div className="section-topline"><SectionHeading className="motion-reveal" eyebrow="Selected directions" title="Built to look better. Designed to perform better." body="Four internal concepts, each built around a different customer journey. FOUND. adapts the experience to the business, from appointments and property enquiries to e-commerce and local services." /><Link className="text-link" href="/work">See all concept work <ArrowUpRight /></Link></div>
           <div className="project-grid">
             {projects.map((project, index) => (
               <Link href={`/work/${project.slug}`} className={`project-card project-${project.tone}`} key={project.slug} data-motion="rise">
                 <div className="project-image-wrap" data-motion-parallax>
                   <Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 900px) 100vw, 50vw" className="project-image" />
-                  {project.slug === "aura-dental" ? <AuraCover /> : project.slug === "nova-estates" ? <NovaCover /> : <span className="concept-badge">Concept Project</span>}
+                  <ProjectCover slug={project.slug} fallback={<span className="concept-badge">Concept Project</span>} />
                 </div>
                 <div className="project-meta"><div><span>{project.industry}</span><h3>{project.name}</h3></div><span className="project-index">0{index + 1}</span></div>
               </Link>

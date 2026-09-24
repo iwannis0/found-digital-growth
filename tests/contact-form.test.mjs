@@ -21,13 +21,13 @@ test("contact form renders working native service and package dropdowns", async 
   const html = renderToStaticMarkup(React.createElement(ContactForm));
   assert.match(html, /<select[^>]*name="service"/);
   assert.match(html, /<select[^>]*name="package"/);
-  assert.match(html, /<option value="Growth">Growth<\/option>/);
+  assert.match(html, /<option value="Custom Growth Website">Custom Growth Website<\/option>/);
 });
 
 test("a valid package from Pricing is preselected", async () => {
   const { ContactForm } = await vite.ssrLoadModule("/components/contact-form.tsx");
-  const html = renderToStaticMarkup(React.createElement(ContactForm, { initialPackage: "Growth" }));
-  assert.match(html, /<option value="Growth" selected="">Growth<\/option>/);
+  const html = renderToStaticMarkup(React.createElement(ContactForm, { initialPackage: "Custom Growth Website" }));
+  assert.match(html, /<option value="Custom Growth Website" selected="">Custom Growth Website<\/option>/);
 });
 
 test("a valid service link preselects the requested service", async () => {

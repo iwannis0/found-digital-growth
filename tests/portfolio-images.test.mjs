@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { access, readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
-const projects = ["aura-dental", "nova-estates", "form-developments", "vela-studio", "ora-jewellery"];
+// AURA and NOVA lead with a still from their own demo build; the rest use a dedicated work cover.
+const projects = ["form-developments", "vela-studio"];
 
 test("all portfolio projects use optimized WebP covers", async () => {
   const content = await readFile(new URL("../lib/content.ts", import.meta.url), "utf8");
@@ -17,6 +18,24 @@ test("all portfolio projects use optimized WebP covers", async () => {
     assert.ok((await stat(file)).size < 300_000, `${project} cover should remain below 300 KB`);
   }
   assert.doesNotMatch(content, /\/images\/work\/[a-z-]+-cover\.png/);
+});
+
+test("every project image referenced in content actually exists", async () => {
+  const content = await readFile(new URL("../lib/content.ts", import.meta.url), "utf8");
+  const referenced = [...content.matchAll(/image: ["'](\/images\/[^"']+)["']/g)].map(([, value]) => value);
+  assert.ok(referenced.length >= 6, "expected every concept and deployed project to declare a cover image");
+  for (const path of referenced) await access(new URL(`../public${path}`, import.meta.url));
+});
+
+test("deployed projects link straight to their live deployment", async () => {
+  const [content, work] = await Promise.all([
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/work/page.tsx", import.meta.url), "utf8"),
+  ]);
+  const urls = [...content.matchAll(/url: ["'](https:\/\/[^"']+)["']/g)].map(([, value]) => value);
+  assert.equal(urls.length, 2);
+  for (const url of urls) assert.match(url, /^https:\/\//);
+  assert.match(work, /target="_blank" rel="noopener noreferrer"/);
 });
 
 test("image rendering props and portfolio CSS remain unchanged", async () => {

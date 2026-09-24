@@ -22,7 +22,7 @@ test("Terms match the published pricing and ownership policies", () => {
   assert.match(terms, /Website Care is optional after launch/);
   assert.match(terms, /initial 3-month minimum term/);
   assert.match(terms, /cancelled with 30 days’ notice/);
-  assert.match(terms, /Starter includes 1 design revision round, Growth includes 2 design revision rounds, and Premium includes 3 design revision rounds/);
+  assert.match(terms, /Professional Website Foundation includes 1 design revision round, Custom Growth Website includes 2 design revision rounds, and Advanced Digital Presence includes 3 design revision rounds/);
   assert.match(terms, /client owns the final website content and agreed project deliverables/);
   assert.match(terms, /domain should be registered in the client’s name/);
   assert.match(terms, /VAT, where applicable, will be confirmed before work begins/);

@@ -18,10 +18,10 @@ after(async () => vite.close());
 
 test("schema and migration add a nullable performance_score column", async () => {
   const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
-  const migration = await readFile(new URL("../drizzle/0001_secret_ares.sql", import.meta.url), "utf8");
+  const migration = await readFile(new URL("../drizzle/0000_windy_bromley.sql", import.meta.url), "utf8");
   assert.match(schema, /performanceScore: integer\("performance_score"\)/);
-  assert.match(migration, /ALTER TABLE `audit_requests` ADD `performance_score` integer/);
-  assert.doesNotMatch(migration, /NOT NULL/);
+  assert.match(migration, /"performance_score" integer,/);
+  assert.doesNotMatch(migration, /"performance_score" integer NOT NULL/);
 });
 
 test("Performance accepts integers from 0 to 10 and rejects invalid values", async () => {
