@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { PageMotion } from "@/components/page-motion";
 import { ServiceProgress } from "@/components/service-progress";
 import { PageTracker } from "@/components/analytics";
@@ -131,6 +131,19 @@ const serviceApproaches: Record<string, ServiceApproach> = {
   ],
 };
 
+// The part of each headline set in the accent serif, as on the other lit heroes.
+const headlineAccents: Record<string, string> = {
+  "web-design": "and turn it into business.",
+  "local-seo": "are actively searching.",
+  "google-business": "work harder.",
+  "website-care": "fast, secure and up to date.",
+  analytics: "Actions are more useful.",
+  "conversion-design": "from interest to action.",
+  automation: "where they make sense.",
+};
+
+const serviceOrder = ["web-design", "conversion-design", "local-seo", "google-business", "analytics", "website-care"];
+
 const publicServices = [...services, ...customCapabilities];
 function getService(slug: string) {
   const canonicalSlug = legacyServiceAliases[slug as keyof typeof legacyServiceAliases] ?? slug;
@@ -151,28 +164,31 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
-  const Icon = service.icon;
   const custom = service.slug === "automation";
   const detail = serviceDetails[service.slug];
   const ctaLabel = custom ? "Discuss a custom capability" : serviceCtas[service.slug] ?? "Get a Free Website Audit";
   const approach = serviceApproaches[service.slug];
+  const accent = headlineAccents[service.slug];
+  const lead = accent && service.headline.endsWith(accent) ? service.headline.slice(0, -accent.length).trim() : service.headline;
+  const menu = [...serviceOrder, ...(custom ? [service.slug] : [])].map((item) => publicServices.find((entry) => entry.slug === item)!);
+  const position = menu.findIndex((item) => item.slug === service.slug) + 1;
   const structuredData = [
     { "@context": "https://schema.org", "@type": "Service", name: service.title, description: service.short, provider: { "@type": "Organization", name: "FOUND.", url: siteConfig.url }, areaServed: { "@type": "Country", name: "Cyprus" }, url: `${siteConfig.url}/services/${service.slug}` },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Services", item: `${siteConfig.url}/services` }, { "@type": "ListItem", position: 2, name: service.title, item: `${siteConfig.url}/services/${service.slug}` }] },
   ];
   return (
     <main className="motion-page service-motion-page"><PageMotion /><ServiceProgress /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} /><PageTracker event="service_view" label={service.title} />
-      <section id="service-overview" className="service-hero"><div className="site-container service-hero-grid">
-        <div><p className="eyebrow">{service.eyebrow}</p><h1>{service.headline}</h1><p>{service.intro}</p><Link className="button button-accent button-large" href={custom ? "/contact?service=Lead+%26+Booking+Automation" : "/free-audit"}>{ctaLabel}<ArrowRight /></Link></div>
-        <div className="service-symbol"><Icon aria-hidden="true" /><span>{service.title}</span></div>
+      <section id="service-overview" className="lit-hero service-lit-hero"><div className="site-container lit-hero-grid">
+        <div><p className="eyebrow">{service.eyebrow}</p><h1>{accent && lead !== service.headline ? <>{lead} <em>{accent}</em></> : service.headline}</h1><p className="lit-hero-lead">{service.intro}</p><Link className="button button-accent button-large" href={custom ? "/contact?service=Lead+%26+Booking+Automation" : "/free-audit"}>{ctaLabel}<ArrowRight /></Link></div>
+        <nav className="hero-panel service-hero-panel" aria-label="Our services"><p className="hero-panel-head"><span>Our services</span><span>0{position} / 0{menu.length}</span></p>{menu.map((item, index) => { const current = item.slug === service.slug; return <Link key={item.slug} href={`/services/${item.slug}`} className={current ? "hero-panel-row is-current" : "hero-panel-row"} aria-current={current ? "page" : undefined}><span>0{index + 1}</span><strong>{item.title}</strong><ArrowUpRight aria-hidden="true" /></Link>; })}</nav>
       </div></section>
       <section id="service-included" className="deliverables-section section-pad"><div className="site-container deliverables-grid">
         <div data-motion="rise"><p className="eyebrow">What is included</p><h2>A complete service, focused on the parts that create value.</h2></div>
         <div className="deliverable-list">{service.benefits.map((benefit) => <div data-motion="rise" key={benefit}><Check aria-hidden="true" /><span>{benefit}</span></div>)}</div>
       </div></section>
-      {detail && <section id="service-detail" className="service-detail-section section-pad"><div className="site-container"><div className="service-detail-intro" data-motion="rise"><p className="eyebrow">{detail.eyebrow}</p><h2>{detail.title}</h2><p>{detail.intro}</p></div><div className="service-detail-grid">{detail.items.map((item, index) => <article data-motion="rise" key={item.label}><span>0{index + 1}</span><h3>{item.label}</h3><p>{item.body}</p></article>)}</div></div></section>}
+      {detail && <section id="service-detail" className="service-detail-section section-pad"><div className="site-container"><div className="about-section-head service-detail-head" data-motion="rise"><div><p className="eyebrow">{detail.eyebrow}</p><h2>{detail.title}</h2></div><p>{detail.intro}</p></div><div className="service-detail-grid">{detail.items.map((item, index) => <article data-motion="rise" key={item.label}><span>0{index + 1}</span><h3>{item.label}</h3><p>{item.body}</p></article>)}</div></div></section>}
       <section id="service-outcome" className="result-section"><div className="site-container" data-motion="rise"><p className="eyebrow">The outcome</p><blockquote>{service.result}</blockquote></div></section>
-      <section id="service-approach" className="service-note"><div className="site-container">{approach.map((step, index) => <div data-motion="rise" key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><h2>{step.title}</h2><p>{step.body}</p></div>)}</div></section>
+      <section id="service-approach" className="service-note"><header className="site-container service-note-head" data-motion="rise"><p className="eyebrow">How we work</p><h2>Three steps, <em>no surprises.</em></h2></header><div className="site-container">{approach.map((step, index) => <div data-motion="rise" key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><h2>{step.title}</h2><p>{step.body}</p></div>)}</div></section>
     </main>
   );
 }
