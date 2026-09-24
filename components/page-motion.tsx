@@ -9,6 +9,7 @@ export function PageMotion() {
 
     const targets = root.querySelectorAll<HTMLElement>("[data-motion], .motion-reveal");
     const timers: number[] = [];
+    // Reveal once an element is well inside the viewport, so the motion is seen while scrolling.
     const observer = new IntersectionObserver((entries) => {
       let batchIndex = 0;
       for (const entry of entries) {
@@ -21,7 +22,7 @@ export function PageMotion() {
         // Drop the stagger once revealed so hover transitions are not delayed.
         timers.push(window.setTimeout(() => target.style.removeProperty("--motion-i"), 1400));
       }
-    }, { threshold: 0.08, rootMargin: "0px 0px -28px 0px" });
+    }, { threshold: 0.01, rootMargin: "0px 0px -14% 0px" });
 
     root.classList.add("motion-ready");
     targets.forEach((target) => observer.observe(target));
