@@ -516,7 +516,9 @@ button { cursor: pointer; }
   .compare-mobile-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 999px; background: #dfddd4; padding: 4px; }
   .compare-mobile-toggle button { border: 0; border-radius: 999px; background: transparent; color: #6b6961; padding: 10px 16px; font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: background .2s ease, color .2s ease, box-shadow .2s ease; }
   .compare-mobile-toggle button.is-active { background: var(--ink); color: var(--white); box-shadow: 0 5px 18px #1b1b1826; }
-  .compare-frame { height: 490px; border-width: 4px; border-radius: 16px; }
+  /* Show the whole screenshot on phones instead of cropping its sides. */
+  .compare-frame { height: auto; aspect-ratio: 1672 / 941; border-width: 4px; border-radius: 16px; }
+  .compare-frame .compare-before { transition: clip-path .65s cubic-bezier(.22,.7,.25,1); }
   .compare-label, .compare-handle, .compare-slider-control { display: none; }
   .compare-frame[data-mobile-view="before"] .compare-before { clip-path: inset(0 0 0 0) !important; }
   .compare-frame[data-mobile-view="after"] .compare-before { clip-path: inset(0 100% 0 0) !important; }
@@ -1667,3 +1669,31 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .service-orbit-node:nth-child(4) i { animation-delay: -1s; } .service-orbit-node:nth-child(5) i { animation-delay: -2s; } .service-orbit-node:nth-child(6) i { animation-delay: -3s; }
   .service-orbit-node:nth-child(7) i { animation-delay: -4s; } .service-orbit-node:nth-child(8) i { animation-delay: -5s; }
 }
+
+/* Pricing on phones: a tab bar picks which plan card is shown. */
+.pricing-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-bottom: 16px; border-radius: 16px; background: var(--paper-deep); padding: 4px; }
+.pricing-tabs button { display: flex; flex-direction: column; align-items: center; gap: 3px; border: 0; border-radius: 12px; background: transparent; color: var(--ink-soft); padding: 10px 4px 9px; font: inherit; cursor: pointer; transition: background .2s ease, box-shadow .2s ease, color .2s ease; }
+.pricing-tabs button > span { display: flex; align-items: center; gap: 5px; font-size: .72rem; font-weight: 700; letter-spacing: .02em; }
+.pricing-tabs button > span i { width: 6px; height: 6px; border-radius: 50%; background: var(--acid); }
+.pricing-tabs button > :last-child { color: var(--ink); font-size: 1rem; font-weight: 700; letter-spacing: -.02em; }
+.pricing-tabs button[aria-pressed="true"] { background: var(--white); box-shadow: 0 4px 14px #11110f14; }
+.pricing-tabs button[aria-pressed="true"] > :last-child { color: var(--acid); }
+.pricing-tabs button:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+
+/* Forms on phones: boxed, easy-to-tap fields instead of thin underlines. */
+@media (max-width: 700px) {
+  .audit-form-section { padding: 64px 0; }
+  .audit-form-grid { gap: 28px; }
+  .audit-form-grid h2 { font-size: 2.2rem; }
+  .form-panel { padding: 22px 18px 24px; }
+  .found-form { gap: 16px; }
+  .form-row { gap: 16px; }
+  .form-field { gap: 7px; }
+  .form-field label { color: var(--ink); font-size: .8rem; font-weight: 600; letter-spacing: 0; text-transform: none; }
+  .found-form input, .found-form textarea, .found-select { min-height: 48px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper) !important; padding: 12px 14px; font-size: 16px; }
+  .found-form textarea { min-height: 108px; }
+  .found-form input:focus-visible, .found-form textarea:focus-visible, .found-form select.found-select:focus-visible { border-color: var(--acid); box-shadow: 0 0 0 3px #3F35B526; background: var(--white) !important; }
+  .found-form input[aria-invalid="true"], .found-form textarea[aria-invalid="true"], .found-form select.found-select[aria-invalid="true"] { border-color: var(--destructive); box-shadow: 0 0 0 3px #b423181f; }
+  .found-form .form-submit { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .compare-frame .compare-before { transition: none; } }

@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 
 export interface PricingPlan {
   name: string;
+  short: string;
   setup: string;
   monthly: string;
   best: string;
@@ -25,6 +26,8 @@ const toAmount = (value: string) => Number(value.replace(/[^\d]/g, ""));
 
 export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
   const [showCare, setShowCare] = useState(false);
+  // Phones show one plan at a time, picked from the tab bar; desktop shows all three.
+  const [activePlan, setActivePlan] = useState(() => Math.max(0, plans.findIndex((plan) => plan.popular)));
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const reduceMotion = useReducedMotion();
   const switchRef = useRef<HTMLButtonElement>(null);
@@ -51,7 +54,7 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
 
   return (
     <>
-      <div className="mb-12 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold">
+      <div className="mb-8 flex flex-wrap md:mb-12 items-center justify-center gap-3 text-sm font-semibold">
         <span className={cn("transition-colors", !showCare ? "text-foreground" : "text-muted-foreground")}>One-off setup</span>
         <Label className="cursor-pointer">
           <Switch
@@ -63,21 +66,42 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
           />
         </Label>
         <span className={cn("transition-colors", showCare ? "text-foreground" : "text-muted-foreground")}>
-          Website Care <span className="text-[var(--acid)]">(optional, monthly)</span>
+          Website Care <span className="text-[var(--acid)] max-md:hidden">(optional, monthly)</span>
         </span>
+      </div>
+
+      <div className="pricing-tabs md:hidden" aria-label="Choose a plan">
+        {plans.map((plan, index) => (
+          <button
+            key={plan.name}
+            type="button"
+            aria-pressed={index === activePlan}
+            aria-controls={`plan-${index}`}
+            onClick={() => setActivePlan(index)}
+          >
+            <span>{plan.short}{plan.popular && <i aria-label="Most popular" />}</span>
+            <NumberFlow
+              value={toAmount(showCare ? plan.monthly : plan.setup)}
+              locales="en-GB"
+              format={{ style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }}
+              className="tabular-nums"
+            />
+          </button>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-3">
         {plans.map((plan, index) => (
           <motion.article
             key={plan.name}
-           
+            id={`plan-${index}`}
             initial={reduceMotion ? false : { y: 40, opacity: 1 }}
             whileInView={reduceMotion ? undefined : { y: isDesktop && plan.popular ? -18 : 0, opacity: 1, scale: isDesktop && !plan.popular ? 0.97 : 1 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 100, damping: 26, delay: 0.12 + index * 0.08 }}
             className={cn(
-              "relative flex flex-col rounded-2xl border bg-white p-7 text-center shadow-sm",
+              "relative flex flex-col rounded-2xl border bg-white p-6 text-center shadow-sm md:p-7",
+              index !== activePlan && "max-md:hidden",
               plan.popular ? "z-10 border-2 border-[var(--acid)] shadow-xl shadow-[color:var(--acid)]/10" : "border-[var(--line)]",
             )}
           >
@@ -88,24 +112,24 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
               </div>
             )}
 
-            <p className="mx-auto min-h-[2.6em] max-w-[16em] text-xs font-extrabold uppercase leading-snug tracking-[.16em] text-muted-foreground">{plan.name}</p>
+            <p className="mx-auto max-w-[16em] md:min-h-[2.6em] text-xs font-extrabold uppercase leading-snug tracking-[.16em] text-muted-foreground">{plan.name}</p>
 
-            <div className="mt-5 flex items-baseline justify-center gap-x-2">
+            <div className="mt-4 flex items-baseline md:mt-5 justify-center gap-x-2">
               <NumberFlow
                 value={toAmount(showCare ? plan.monthly : plan.setup)}
                 locales="en-GB"
                 format={{ style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }}
                 transformTiming={{ duration: 500, easing: "ease-out" }}
                 willChange
-                className="text-5xl font-bold tracking-tight text-foreground tabular-nums"
+                className="text-4xl font-bold tracking-tight text-foreground tabular-nums md:text-5xl"
               />
               <span className="text-sm font-semibold tracking-wide text-muted-foreground">{showCare ? "/ month" : "setup"}</span>
             </div>
-            <p className="mt-1 min-h-[3.75em] text-xs leading-5 text-muted-foreground">
+            <p className="mt-1 text-xs md:min-h-[3.75em] leading-5 text-muted-foreground">
               {showCare ? "Optional Website Care after launch. 3-month minimum term, then month-to-month." : `One-off. 50% deposit to begin, 50% before launch. Optional Website Care after launch: ${plan.monthly} / month.`}
             </p>
 
-            <p className="mx-auto mt-4 min-h-[6.5em] max-w-[24em] text-sm leading-relaxed text-muted-foreground">{plan.best}</p>
+            <p className="mx-auto mt-3 max-w-[24em] text-sm md:mt-4 md:min-h-[6.5em] leading-relaxed text-muted-foreground">{plan.best}</p>
 
             <hr className="my-5 w-full border-[var(--line)]" />
 
