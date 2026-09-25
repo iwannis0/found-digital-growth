@@ -8,11 +8,13 @@ import { deployedProjects, projects } from "@/lib/content";
 
 const auraImage = projects.find((project) => project.slug === "aura-dental")?.image ?? "";
 const novaImage = projects.find((project) => project.slug === "nova-estates")?.image ?? "";
+const velaImage = projects.find((project) => project.slug === "vela-studio")?.image ?? "";
 // Back-to-front order so the live store sits in front of the stack.
 const heroFrames = [
-  ["nova", novaImage],
+  ["nova", novaImage, "nova-estates"],
   ["discount", deployedProjects[1].image],
-  ["aura", auraImage],
+  ["aura", auraImage, "aura-dental"],
+  ["vela", velaImage],
   ["front", deployedProjects[0].image],
 ] as const;
 
@@ -48,7 +50,7 @@ export default function WorkPage() {
     <section className="lit-hero"><div className="site-container lit-hero-grid">
       <div className="work-hero-copy"><p className="eyebrow">Our work</p><h1>Different businesses. <em>Different websites.</em></h1><p className="lit-hero-lead">Live builds and concept projects, each shaped around how the business actually works.</p></div>
       <div className="work-hero-stage" aria-hidden="true">
-        {heroFrames.map(([key, src]) => <div className={`work-hero-frame work-hero-frame-${key}`} key={key}><b><i /><i /><i /></b><div><Image src={src} alt="" fill sizes="(max-width: 900px) 70vw, 40vw" priority={key === "front"} /></div></div>)}
+        {heroFrames.map(([key, src, coverSlug]) => <div className={`work-hero-frame work-hero-frame-${key}`} key={key}><b><i /><i /><i /></b><div><Image src={src} alt="" fill sizes="(max-width: 900px) 70vw, 40vw" priority={key === "front"} />{coverSlug && <ProjectCover slug={coverSlug} />}</div></div>)}
       </div>
     </div></section>
 

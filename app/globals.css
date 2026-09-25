@@ -1402,17 +1402,19 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
 .work-hero-frame { position: absolute; z-index: 1; overflow: hidden; border: 1px solid #ffffff1c; border-radius: 14px; background: #121211; box-shadow: 0 40px 80px #000000b3; }
 .work-hero-frame > b { display: flex; height: 24px; align-items: center; gap: 5px; background: #171716; padding: 0 11px; }
 .work-hero-frame > b i { width: 6px; height: 6px; border-radius: 50%; background: #ffffff30; }
-.work-hero-frame > div { position: relative; aspect-ratio: 16 / 10; }
+.work-hero-frame > div { position: relative; aspect-ratio: 16 / 10; container-type: inline-size; }
 .work-hero-frame img { object-fit: cover; object-position: center top; }
 .work-hero-frame-nova { top: 0; left: 0; width: 46%; opacity: .55; transform: rotateY(18deg) rotateX(3deg) translateZ(-180px); }
 .work-hero-frame-discount { top: -2%; right: -2%; width: 50%; opacity: .7; transform: rotateY(-20deg) rotateX(3deg) translateZ(-140px); }
 .work-hero-frame-aura { right: 0; bottom: 4%; width: 44%; opacity: .8; transform: rotateY(-22deg) rotateX(2deg) translateZ(-70px); }
+.work-hero-frame-vela { bottom: 1%; left: -2%; width: 44%; opacity: .78; transform: rotateY(20deg) rotateX(2deg) translateZ(-80px); }
 .work-hero-frame-front { z-index: 3; top: 20%; left: 12%; width: 70%; border-color: #A29BF655; box-shadow: 0 40px 90px #000000cc, 0 0 60px #3F35B559; transform: rotateY(-13deg) rotateX(4deg); }
 @keyframes workHeroFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 @media (prefers-reduced-motion: no-preference) {
   .work-hero-frame { animation: workHeroFloat 7s ease-in-out infinite; }
   .work-hero-frame-discount { animation-delay: -2s; }
   .work-hero-frame-aura { animation-delay: -4s; }
+  .work-hero-frame-vela { animation-delay: -3s; }
   .work-hero-frame-nova { animation-delay: -5.5s; }
 }
 @media (max-width: 900px) {
@@ -1794,14 +1796,15 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
 .service-emblem { position: relative; display: grid; width: min(100%, 440px); aspect-ratio: 1; margin-left: auto; place-items: center; }
 .service-emblem::before { position: absolute; inset: 14%; z-index: -1; border-radius: 50%; content: ""; background: radial-gradient(circle, #3F35B599 0%, #3F35B522 45%, transparent 70%); filter: blur(10px); }
 .service-emblem svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.service-emblem > svg { transform: scale(1.08); }
 .service-emblem circle { fill: none; }
 .service-emblem-ring { stroke: #ffffff1c; stroke-width: .35; }
 .service-emblem-dash { stroke: #A29BF655; stroke-width: .3; stroke-dasharray: 1 2.2; transform-origin: 50% 50%; }
 .service-emblem-comet { stroke: var(--acid-light); stroke-width: .9; stroke-linecap: round; stroke-dasharray: 9 91; transform-origin: 50% 50%; filter: drop-shadow(0 0 3px #A29BF6); }
 .service-emblem-core { display: grid; width: 42%; aspect-ratio: 1; place-items: center; border: 1px solid #ffffff26; border-radius: 30%; background: linear-gradient(150deg, #5B50D6 0%, #2E2690 60%, #1c1760 100%); box-shadow: 0 30px 70px #3F35B566, inset 0 1px 0 #ffffff33; color: var(--white); }
 .service-emblem-core svg { position: static; width: 42%; height: 42%; stroke-width: 1.4; }
-.service-emblem > span { position: absolute; bottom: 6%; color: #A29BF6; font-size: .64rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
-@media (max-width: 760px) { .service-emblem { width: min(78%, 320px); margin: 30px auto 0; } }
+.service-emblem > span { position: absolute; top: 75%; width: 100%; padding: 0 16%; color: #A29BF6; font-size: .64rem; font-weight: 700; letter-spacing: .18em; line-height: 1.35; text-align: center; text-transform: uppercase; }
+@media (max-width: 760px) { .service-emblem { width: min(78%, 320px); margin: 30px auto 0; } .service-emblem > svg { transform: scale(1.06); } .service-emblem > span { top: 75%; padding-inline: 13%; font-size: .58rem; } }
 @keyframes emblemSpin { to { transform: rotate(360deg); } }
 @keyframes emblemCore { from { opacity: 0; transform: scale(.7) rotate(-10deg); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
