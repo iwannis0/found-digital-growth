@@ -886,9 +886,12 @@ button { cursor: pointer; }
 @media (max-width: 700px) { .aura-preview-entry > .site-container { align-items: flex-start; flex-direction: column; gap: 25px; } }
 .case-nova { background: #111; color: #f5f1e9; }
 .case-nova .aura-preview-entry h2 { color: var(--ink); }
-.case-nova .case-story, .case-nova .case-features { background: #111; }
+.case-nova .case-story { background: #111; }
+.case-nova .case-features { background: #182633; border-block: 1px solid rgba(190, 164, 112, .24); }
+.case-nova .case-features .eyebrow { color: #c8ad77; }
 .case-nova .case-story-grid > div:last-child > p:not(.eyebrow), .case-nova .eyebrow { color: #a7a49d; }
-.case-nova .feature-cloud span { border-color: #3a3935; background: #1d1c1a; }
+.case-nova .feature-cloud span { border-color: #526272; background: #223342; box-shadow: 0 8px 24px rgba(4, 10, 16, .16); }
+.case-nova .feature-cloud span svg { color: #d2b879; }
 .case-form .case-hero { background: #c8aa80; }
 .case-aura .case-hero { background: #ebe0d4; }
 .case-vela .case-hero { background: #eadbd1; }

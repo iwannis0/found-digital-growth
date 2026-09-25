@@ -3,7 +3,7 @@ import { access, readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 // AURA and NOVA lead with a still from their own demo build; the rest use a dedicated work cover.
-const projects = ["form-developments", "vela-studio"];
+const projects = ["vela-studio"];
 
 test("all portfolio projects use optimized WebP covers", async () => {
   const content = await readFile(new URL("../lib/content.ts", import.meta.url), "utf8");
@@ -23,7 +23,7 @@ test("all portfolio projects use optimized WebP covers", async () => {
 test("every project image referenced in content actually exists", async () => {
   const content = await readFile(new URL("../lib/content.ts", import.meta.url), "utf8");
   const referenced = [...content.matchAll(/image: ["'](\/images\/[^"']+)["']/g)].map(([, value]) => value);
-  assert.ok(referenced.length >= 6, "expected every concept and deployed project to declare a cover image");
+  assert.ok(referenced.length >= 5, "expected every concept and deployed project to declare a cover image");
   for (const path of referenced) await access(new URL(`../public${path}`, import.meta.url));
 });
 

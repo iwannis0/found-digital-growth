@@ -23,6 +23,9 @@ body:has(.nova-demo){background:#f3f0e9}.nova-demo{--navy:#111c29;--cream:#f3f0e
 
 /* Quieter, more intimate contact invitation. */
 .nova-contact{background:#e8e2d6;padding:88px 40px}.nova-contact-panel{max-width:1080px;margin:auto;padding:68px 9vw;text-align:center;background:#152333;color:#f7f4ee;box-shadow:0 22px 55px rgba(22,31,42,.14)}.nova-contact .nova-eyebrow{color:#cfb77e}.nova-contact h2{font-size:clamp(52px,6vw,88px);margin:14px 0 20px;line-height:.9}.nova-contact em{color:#cfb77e}.nova-contact>p:not(.nova-eyebrow),.nova-contact-panel>p:not(.nova-eyebrow){max-width:560px;margin:0 auto 30px;color:#d8dce1;line-height:1.7}.nova-contact .nova-button-light{background:linear-gradient(135deg,#d2bc88,#b8995f);color:#112032;border-color:transparent;box-shadow:none}.nova-contact .nova-button-light:hover{background:#e3ce9b;box-shadow:0 12px 26px rgba(0,0,0,.2)}
+
+/* NOVA hero spacing refinement. */
+@media(min-width:901px){.nova-hero-copy .nova-button{margin-top:24px;font-weight:650;letter-spacing:.065em}.nova-search{bottom:46px;width:min(1340px,95vw)}}
 @media(max-width:560px){.nova-contact{padding:56px 20px}.nova-contact-panel{padding:50px 25px}.nova-contact h2{font-size:51px}}
 
 /* Found concept navigation, shared across the NOVA demo. */

@@ -191,17 +191,6 @@ export const projects = [
     features: ["Property listings", "Search and filters", "Property detail", "Gallery", "Agent profile", "WhatsApp", "Enquiry", "Map"],
   },
   {
-    slug: "form-developments",
-    image: "/images/work/form-developments-cover.webp",
-    name: "FORM Developments",
-    industry: "Construction / Architecture",
-    tone: "form",
-    statement: "Built with purpose.",
-    problem: "Strong work needs a digital presence with the same precision as the spaces being built.",
-    concept: "An architectural portfolio defined by rhythm, material and confident restraint.",
-    features: ["Project portfolio", "Case studies", "Services", "Capabilities", "Company profile", "Quote journey", "Project gallery", "Mobile-first layout"],
-  },
-  {
     slug: "vela-studio",
     image: "/images/work/vela-studio-cover.webp",
     name: "VELA Studio",

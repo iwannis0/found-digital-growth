@@ -5,6 +5,7 @@ import { treatmentDetails } from "../../treatment-data";
 import "../../aura-demo.css";
 import "../../treatment-detail.css";
 
+export const dynamicParams = false;
 export function generateStaticParams() {
   return treatmentDetails.map(({ slug }) => ({ slug }));
 }
