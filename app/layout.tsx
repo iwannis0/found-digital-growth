@@ -35,13 +35,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const structuredData = [
-    { "@context": "https://schema.org", "@type": "Organization", name: "FOUND.", url: siteConfig.url, email: siteConfig.email, slogan: siteConfig.tagline },
-    { "@context": "https://schema.org", "@type": "LocalBusiness", name: "FOUND.", url: siteConfig.url, areaServed: { "@type": "Country", name: "Cyprus" }, priceRange: "€€", email: siteConfig.email },
-    { "@context": "https://schema.org", "@type": "WebSite", name: "FOUND.", url: siteConfig.url, inLanguage: "en" },
-  ];
+  const structuredData = { "@context": "https://schema.org", "@graph": [
+    { "@type": "Organization", name: "FOUND.", url: siteConfig.url, email: siteConfig.email, slogan: siteConfig.tagline },
+    { "@type": "LocalBusiness", name: "FOUND.", url: siteConfig.url, areaServed: { "@type": "Country", name: "Cyprus" }, priceRange: "€€", email: siteConfig.email },
+    { "@type": "WebSite", name: "FOUND.", url: siteConfig.url, inLanguage: "en" },
+  ] };
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         <a className="skip-link" href="#main-content">Skip to content</a>

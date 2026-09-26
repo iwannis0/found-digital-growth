@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-const SESSION_COOKIE = "found_admin_session";
+const SESSION_COOKIE = "admin_session";
 const SESSION_DURATION_SECONDS = 60 * 60 * 8;
 
 export type AdminUser = { email: string; displayName: string };

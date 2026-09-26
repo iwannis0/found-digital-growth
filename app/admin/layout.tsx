@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BarChart3, ClipboardCheck, Settings, Users } from "lucide-react";
 import { getAdmin } from "@/lib/admin";
@@ -5,6 +6,9 @@ import { AdminAutoRefresh } from "@/components/admin-auto-refresh";
 import { AdminSignOut } from "@/components/admin-sign-out";
 
 export const dynamic = "force-dynamic";
+
+// The admin area, including its login page, must never appear in search results.
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const user = await getAdmin();

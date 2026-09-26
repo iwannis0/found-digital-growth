@@ -206,19 +206,19 @@ export const projects = [
 /** Finished builds that are live in production. Cards link straight to the deployment. */
 export const deployedProjects = [
   {
-    slug: "mavrikios-jewellery",
-    image: "/images/work/mavrikios-jewellery-cover.webp",
-    name: "Mavrikios Jewellery",
+    slug: "zafiri-jewellery",
+    image: "/images/work/zafiri-jewellery-cover.webp",
+    name: "Zafiri Jewellery",
     industry: "Retail / E-commerce",
-    url: "https://mavrikios-jewellery.vercel.app/",
+    url: "https://zafiri-jewellery.vercel.app/",
     summary: "A premium jewellery boutique store with engagement guidance, bespoke commissions, wishlist and secure checkout.",
   },
   {
-    slug: "super-discount",
-    image: "/images/work/super-discount-cover.webp",
-    name: "Super Discount",
+    slug: "mastrohome",
+    image: "/images/work/mastrohome-cover.webp",
+    name: "MastroHome",
     industry: "Retail / Loyalty Platform",
-    url: "https://superdiscount-platform.vercel.app/",
+    url: "https://mastrohome.vercel.app/",
     summary: "A clearance retail platform running four connected apps: public store, customer loyalty app, admin dashboard and cashier till.",
   },
 ] as const;

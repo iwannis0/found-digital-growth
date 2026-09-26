@@ -21,6 +21,7 @@ const capabilityDescriptions: Record<string, string> = {
 
 const coreService = services.find((service) => service.slug === "web-design")!;
 // Six supporting services evenly spaced on a ring around the website (radius 38%).
+// A mask clears the ring, comet and spokes around every icon and its label so no line ever touches text.
 const orbitNodes = ([
   ["conversion-design", "Conversion"], ["local-seo", "Local SEO"], ["google-business", "Google Business"],
   ["analytics", "Analytics"], ["website-care", "Website Care"], ["automation", "Automation"],
@@ -36,7 +37,10 @@ export default function ServicesPage() {
       <section className="lit-hero services-lit-hero"><div className="site-container lit-hero-grid">
         <div><p className="eyebrow">Services</p><h1>More than <em>a website.</em></h1><p className="lit-hero-lead">FOUND. builds the digital foundation, then adds the visibility, measurement and support your business actually needs.</p></div>
         <div className="service-orbit">
-          <svg className="service-orbit-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><circle cx="50" cy="50" r="38" /><circle className="service-orbit-comet" cx="50" cy="50" r="38" pathLength="100" />{orbitNodes.map(({ slug, x, y }) => <line key={slug} x1="50" y1="50" x2={x} y2={y} />)}</svg>
+          <svg className="service-orbit-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <defs><mask id="service-orbit-clear" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120"><rect x="-10" y="-10" width="120" height="120" fill="#fff" /><rect x="36" y="36" width="28" height="35" rx="5" fill="#000" />{orbitNodes.map(({ slug, x, y }) => <rect key={slug} x={x - 11} y={y - 9} width="22" height="28" rx="5" fill="#000" />)}</mask></defs>
+            <g mask="url(#service-orbit-clear)"><circle cx="50" cy="50" r="38" /><circle className="service-orbit-comet" cx="50" cy="50" r="38" pathLength="100" />{orbitNodes.map(({ slug, x, y }) => <line key={slug} x1="50" y1="50" x2={x} y2={y} />)}</g>
+          </svg>
           <Link href={`/services/${coreService.slug}`} className="service-orbit-core"><i><coreService.icon aria-hidden="true" /></i><span>Website</span></Link>
           {orbitNodes.map(({ slug, label, Icon, x, y }) => <Link key={slug} href={`/services/${slug}`} className="service-orbit-node" style={{ left: `${x}%`, top: `${y}%` }}><i><Icon aria-hidden="true" /></i><span>{label}</span></Link>)}
         </div>

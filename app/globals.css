@@ -1503,6 +1503,8 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
 .service-orbit-lines line { stroke: #A29BF655; stroke-width: 1.2; stroke-dasharray: 2 6; vector-effect: non-scaling-stroke; }
 .service-orbit-core, .service-orbit-node { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translate(-50%, -50%); text-align: center; }
 .service-orbit-core { top: 50%; left: 50%; }
+/* Nodes sit with their icon centred on the ring and the label hanging below it. */
+.service-orbit-node { --icon-half: 28px; transform: translate(-50%, calc(var(--icon-half) * -1)); }
 .service-orbit-core i { display: grid; width: 104px; height: 104px; place-items: center; border: 1px solid #A29BF666; border-radius: 30px; background: linear-gradient(160deg, #3F35B5 0%, #2E2690 100%); box-shadow: 0 0 0 10px #3F35B51f, 0 0 80px #3F35B580; color: var(--white); }
 .service-orbit-core svg { width: 44px; height: 44px; }
 .service-orbit-core span { color: var(--white); font-size: 1rem; font-weight: 700; letter-spacing: -.01em; }
@@ -1521,6 +1523,7 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .service-orbit { width: min(100%, 380px); margin-top: 16px; }
   .service-orbit-core i { width: 80px; height: 80px; border-radius: 24px; }
   .service-orbit-core svg { width: 34px; height: 34px; }
+  .service-orbit-node { --icon-half: 23px; }
   .service-orbit-node i { width: 46px; height: 46px; border-radius: 14px; }
   .service-orbit-node svg { width: 20px; height: 20px; }
   .service-orbit-node span { max-width: 84px; font-size: .68rem; }
