@@ -35,3 +35,6 @@ body:has(.nova-demo){background:#f3f0e9}.nova-demo{--navy:#111c29;--cream:#f3f0e
 /* A more visible, continuous hero push-in. */
 .nova-hero-media{inset:-9%;animation:novaPush 20s cubic-bezier(.45,0,.55,1) infinite alternate}@keyframes novaPush{from{transform:scale(1)}to{transform:scale(1.18) translate3d(-1.5%,-.6%,0)}}
 
+
+/* Phones: show all four search tabs as a 2x2 grid instead of a row you have to swipe. */
+@media(max-width:560px){.nova-search-tabs{display:grid;grid-template-columns:1fr 1fr;height:auto;gap:0 16px;overflow:visible}.nova-search-tabs button{height:44px;text-align:left;white-space:normal}}
