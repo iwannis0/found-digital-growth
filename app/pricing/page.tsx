@@ -18,7 +18,7 @@ const addons = [["Extra language setup", "€150 to €300+"], ["Advanced bookin
 export default function PricingPage() {
   return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />
     <section className="lit-hero pricing-lit-hero"><div className="site-container lit-hero-grid">
-      <div><p className="eyebrow">Transparent pricing</p><h1>Start with the <em>right foundation.</em></h1><p className="lit-hero-lead">Clear setup costs, practical ongoing care and room to add more as the business grows.</p></div>
+      <div><p className="eyebrow">Transparent pricing</p><h1>Start with the <em>right foundation.</em></h1><p className="lit-hero-lead">Clear starting prices, defined scope and flexible support for businesses at different stages of growth.</p></div>
       <div className="price-summary">
         <div className="price-summary-head"><span>Pricing at a glance</span><span>Setup</span><span>Care / month</span></div>
         {plans.map((plan) => <div className={`price-summary-row${plan.popular ? " is-popular" : ""}`} key={plan.name}><span>{plan.name}{plan.popular && <em>Most popular</em>}</span><strong>{plan.setup}</strong><small>{plan.monthly}</small></div>)}

@@ -28,7 +28,7 @@ body:has(.nova-demo){background:#f3f0e9}.nova-demo{--navy:#111c29;--cream:#f3f0e
 @media(min-width:901px){.nova-hero-copy .nova-button{margin-top:24px;font-weight:650;letter-spacing:.065em}.nova-search{bottom:46px;width:min(1340px,95vw)}}
 @media(max-width:560px){.nova-contact{padding:56px 20px}.nova-contact-panel{padding:50px 25px}.nova-contact h2{font-size:51px}}
 
-/* Found concept navigation, shared across the NOVA demo. */
+/* Concept navigation, shared across the NOVA demo. */
 .nova-concept-bar{position:relative;z-index:50;display:flex;min-height:34px;align-items:center;justify-content:space-between;gap:20px;padding:6px 3.5%;background:#101c29;color:#f4eee2;font-size:.6rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.nova-concept-bar a{display:inline-flex;align-items:center;gap:7px;padding-bottom:2px;border-bottom:1px solid rgba(244,238,226,.55);transition:border-color .25s ease,color .25s ease}.nova-concept-bar a:hover{color:#d3bb83;border-color:#d3bb83}.nova-concept-bar a svg{width:14px;height:14px}.nova-demo{position:relative}.nova-demo .nova-header{position:absolute;inset:0 0 auto}.nova-inner{padding-top:96px}
 @media(max-width:700px){.nova-concept-bar{min-height:36px;padding-inline:20px;font-size:.56rem}.nova-concept-bar span:nth-child(2){display:none}.nova-demo .nova-header{inset:0 0 auto}.nova-inner{padding-top:72px}}
 

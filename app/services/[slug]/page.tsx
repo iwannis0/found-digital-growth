@@ -171,7 +171,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const accent = headlineAccents[service.slug];
   const lead = accent && service.headline.endsWith(accent) ? service.headline.slice(0, -accent.length).trim() : service.headline;
   const structuredData = { "@context": "https://schema.org", "@graph": [
-    { "@type": "Service", name: service.title, description: service.short, provider: { "@type": "Organization", name: "FOUND.", url: siteConfig.url }, areaServed: { "@type": "Country", name: "Cyprus" }, url: `${siteConfig.url}/services/${service.slug}` },
+    { "@type": "Service", name: service.title, description: service.short, provider: { "@type": "Organization", name: "VISION.", url: siteConfig.url }, areaServed: { "@type": "Country", name: "Cyprus" }, url: `${siteConfig.url}/services/${service.slug}` },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Services", item: `${siteConfig.url}/services` }, { "@type": "ListItem", position: 2, name: service.title, item: `${siteConfig.url}/services/${service.slug}` }] },
   ] };
   return (

@@ -30,7 +30,7 @@ export function TreatmentPage({ treatment }: { treatment: TreatmentDetail }) {
   }
 
   return <main className="aura-demo aura-treatment-page">
-    <div className="aura-concept-bar"><span>FOUND. / WEBSITE CONCEPT</span><span>Fictional AURA Dental demo</span><Link href="/work/aura-dental">Back to case study <ArrowUpRight size={14} aria-hidden="true" /></Link></div>
+    <div className="aura-concept-bar"><span>VISION. / WEBSITE CONCEPT</span><span>Fictional AURA Dental demo</span><Link href="/work/aura-dental">Back to case study <ArrowUpRight size={14} aria-hidden="true" /></Link></div>
     <div className="aura-treatment-header-wrap">
       <header className="aura-header">
         <Link href={demoPath} className="aura-wordmark" aria-label="AURA Dental, back to home">AURA<span>DENTAL</span></Link>
@@ -61,7 +61,7 @@ export function TreatmentPage({ treatment }: { treatment: TreatmentDetail }) {
 
     <section className="aura-treatment-more"><div className="aura-shell"><div className="aura-treatment-more-heading"><div><p className="aura-eyebrow">KEEP EXPLORING</p><h2>More ways to care<br />for your smile.</h2></div><Link className="aura-treatment-all" href={`${demoPath}#aura-services`}>View all treatments <ArrowUpRight size={16} /></Link></div><div className="aura-treatment-more-grid">{otherTreatments.map((item) => <Link href={`${demoPath}/treatments/${item.slug}`} key={item.slug}><span>{item.eyebrow}</span><strong>{item.name}</strong><ArrowRight aria-hidden="true" /></Link>)}</div></div></section>
 
-    <footer className="aura-footer aura-treatment-footer"><div className="aura-shell"><div><Link href={demoPath} className="aura-wordmark" aria-label="AURA Dental, back to home">AURA<span>DENTAL</span></Link><p>A fictional website concept by FOUND.</p></div><Link href="/work/aura-dental">Back to the case study <ArrowUpRight size={16} /></Link></div></footer>
+    <footer className="aura-footer aura-treatment-footer"><div className="aura-shell"><div><Link href={demoPath} className="aura-wordmark" aria-label="AURA Dental, back to home">AURA<span>DENTAL</span></Link><p>A fictional website concept by VISION.</p></div><Link href="/work/aura-dental">Back to the case study <ArrowUpRight size={16} /></Link></div></footer>
     {bookingOpen && <BookingModal onClose={closeBooking} />}
   </main>;
 }

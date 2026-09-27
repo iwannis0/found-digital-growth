@@ -28,7 +28,7 @@ export function ContactForm({ initialPackage = "", initialService = "" }: { init
 
   if (status === "success") return <div className="form-success" role="status"><CheckCircle2 /><p className="eyebrow">Enquiry received</p><h2>Thank you. We usually reply within two working days.</h2><button className="text-link" onClick={() => setStatus("idle")}>Send another enquiry</button></div>;
 
-  return <form className="found-form" onSubmit={submit} noValidate>
+  return <form className="site-form" onSubmit={submit} noValidate>
     <p className="form-required-note">Fields marked <strong>*</strong> are required.</p>
     <div className="form-row"><Field label="Name" name="name" required error={fields.name?.[0]} /><Field label="Business" name="businessName" required error={fields.businessName?.[0]} /></div>
     <div className="form-row"><Field label="Email" name="email" type="email" required error={fields.email?.[0]} /><Field label="Phone" name="phone" type="tel" error={fields.phone?.[0]} /></div>
@@ -45,5 +45,5 @@ export function ContactForm({ initialPackage = "", initialService = "" }: { init
 }
 
 function Field({ label, name, type = "text", required, placeholder, error }: { label: string; name: string; type?: string; required?: boolean; placeholder?: string; error?: string }) { return <div className="form-field"><Label htmlFor={name}>{label}{required ? " *" : ""}</Label><Input id={name} name={name} type={type} required={required} placeholder={placeholder} aria-invalid={Boolean(error)} /><FieldError value={error} /></div>; }
-function SelectField({ label, name, value, onChange, options, placeholder }: { label: string; name: string; value: string; onChange: (value: string) => void; options: readonly string[]; placeholder: string }) { return <div className="form-field"><Label htmlFor={name}>{label}</Label><select id={name} name={name} className="found-select" value={value} onChange={(event) => onChange(event.target.value)}><option value="">{placeholder}</option>{options.map((item) => <option key={item} value={item}>{item}</option>)}</select></div>; }
+function SelectField({ label, name, value, onChange, options, placeholder }: { label: string; name: string; value: string; onChange: (value: string) => void; options: readonly string[]; placeholder: string }) { return <div className="form-field"><Label htmlFor={name}>{label}</Label><select id={name} name={name} className="site-select" value={value} onChange={(event) => onChange(event.target.value)}><option value="">{placeholder}</option>{options.map((item) => <option key={item} value={item}>{item}</option>)}</select></div>; }
 function FieldError({ value }: { value?: string }) { return value ? <p className="field-error" role="alert">{value}</p> : null; }

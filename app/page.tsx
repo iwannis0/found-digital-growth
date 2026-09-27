@@ -17,32 +17,30 @@ export default function HomePage() {
       <section className="hero home-hero">
         <div className="site-container home-hero-grid">
           <div className="home-hero-copy">
-            <p className="home-hero-eyebrow">Ideas to impact</p>
-            <h1>Build smarter<br />digital growth<span>.</span></h1>
-            <p className="home-hero-lead">We build websites designed around enquiries and practical digital foundations that help Cyprus businesses get found, trusted and chosen.</p>
+            <p className="home-hero-eyebrow">Digital experiences</p>
+            <h1>Built with clarity<span>.</span><br /><em>Designed for what’s next.</em></h1>
+            <p className="home-hero-lead">We design and build websites around the way Cyprus businesses work today, and where they want to go next.</p>
             <div className="home-hero-actions">
               <Link className="button button-dark home-hero-button" href="/free-audit">Get a Free Website Audit <ArrowRight aria-hidden="true" /></Link>
               <Link className="button button-outline home-hero-button" href="/work">View our work <ArrowRight aria-hidden="true" /></Link>
             </div>
           </div>
-          <div className="home-hero-art" aria-label="Illustrative FOUND. website concept">
-            <p className="home-handwritten" aria-hidden="true">Growth<br />looks good<br />on you.</p>
-            <div className="home-growth-card" aria-hidden="true"><span>Strategy<br />to impact</span><div className="home-growth-bars"><i /><i /><i /><i /></div><strong>Six focus areas</strong><small>One clearer direction</small></div>
+          <div className="home-hero-art" aria-label="Illustrative VISION. website concept">
+                        <div className="home-growth-card" aria-hidden="true"><span>What we<br />cover</span><div className="home-growth-bars"><i /><i /><i /><i /></div><strong>Six focus areas</strong><small>One joined-up plan</small></div>
             <div className="home-screen" aria-hidden="true">
-              <div className="home-screen-top"><b>FOUND<span>.</span></b><span>Websites &nbsp; Visibility &nbsp; Growth</span><i>☰</i></div>
+              <div className="home-screen-top"><b>VISION<span>.</span></b><span>Websites &nbsp; Visibility &nbsp; Growth</span><i>☰</i></div>
               <div className="home-screen-image"><Image src="/images/home-hero-architecture.webp" alt="" fill sizes="(max-width: 760px) 90vw, 650px" priority /></div>
-              <div className="home-screen-copy"><p>Better<br />Brands.<br />Real<br />Growth.</p><small>Made to be found.<br />Built to be chosen.</small></div>
-              <div className="home-screen-footer"><span>Ideas / Impact</span><span>01 / 04</span></div>
+              <div className="home-screen-copy"><p>Better<br />Brands.<br />Real<br />Growth.</p><small>Web design<br />&amp; digital growth</small></div>
+              <div className="home-screen-footer"><span>Homepage</span><span>01 / 04</span></div>
             </div>
-            <div className="home-brand-card" aria-hidden="true"><strong>f<span>.</span></strong><small>A growth partner<br />for what&apos;s next.</small></div>
+            <div className="home-brand-card" aria-hidden="true"><strong>v<span>.</span></strong><small>A digital studio<br />in Cyprus.</small></div>
             <div className="home-analytics-card" aria-hidden="true"><small>Example dashboard</small><strong>Meaningful actions</strong><svg viewBox="0 0 230 62" preserveAspectRatio="none"><path d="M0 52 C22 50 27 36 43 41 S72 52 89 30 S116 43 132 29 S157 37 173 15 S205 29 230 5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" /></svg><span>Calls · enquiries · bookings</span></div>
-            <p className="home-art-caption" aria-hidden="true">From ideas<br />to impact.<br />Together.</p>
           </div>
-          <div className="home-service-index" aria-label="What FOUND. can help with">
+          <div className="home-service-index" aria-label="What VISION. can help with">
             {[["01", "Website Design & Development"], ["02", "Local SEO"], ["03", "Google Business"], ["04", "Website Care"], ["05", "Analytics"], ["06", "Conversion Design"]].map(([number, label]) => <div key={number}><span>{number}</span><strong>{label}</strong></div>)}
           </div>
         </div>
-        <div className="site-container home-hero-footnote"><span>Cyprus-based digital growth</span><span>Websites are only the beginning</span></div>
+        <div className="site-container home-hero-footnote"><span>Cyprus-based digital growth</span><span>Design · Build · Care</span></div>
       </section>
 
       <section className="problem-section section-pad">
@@ -61,7 +59,7 @@ export default function HomePage() {
 
       <section className="services-section section-pad">
         <div className="site-container">
-          <SectionHeading className="motion-reveal" eyebrow="More than a website" title="A connected digital presence, built around growth." body="Start with the foundation you need today, then add visibility, measurement and practical support as the business grows." />
+          <SectionHeading className="motion-reveal" eyebrow="What we do" title="A connected digital presence, built around growth." body="Start with the foundation you need today, then add visibility, measurement and practical support as the business grows." />
           <div className="service-list">
             {services.map((service, index) => {
               const Icon = service.icon;
@@ -80,7 +78,7 @@ export default function HomePage() {
 
       <section className="work-section section-pad">
         <div className="site-container">
-          <div className="section-topline"><SectionHeading className="motion-reveal" eyebrow="Selected work" title="Built to look better. Designed to perform better." body="Two live builds and two concept projects, each shaped around a different customer journey, from e-commerce and retail loyalty to appointments and property enquiries." /><Link className="text-link" href="/work">See all work <ArrowUpRight /></Link></div>
+          <div className="section-topline"><SectionHeading className="motion-reveal" eyebrow="Selected work" title="Websites that look the part and pull their weight." body="Two live builds and two concept projects, each shaped around a different customer journey, from e-commerce and retail loyalty to appointments and property enquiries." /><Link className="text-link" href="/work">See all work <ArrowUpRight /></Link></div>
           <div className="project-grid">
             {deployedProjects.map((project, index) => (
               <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-card project-live" key={project.slug} data-motion="rise">
@@ -108,7 +106,7 @@ export default function HomePage() {
 
       <section className="process-section section-pad">
         <div className="site-container">
-          <SectionHeading className="motion-reveal" eyebrow="From idea to growth" title="A clear process, without the mystery." body="You always know what is happening, what we need from you and what comes next." light />
+          <SectionHeading className="motion-reveal" eyebrow="How a project runs" title="A clear process, without the mystery." body="You always know what is happening, what we need from you and what comes next." light />
           <div className="process-list">
             {processSteps.map(([number, title, body]) => <article key={number} data-motion="rise"><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
@@ -119,7 +117,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <CTASection title="Your digital presence can do more." body="Tell us where the business is today. We will show you the clearest next step." />
+      <CTASection title="Your digital presence can do more." body="Tell us where the business is today. We will show you what to fix first." />
     </main>
   );
 }

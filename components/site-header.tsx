@@ -22,7 +22,7 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="site-container header-inner">
         <Link className="wordmark" href="/" aria-label={`${siteConfig.name} home`}>
-          FOUND<span>.</span>
+          VISION<span>.</span>
         </Link>
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navigation.map((item) => (
@@ -40,7 +40,7 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent className="mobile-sheet" side="right">
             <SheetHeader className="mobile-sheet-header">
-              <SheetTitle className="wordmark">FOUND<span>.</span></SheetTitle>
+              <SheetTitle className="wordmark">VISION<span>.</span></SheetTitle>
               <SheetDescription>Practical digital growth for Cyprus businesses.</SheetDescription>
             </SheetHeader>
             <nav className="mobile-nav" aria-label="Mobile navigation">

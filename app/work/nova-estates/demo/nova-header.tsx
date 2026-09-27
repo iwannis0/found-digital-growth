@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
-export function NovaConceptBar(){return <div className="nova-concept-bar"><span>FOUND. / WEBSITE CONCEPT</span><span>Fictional NOVA Estates demo</span><Link href="/work/nova-estates">Back to case study <ArrowUpRight size={14} aria-hidden="true" /></Link></div>}
+export function NovaConceptBar(){return <div className="nova-concept-bar"><span>VISION. / WEBSITE CONCEPT</span><span>Fictional NOVA Estates demo</span><Link href="/work/nova-estates">Back to case study <ArrowUpRight size={14} aria-hidden="true" /></Link></div>}
 
 export function NovaHeader({solid=false}:{solid?:boolean}) {
  const [scrolled,setScrolled]=useState(false); const [open,setOpen]=useState(false);

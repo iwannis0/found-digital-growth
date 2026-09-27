@@ -42,13 +42,13 @@ const customerJourneys = [
   ["Lead generation", Target],
 ] as const;
 
-export const metadata: Metadata = { title: "What We Can Build", description: "See how FOUND. shapes websites around different businesses, customer journeys and commercial goals.", alternates: { canonical: "/work" }, openGraph: { images: ["/images/social/found-og-work.jpg"] }, twitter: { card: "summary_large_image", images: ["/images/social/found-og-work.jpg"] } };
+export const metadata: Metadata = { title: "What We Can Build", description: "See how VISION. shapes websites around different businesses, customer journeys and commercial goals.", alternates: { canonical: "/work" }, openGraph: { images: ["/images/social/og-work.jpg"] }, twitter: { card: "summary_large_image", images: ["/images/social/og-work.jpg"] } };
 
 export default function WorkPage() {
   return <main className="motion-page work-motion-page">
     <PageMotion />
     <section className="lit-hero"><div className="site-container lit-hero-grid">
-      <div className="work-hero-copy"><p className="eyebrow">Our work</p><h1>Different businesses. <em>Different websites.</em></h1><p className="lit-hero-lead">Live builds and concept projects, each shaped around how the business actually works.</p></div>
+      <div className="work-hero-copy"><p className="eyebrow">Our work</p><h1>Different businesses. <em>Different websites.</em></h1><p className="lit-hero-lead">Selected websites and digital concepts, each shaped around a different business, audience and objective.</p></div>
       <div className="work-hero-stage" aria-hidden="true">
         {heroFrames.map(([key, src, coverSlug]) => <div className={`work-hero-frame work-hero-frame-${key}`} key={key}><b><i /><i /><i /></b><div><Image src={src} alt="" fill sizes="(max-width: 900px) 70vw, 40vw" priority={key === "front"} />{coverSlug && <ProjectCover slug={coverSlug} />}</div></div>)}
       </div>

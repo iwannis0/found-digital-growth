@@ -4,7 +4,7 @@ import "./aura-demo.css";
 
 export const metadata: Metadata = {
   title: "AURA Dental Website Concept",
-  description: "Explore a complete, responsive dental website concept created for the FOUND. portfolio.",
+  description: "Explore a complete, responsive dental website concept created for the VISION. portfolio.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/work/aura-dental/demo" },
 };

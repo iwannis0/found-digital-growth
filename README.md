@@ -1,6 +1,6 @@
-# FOUND. Local Digital Growth Company
+# VISION. Local Digital Growth Company
 
-Production website and lead-management application for FOUND., a Cyprus-based local digital growth company. It includes the public marketing site, website-audit and contact conversion flows, persistent lead records, a protected admin area, email and webhook integrations, consent-aware analytics, SEO routes and structured data.
+Production website and lead-management application for VISION., a Cyprus-based local digital growth company. It includes the public marketing site, website-audit and contact conversion flows, persistent lead records, a protected admin area, email and webhook integrations, consent-aware analytics, SEO routes and structured data.
 
 ## Stack
 

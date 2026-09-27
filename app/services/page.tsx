@@ -35,7 +35,7 @@ export default function ServicesPage() {
   return (
     <main className="motion-page services-motion-page"><PageMotion />
       <section className="lit-hero services-lit-hero"><div className="site-container lit-hero-grid">
-        <div><p className="eyebrow">Services</p><h1>More than <em>a website.</em></h1><p className="lit-hero-lead">FOUND. builds the digital foundation, then adds the visibility, measurement and support your business actually needs.</p></div>
+        <div><p className="eyebrow">Services</p><h1>More than <em>a website.</em></h1><p className="lit-hero-lead">We combine strategy, design, development and visibility so every page has a job to do.</p></div>
         <div className="service-orbit">
           <svg className="service-orbit-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <defs><mask id="service-orbit-clear" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120"><rect x="-10" y="-10" width="120" height="120" fill="#fff" /><rect x="36" y="36" width="28" height="35" rx="5" fill="#000" />{orbitNodes.map(({ slug, x, y }) => <rect key={slug} x={x - 11} y={y - 9} width="22" height="28" rx="5" fill="#000" />)}</mask></defs>

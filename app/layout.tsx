@@ -10,20 +10,20 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "FOUND. | Website Design & Digital Growth Cyprus",
-    template: "%s | FOUND.",
+    default: "VISION. | Website Design & Digital Growth Cyprus",
+    template: "%s | VISION.",
   },
   description: siteConfig.description,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "FOUND. | Website Design & Digital Growth Cyprus",
+    title: "VISION. | Website Design & Digital Growth Cyprus",
     description: siteConfig.description,
     type: "website",
     locale: "en_CY",
-    siteName: "FOUND.",
-    images: ["/images/social/found-og-default.jpg"],
+    siteName: "VISION.",
+    images: ["/images/social/og-default.jpg"],
   },
-  twitter: { card: "summary_large_image", title: "FOUND.", description: siteConfig.description, images: ["/images/social/found-og-default.jpg"] },
+  twitter: { card: "summary_large_image", title: "VISION.", description: siteConfig.description, images: ["/images/social/og-default.jpg"] },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -36,9 +36,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const structuredData = { "@context": "https://schema.org", "@graph": [
-    { "@type": "Organization", name: "FOUND.", url: siteConfig.url, email: siteConfig.email, slogan: siteConfig.tagline },
-    { "@type": "LocalBusiness", name: "FOUND.", url: siteConfig.url, areaServed: { "@type": "Country", name: "Cyprus" }, priceRange: "€€", email: siteConfig.email },
-    { "@type": "WebSite", name: "FOUND.", url: siteConfig.url, inLanguage: "en" },
+    { "@type": "Organization", name: "VISION.", url: siteConfig.url, email: siteConfig.email, slogan: siteConfig.tagline },
+    { "@type": "LocalBusiness", name: "VISION.", url: siteConfig.url, areaServed: { "@type": "Country", name: "Cyprus" }, priceRange: "€€", email: siteConfig.email },
+    { "@type": "WebSite", name: "VISION.", url: siteConfig.url, inLanguage: "en" },
   ] };
   return (
     <html lang="en" suppressHydrationWarning>
