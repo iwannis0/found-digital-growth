@@ -125,7 +125,7 @@ button { cursor: pointer; }
 .home-hero-eyebrow::before { width: 50px; height: 1px; background: #202024; content: ""; }
 .home-hero-copy h1 { position: relative; max-width: 630px; margin: 0; font-size: clamp(4.25rem, 6.15vw, 5.5rem); font-weight: 800; letter-spacing: -.078em; line-height: .94; }
 .home-hero-copy h1 span { color: var(--acid-dark); }
-.home-hero-copy h1 em { display: block; margin-top: .08em; color: var(--acid-dark); font-family: Georgia, serif; font-size: .7em; font-style: italic; font-weight: 400; letter-spacing: -.045em; text-wrap: balance; }
+.home-hero-copy h1 em { display: block; margin-top: .3em; color: var(--acid-dark); font-family: Georgia, serif; font-size: .7em; font-style: italic; font-weight: 400; letter-spacing: -.045em; text-wrap: balance; }
 .home-hero-lead { max-width: 515px; margin: 34px 0 0; color: #5f5f64; font-size: 1.15rem; line-height: 1.55; }
 .home-hero-actions { display: flex; gap: 14px; margin-top: 30px; }
 .home-hero-button { min-width: 182px; min-height: 52px; justify-content: space-between; border-radius: 7px; padding: 0 22px; font-size: .82rem; }
