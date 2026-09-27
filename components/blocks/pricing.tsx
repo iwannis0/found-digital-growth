@@ -19,6 +19,7 @@ export interface PricingPlan {
   minutes: string;
   popular: boolean;
   items: readonly string[];
+  care: readonly string[];
 }
 
 const confettiColors = ["#3F35B5", "#6A5FE0", "#2E2690", "#EFEDFF"];
@@ -79,7 +80,7 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
             aria-controls={`plan-${index}`}
             onClick={() => setActivePlan(index)}
           >
-            <span>{plan.short}{plan.popular && <i aria-label="Most popular" />}</span>
+            <span>{plan.short}{index === activePlan && <i aria-hidden="true" />}</span>
             <NumberFlow
               value={toAmount(showCare ? plan.monthly : plan.setup)}
               locales="en-GB"
@@ -133,18 +134,29 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
 
             <hr className="my-5 w-full border-[var(--line)]" />
 
-            <ul className="flex flex-1 flex-col gap-2.5 text-left">
-              {plan.items.map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm leading-snug">
-                  <Check className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]" aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-              <li className="flex items-start gap-2 text-sm leading-snug">
-                <Check className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]" aria-hidden="true" />
-                <span>Up to {plan.minutes} minor updates/month</span>
-              </li>
-            </ul>
+            {/* One-off build and optional monthly care are listed separately so the setup price never looks like it includes hosting. */}
+            <div className="flex flex-1 flex-col text-left">
+              <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">Included in setup</p>
+              <ul className="flex flex-col gap-2.5">
+                {plan.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm leading-snug">
+                    <Check className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 rounded-xl bg-[var(--paper-deep)] p-4">
+                <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">With Website Care · {plan.monthly} / month</p>
+                <ul className="flex flex-col gap-2">
+                  {[...plan.care, `Up to ${plan.minutes} of minor updates / month`].map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm leading-snug">
+                      <Check className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
             <Link
               className={cn("button button-large mt-7 w-full", plan.popular ? "button-accent" : "button-dark")}
