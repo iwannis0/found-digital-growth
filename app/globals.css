@@ -119,7 +119,8 @@ button { cursor: pointer; }
 .home-hero { overflow: hidden; background: #f7f6f3; color: #0b0b0d; }
 .home-hero .site-container { width: min(1380px, calc(100% - 112px)); }
 .home-hero-grid { display: grid; grid-template-columns: 46% 54%; grid-template-rows: 1fr auto; align-items: center; min-height: 700px; }
-.home-hero-copy { position: relative; z-index: 3; grid-column: 1; grid-row: 1; padding: 38px 0 24px; }
+/* The right padding is a guaranteed gap to the hero art, so wider font rendering (e.g. Windows) wraps the copy instead of touching the cards. */
+.home-hero-copy { position: relative; z-index: 3; grid-column: 1; grid-row: 1; padding: 38px 56px 24px 0; }
 .home-hero-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 36px; color: #55555b; font-size: .66rem; font-weight: 700; letter-spacing: .32em; text-transform: uppercase; }
 .home-hero-eyebrow::before { width: 50px; height: 1px; background: #202024; content: ""; }
 .home-hero-copy h1 { position: relative; max-width: 630px; margin: 0; font-size: clamp(4.25rem, 6.15vw, 5.5rem); font-weight: 800; letter-spacing: -.078em; line-height: .94; }
@@ -162,7 +163,7 @@ button { cursor: pointer; }
 .home-screen-copy p { margin: 0; font-size: calc(44 * var(--u)); font-weight: 500; letter-spacing: -.07em; line-height: .96}
 .home-screen-copy small { display: block; margin-top: calc(26 * var(--u)); color: #d5d5d8; font-size: calc(8.8 * var(--u)); letter-spacing: .17em; line-height: 1.55; text-transform: uppercase}
 .home-screen-footer { right: calc(30 * var(--u)); bottom: calc(21 * var(--u)); left: calc(30 * var(--u)); display: flex; justify-content: space-between; color: #d8d7dc; font-size: calc(8.48 * var(--u)); letter-spacing: .18em; text-transform: uppercase}
-.home-brand-card { position: absolute; z-index: 4; bottom: calc(44 * var(--u)); left: 0; display: flex; width: calc(160 * var(--u)); height: calc(214 * var(--u)); flex-direction: column; justify-content: space-between; border-radius: calc(10 * var(--u)); background: #111113; color: #fff; padding: calc(24 * var(--u)); box-shadow: 0 26px 56px #11111930; transform: rotate(6deg)}
+.home-brand-card { position: absolute; z-index: 4; bottom: calc(44 * var(--u)); left: calc(24 * var(--u)); display: flex; width: calc(160 * var(--u)); height: calc(214 * var(--u)); flex-direction: column; justify-content: space-between; border-radius: calc(10 * var(--u)); background: #111113; color: #fff; padding: calc(24 * var(--u)); box-shadow: 0 26px 56px #11111930; transform: rotate(6deg)}
 .home-brand-card strong { font-size: calc(97.6 * var(--u)); font-weight: 800; letter-spacing: -.14em; line-height: .8}
 .home-brand-card strong span { color: var(--acid-light)}
 .home-brand-card small { font-size: calc(8.32 * var(--u)); letter-spacing: .2em; line-height: 1.55; text-transform: uppercase}
