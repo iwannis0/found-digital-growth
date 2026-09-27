@@ -34,7 +34,7 @@ export default function HomePage() {
               <div className="home-screen-footer"><span>Homepage</span><span>01 / 04</span></div>
             </div>
             <div className="home-brand-card" aria-hidden="true"><strong>v<span>.</span></strong><small>A digital studio<br />in Cyprus.</small></div>
-            <div className="home-analytics-card" aria-hidden="true"><small>Example dashboard</small><strong>Meaningful actions</strong><svg viewBox="0 0 230 62" preserveAspectRatio="none"><path d="M0 52 C22 50 27 36 43 41 S72 52 89 30 S116 43 132 29 S157 37 173 15 S205 29 230 5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" /></svg><span>Calls · enquiries · bookings</span></div>
+            <div className="home-analytics-card" aria-hidden="true"><small>What we measure</small><strong>Meaningful actions</strong><svg viewBox="0 0 230 62" preserveAspectRatio="none"><path d="M0 52 C22 50 27 36 43 41 S72 52 89 30 S116 43 132 29 S157 37 173 15 S205 29 230 5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" /></svg><span>Calls · enquiries · bookings</span></div>
           </div>
           <div className="home-service-index" aria-label="What VISION. can help with">
             {[["01", "Website Design & Development"], ["02", "Local SEO"], ["03", "Google Business"], ["04", "Website Care"], ["05", "Analytics"], ["06", "Conversion Design"]].map(([number, label]) => <div key={number}><span>{number}</span><strong>{label}</strong></div>)}

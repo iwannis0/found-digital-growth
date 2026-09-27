@@ -3,6 +3,7 @@ import "./globals.css";
 import { Analytics } from "@/components/analytics";
 import { AttributionTracker } from "@/components/attribution-tracker";
 import { CookieConsent } from "@/components/cookie-consent";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/lib/site-config";
@@ -41,10 +42,11 @@ export default function RootLayout({
     { "@type": "WebSite", name: "VISION.", url: siteConfig.url, inLanguage: "en" },
   ] };
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         <a className="skip-link" href="#main-content">Skip to content</a>
+        <ScrollToTop />
         <SiteHeader />
         <div id="main-content">{children}</div>
         <SiteFooter />
