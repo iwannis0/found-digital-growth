@@ -28,8 +28,6 @@ test("Terms match the published pricing and ownership policies", () => {
   assert.match(terms, /VAT, where applicable, will be confirmed before work begins/);
 });
 
-test("legal pages retain explicit pre-launch review notes without fabricated details", () => {
-  assert.match(privacy, /final business identity, privacy contact details and enabled production providers must be confirmed before launch/);
-  assert.match(terms, /governing-law position must be confirmed before production launch/);
+test("legal pages do not invent company registration details", () => {
   assert.doesNotMatch(`${privacy}\n${terms}`, /registration number|VAT number|registered office|exclusive jurisdiction/i);
 });

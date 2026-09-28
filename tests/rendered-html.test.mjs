@@ -2,10 +2,12 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-test("production bundle contains VISION. metadata and homepage copy", async () => {
-  const bundle = await readFile(new URL("../dist/server/index.js", import.meta.url), "utf8");
-  assert.match(bundle, /Premium Websites & Digital Growth Cyprus/);
-  assert.match(bundle, /Your website should/);
-  assert.doesNotMatch(bundle, /Starter Project/);
-  assert.doesNotMatch(bundle, /codex-preview/);
+// `npm test` builds first; Next prerenders the home page into .next/server/app.
+test("production build renders the VISION. home page", async () => {
+  const html = await readFile(new URL("../.next/server/app/index.html", import.meta.url), "utf8");
+  assert.match(html, /<title>VISION\. \| Website Design &amp; Digital Growth Cyprus/);
+  assert.match(html, /Built with clarity/);
+  assert.doesNotMatch(html, /FOUND\./);
+  assert.doesNotMatch(html, /Starter Project/);
+  assert.doesNotMatch(html, /codex-preview/);
 });
