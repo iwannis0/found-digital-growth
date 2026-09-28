@@ -8,7 +8,7 @@ if (password.length < 12) {
   process.exit(1);
 }
 
-const iterations = 210_000;
+const iterations = 600_000;
 const salt = randomBytes(16).toString("base64url");
 const hash = pbkdf2Sync(password, salt, iterations, 32, "sha256").toString("base64url");
 const value = `pbkdf2$${iterations}$${salt}$${hash}`;

@@ -2,6 +2,8 @@ import { cookies } from "next/headers";
 
 const SESSION_COOKIE = "admin_session";
 const SESSION_DURATION_SECONDS = 60 * 60 * 8;
+// A well-formed hash that matches no password, used when the email isn't an admin.
+const UNKNOWN_ADMIN_HASH = "pbkdf2$600000$unknown-admin$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 export type AdminUser = { email: string; displayName: string };
 type ConfiguredAdmin = AdminUser & { passwordHash: string };
@@ -20,7 +22,9 @@ export function isAdminAuthConfigured() {
 
 export async function authenticateAdmin(email: string, password: string): Promise<AdminUser | null> {
   const user = configuredAdmins().find((item) => item.email.trim().toLowerCase() === email.trim().toLowerCase());
-  if (!user || !await verifyPassword(password, user.passwordHash)) return null;
+  // Unknown emails still pay for a full hash check, so response time doesn't reveal which admin emails exist.
+  const valid = await verifyPassword(password, user?.passwordHash ?? UNKNOWN_ADMIN_HASH);
+  if (!user || !valid) return null;
   return { email: user.email.trim().toLowerCase(), displayName: user.displayName };
 }
 

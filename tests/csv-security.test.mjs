@@ -20,3 +20,7 @@ test("ordinary values and numbers remain unchanged", () => {
   assert.equal(csvCell(1250), '"1250"');
   assert.equal(csvCell(null), '""');
 });
+
+test("cells starting with a tab or carriage return are neutralized too", () => {
+  for (const value of ["\t=1+1", "\r=cmd", "\tplain"]) assert.equal(csvCell(value), `"'${value}"`);
+});

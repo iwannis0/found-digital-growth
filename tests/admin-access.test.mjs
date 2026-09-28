@@ -111,3 +111,12 @@ test("tampered, foreign-secret and expired session cookies are rejected", async 
   finally { Date.now = realNow; }
   assert.equal(await admin.getAdmin(), null);
 });
+
+test("unknown emails take as long as wrong passwords, so admin emails can't be guessed", async () => {
+  const time = async (email) => { const start = performance.now(); await auth.authenticateAdmin(email, "wrong password"); return performance.now() - start; };
+  await time(ioannis.email); // warm up
+  const known = await time(ioannis.email);
+  const unknown = await time("nobody@example.com");
+  // The unknown path runs a stronger (600k) hash than these test accounts (100k), so it is never the fast one.
+  assert.ok(unknown >= known * 0.8, `unknown email answered in ${unknown.toFixed(0)}ms vs ${known.toFixed(0)}ms`);
+});

@@ -3,7 +3,7 @@ import { checkBotId } from "botid/server";
 const windows = new Map<string, { count: number; resetAt: number }>();
 
 export function clientIp(request: Request) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  return request.headers.get("x-real-ip")?.trim() || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 }
 
 export function rateLimit(key: string, limit = 6, windowMs = 60_000) {
