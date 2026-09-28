@@ -3,7 +3,7 @@ import { NovaConceptBar } from "./nova-header";
 
 export const metadata: Metadata = {
   title: "NOVA Estates Website Concept",
-  description: "A fictional luxury property website concept created for the FOUND. portfolio.",
+  description: "A fictional luxury property website concept created for the VISION. portfolio.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/work/nova-estates/demo" },
 };

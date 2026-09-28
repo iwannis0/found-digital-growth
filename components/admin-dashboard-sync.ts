@@ -1,7 +1,7 @@
 "use client";
 
-const adminDataChangedEvent = "found-admin-data-changed";
-const adminDataChangedKey = "found-admin-data-updated";
+const adminDataChangedEvent = "admin-data-changed";
+const adminDataChangedKey = "admin-data-updated";
 
 export function notifyAdminDataChanged() {
   if (typeof window === "undefined") return;

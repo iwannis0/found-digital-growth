@@ -108,7 +108,7 @@ export function AuraDemo() {
   }, []);
 
   return <main className="aura-demo" id="aura-top">
-    <div className="aura-concept-bar"><span>FOUND. / WEBSITE CONCEPT</span><span>Fictional AURA Dental demo</span><Link href="/work/aura-dental">Back to case study <ArrowUpRight size={14} aria-hidden="true" /></Link></div>
+    <div className="aura-concept-bar"><span>VISION. / WEBSITE CONCEPT</span><span>Fictional AURA Dental demo</span><Link href="/work/aura-dental">Back to case study <ArrowUpRight size={14} aria-hidden="true" /></Link></div>
     <section className="aura-hero" aria-labelledby="aura-hero-title">
       <Image className="aura-hero-image" src="/images/aura-demo/treatment-hero.png" alt="Dentist caring for a patient in a contemporary dental studio" fill priority unoptimized sizes="100vw" />
       <div className="aura-hero-wash" />
@@ -197,7 +197,7 @@ export function AuraDemo() {
       </div>
     </section>
 
-    <footer className="aura-footer"><div className="aura-shell"><div className="aura-footer-main"><div><a href="#aura-top" className="aura-wordmark" aria-label="AURA Dental, back to top">AURA<span>DENTAL</span></a><p>A calmer, more considered way to care for your smile.</p></div><div><h3>Explore</h3>{nav.map(([label, href]) => <a href={href} key={href}>{label}</a>)}</div><div><h3>Treatments</h3>{treatmentDetails.map((item) => <Link href={`/work/aura-dental/demo/treatments/${item.slug}`} key={item.slug}>{item.name}</Link>)}</div><div><h3>Visit</h3><p>Nicosia, Cyprus<br />Concept website only</p><button className="aura-footer-book" type="button" onClick={openBooking}>Explore booking <ArrowUpRight size={15} /></button></div></div><div className="aura-footer-bottom"><span>© {new Date().getFullYear()} AURA Dental · fictional concept</span><Link href="/work/aura-dental">A portfolio project by FOUND. <ArrowUpRight size={15} /></Link></div></div></footer>
+    <footer className="aura-footer"><div className="aura-shell"><div className="aura-footer-main"><div><a href="#aura-top" className="aura-wordmark" aria-label="AURA Dental, back to top">AURA<span>DENTAL</span></a><p>A calmer, more considered way to care for your smile.</p></div><div><h3>Explore</h3>{nav.map(([label, href]) => <a href={href} key={href}>{label}</a>)}</div><div><h3>Treatments</h3>{treatmentDetails.map((item) => <Link href={`/work/aura-dental/demo/treatments/${item.slug}`} key={item.slug}>{item.name}</Link>)}</div><div><h3>Visit</h3><p>Nicosia, Cyprus<br />Concept website only</p><button className="aura-footer-book" type="button" onClick={openBooking}>Explore booking <ArrowUpRight size={15} /></button></div></div><div className="aura-footer-bottom"><span>© {new Date().getFullYear()} AURA Dental · fictional concept</span><Link href="/work/aura-dental">A portfolio project by VISION. <ArrowUpRight size={15} /></Link></div></div></footer>
     {bookingOpen && <BookingModal onClose={closeBooking} />}
   </main>;
 }

@@ -24,8 +24,8 @@ export function CookieConsent() {
     const value = window.localStorage.getItem(consentStorageKey);
     if (!value) queueMicrotask(() => setVisible(true));
     const open = () => { setAnalytics(hasAnalyticsConsent()); setManage(true); };
-    window.addEventListener("found:cookie-settings", open);
-    return () => window.removeEventListener("found:cookie-settings", open);
+    window.addEventListener("site:cookie-settings", open);
+    return () => window.removeEventListener("site:cookie-settings", open);
   }, []);
 
   function save(value: Consent) {
@@ -56,7 +56,7 @@ export function CookieConsent() {
         <DialogContent className="cookie-dialog">
           <DialogHeader>
             <DialogTitle>Cookie settings</DialogTitle>
-            <DialogDescription>Choose whether FOUND. may use analytics to improve the website.</DialogDescription>
+            <DialogDescription>Choose whether VISION. may use analytics to improve the website.</DialogDescription>
           </DialogHeader>
           <div className="cookie-setting-row">
             <div><strong>Essential</strong><p>Required for core website functions and consent storage.</p></div>

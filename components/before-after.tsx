@@ -39,7 +39,7 @@ export function BeforeAfter() {
   return (
     <section className="compare-section section-pad">
       <div className="site-container">
-        <SectionHeading eyebrow="A clearer standard" title="What your website could look like." body="Compare a typical outdated layout with a cleaner, more deliberate redesign direction." />
+        <SectionHeading eyebrow="Before and after" title="What your website could look like." body="Compare a typical outdated layout with a more deliberate redesign." />
         <div className="compare-meta" aria-hidden="true">
           <span>Website transformation</span>
           <span>Drag to compare</span>

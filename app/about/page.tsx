@@ -5,7 +5,7 @@ import { PageMotion } from "@/components/page-motion";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Meet Ioannis Georgiou and Stylianos Panagiotou, the people behind FOUND., a Cyprus digital growth company.",
+  description: "Meet Ioannis Georgiou and Stylianos Panagiotou, the people behind VISION., a Cyprus digital growth company.",
   alternates: { canonical: "/about" },
 };
 
@@ -38,14 +38,14 @@ const afterLaunch = [
 export default function AboutPage() {
   return <main className="motion-page about-motion-page"><PageMotion />
     <section className="lit-hero about-lit-hero"><div className="site-container lit-hero-grid">
-      <div><p className="eyebrow">The people behind FOUND.</p><h1 id="founders-heading">Two people. <em>One clear direction.</em></h1><p className="lit-hero-lead">Every project is shaped directly by both founders. We share the design and code, while Ioannis leads business clarity, structure and communication, and Stylianos leads visual direction, build quality and delivery.</p></div>
+      <div><p className="eyebrow">About VISION.</p><h1 id="founders-heading">Two people. <em>One clear direction.</em></h1><p className="lit-hero-lead">Every project is shaped directly by both founders. We share the design and code, while Ioannis leads business clarity, structure and communication, and Stylianos leads visual direction, build quality and delivery.</p></div>
       <div className="founder-stage">{founders.map((founder) => <figure className="founder-hero-card" key={founder.name}><div className="founder-hero-photo"><Image src={founder.image} alt={`${founder.name}, ${founder.role}`} fill unoptimized sizes="(max-width: 900px) 45vw, 260px" priority /></div><figcaption><strong>{founder.name}</strong><span>{founder.role.replace("Co-founder · ", "")}</span></figcaption></figure>)}</div>
     </div></section>
     <section className="founders-section section-pad" aria-labelledby="founders-heading">
       <div className="site-container">
         <div className="founders-grid">
           {founders.map((founder, index) => <article className="founder-profile" key={founder.name}>
-            <span className="founder-number">0{index + 1} / FOUND.</span>
+            <span className="founder-number">0{index + 1} / VISION.</span>
             <div className="founder-content">
               <div className="founder-copy" data-motion="rise">
                 <h2>{founder.name}</h2>

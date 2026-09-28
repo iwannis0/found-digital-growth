@@ -1,5 +1,5 @@
-export const consentStorageKey = "found-cookie-consent";
-export const consentChangedEvent = "found:consent-changed";
+export const consentStorageKey = "cookie-consent";
+export const consentChangedEvent = "site:consent-changed";
 const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 type AnalyticsWindow = Window & {

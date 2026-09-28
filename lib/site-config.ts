@@ -1,13 +1,13 @@
 export const siteConfig = {
-  name: "FOUND.",
-  tagline: "Get found. Get chosen.",
-  title: "FOUND. Local Digital Growth Company",
+  name: "VISION.",
+  tagline: "Designed for what’s next.",
+  title: "VISION. Local Digital Growth Company",
   description:
-    "Websites and digital foundations that help ambitious Cyprus businesses get found, trusted and chosen.",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "found.growthcy@gmail.com",
+    "Website design, local SEO and digital growth for ambitious Cyprus businesses.",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "onboarding@vision.cy",
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+357 99900853",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "35722000000",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://found.cy",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://vision.cy",
   address: "Cyprus",
   socials: {
     instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",

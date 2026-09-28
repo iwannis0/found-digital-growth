@@ -23,7 +23,7 @@ export function SiteFooter() {
   function openCookieSettings(event: React.MouseEvent<HTMLAnchorElement>) {
     if (event.currentTarget.getAttribute("href") === "#cookie-settings") {
       event.preventDefault();
-      window.dispatchEvent(new CustomEvent("found:cookie-settings"));
+      window.dispatchEvent(new CustomEvent("site:cookie-settings"));
     }
   }
 
@@ -31,7 +31,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-container footer-top">
         <div className="footer-statement">
-          <Link className="wordmark wordmark-light" href="/">FOUND<span>.</span></Link>
+          <Link className="wordmark wordmark-light" href="/">VISION<span>.</span></Link>
           <p>{siteConfig.tagline}</p>
           <Link href="/free-audit" className="footer-big-link">
             Start with a free audit <ArrowUpRight aria-hidden="true" />
@@ -54,9 +54,9 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="site-container footer-bottom">
-        <p>© {new Date().getFullYear()} FOUND. Cyprus.</p>
+        <p>© {new Date().getFullYear()} VISION. Cyprus.</p>
         <div className="footer-bottom-end">
-          <p>Websites are only the beginning.</p>
+          <p>Websites and digital growth for Cyprus businesses.</p>
           <Link href="/admin" className="footer-admin-link" rel="nofollow"><LockKeyhole aria-hidden="true" />Admin login</Link>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { VelaBooking, VelaConceptBar, VelaMotion, VelaNav } from "./vela-client"
 
 export const metadata: Metadata = {
   title: "VELA Studio — Beauty & Wellness",
-  description: "A fictional editorial beauty and wellness website concept by FOUND.",
+  description: "A fictional editorial beauty and wellness website concept by VISION.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/work/vela-studio/demo" },
 };

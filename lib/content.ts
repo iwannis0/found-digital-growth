@@ -82,7 +82,7 @@ export const services = [
     eyebrow: "Ongoing care",
     headline: "Your website should stay fast, secure and up to date.",
     intro:
-      "Launch is the beginning. Our care plans keep technical health in good order and make routine monthly changes easy to manage.",
+      "A website needs looking after once it is live. Our care plans keep technical health in good order and make routine monthly changes easy to manage.",
     benefits: [
       "Managed hosting, SSL and backups",
       "Security and uptime monitoring",
@@ -175,8 +175,12 @@ export const projects = [
     industry: "Dental Clinic",
     tone: "aura",
     statement: "Calm care. Clear choices.",
-    problem: "An outdated dental website can make a modern clinic feel outdated.",
     concept: "A calm, premium and conversion-focused dental experience.",
+    scope: "Strategy · UX/UI · Treatment pages · Booking flow",
+    challenge: { title: "Nervous patients decide fast.", body: "Most people arrive at a dental website uneasy and short on time. When treatments, prices and the way to book are hard to find, they simply call the next clinic." },
+    approach: { title: "Answer the worry, then offer the booking.", body: "Every treatment page follows the same order: what it is, how it feels, how long it takes, then one clear booking step. The questions patients hesitate to ask are answered before they have to." },
+    direction: { title: "Warm neutrals instead of clinical white.", body: "Cream, sand and olive tones with a classic serif make the clinic feel reassuring and personal, while generous spacing keeps a lot of treatment detail easy to scan on a phone." },
+    closing: "Is your clinic this easy to choose?",
     features: ["Appointment booking", "Treatment pages", "Doctors", "Reviews section", "Google Maps", "WhatsApp", "Click-to-call", "Gallery", "FAQ"],
   },
   {
@@ -186,8 +190,12 @@ export const projects = [
     industry: "Luxury Real Estate",
     tone: "nova",
     statement: "Cyprus properties, precisely presented.",
-    problem: "Premium listings lose impact when search, imagery and enquiry journeys feel ordinary.",
     concept: "A dark editorial property platform with immersive detail and effortless lead capture.",
+    scope: "Strategy · UX/UI · Listings & search · Enquiry flow",
+    challenge: { title: "Premium homes, ordinary browsing.", body: "High-value listings lose their pull when they sit in the same grid and filters as every property portal. Buyers at this level expect the browsing itself to feel considered." },
+    approach: { title: "Let the property lead. Keep the enquiry close.", body: "Search and filters narrow the choice quickly, each home gets an editorial detail page, and a private enquiry is never more than one step away, including for developments shared before public launch." },
+    direction: { title: "Navy, cream and a touch of gold.", body: "A dark editorial palette with classic serif headings gives the agency quiet authority and lets the photography carry every page." },
+    closing: "Do your listings feel as good as the homes?",
     features: ["Property listings", "Search and filters", "Property detail", "Gallery", "Agent profile", "WhatsApp", "Enquiry", "Map"],
   },
   {
@@ -197,8 +205,12 @@ export const projects = [
     industry: "Beauty / Wellness",
     tone: "vela",
     statement: "A quieter kind of confidence.",
-    problem: "A beautiful studio can still lose appointments when services, availability and trust are hard to understand online.",
     concept: "A warm, appointment-led beauty experience that makes choosing a treatment feel calm and personal.",
+    scope: "Brand feel · UX/UI · Service menu · Booking",
+    challenge: { title: "Choosing a treatment shouldn’t feel like homework.", body: "Beauty studios often list dozens of treatments with little guidance, so visitors leave unsure what to book or who will look after them." },
+    approach: { title: "Guide the choice, then make booking effortless.", body: "Treatments sit in a short menu with plain descriptions and durations, therapists are introduced by name, and booking and WhatsApp stay within reach on every page." },
+    direction: { title: "Soft ivory, warm browns, an unhurried pace.", body: "A custom serif, earthy tones and slow, gentle motion give the studio a premium feel that matches the atmosphere in the treatment room." },
+    closing: "Does your studio feel like this online?",
     features: ["Service menu", "Appointment booking", "Team profiles", "Treatment gallery", "Reviews section", "WhatsApp", "Instagram integration", "Location and hours", "FAQ"],
   },
 ] as const;
@@ -224,9 +236,9 @@ export const deployedProjects = [
 ] as const;
 
 export const processSteps = [
-  ["01", "Discover", "We understand the business, audience, competitors, services and goals."],
-  ["02", "Strategy & Design", "We define the visual direction, message and customer journey."],
-  ["03", "Build", "We develop the website and implement the agreed integrations, SEO foundations and tracking."],
-  ["04", "Launch", "We complete QA, deployment, indexing and analytics checks."],
-  ["05", "Grow", "After launch, we support the website and improve SEO, analytics and other agreed areas as the business grows."],
+  ["01", "Discover", "We understand your business, audience, competitors, goals and current challenges."],
+  ["02", "Define", "We shape the structure, messaging and customer journey before design begins."],
+  ["03", "Design", "We create the visual system and user experience around that strategy."],
+  ["04", "Build", "We develop and test across devices, with the agreed integrations, SEO foundations and tracking."],
+  ["05", "Launch & Grow", "We launch, track performance and keep improving SEO, analytics and what comes next."],
 ] as const;

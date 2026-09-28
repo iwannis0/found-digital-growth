@@ -89,7 +89,7 @@ export function VelaMotion() {
 
 export function VelaConceptBar() {
   return <div className="vela-concept-bar">
-    <span>FOUND. / WEBSITE CONCEPT</span>
+    <span>VISION. / WEBSITE CONCEPT</span>
     <span>FICTIONAL VELA STUDIO DEMO</span>
     <Link href="/work/vela-studio">BACK TO CASE STUDY <ArrowUpRight size={13} /></Link>
   </div>;
