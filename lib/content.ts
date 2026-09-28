@@ -44,7 +44,7 @@ export const services = [
     eyebrow: "Organic visibility",
     headline: "Be present when local customers are actively searching.",
     intro:
-      "Local SEO connects your services with the searches people make in Nicosia, Limassol, Larnaca, Paphos and across Cyprus. We map local demand, service areas and the website signals search engines need to understand over time.",
+      "Local SEO connects your services with the searches people make in Nicosia, Limassol, Larnaca, Paphos, Paralimni, Ayia Napa and across Cyprus. We map local demand, service areas and the website signals search engines need to understand over time.",
     benefits: [
       "Local keyword and competitor research",
       "Service and location content planning",

@@ -43,7 +43,7 @@ export default function RootLayout({
   const structuredData = { "@context": "https://schema.org", "@graph": [
     { "@type": "Organization", "@id": `${siteConfig.url}/#organization`, name: "VISION.", url: siteConfig.url, logo, email: siteConfig.email, telephone: siteConfig.phone, slogan: siteConfig.tagline, ...(sameAs.length ? { sameAs } : {}) },
     { "@type": "ProfessionalService", "@id": `${siteConfig.url}/#business`, name: "VISION.", description: siteConfig.description, url: siteConfig.url, logo, image: `${siteConfig.url}/images/social/og-default.jpg`, email: siteConfig.email, telephone: siteConfig.phone, priceRange: "€€", address: { "@type": "PostalAddress", addressCountry: "CY" },
-      areaServed: [...["Nicosia", "Limassol", "Larnaca", "Paphos"].map((name) => ({ "@type": "City", name })), { "@type": "Country", name: "Cyprus" }], parentOrganization: { "@id": `${siteConfig.url}/#organization` } },
+      areaServed: [...["Nicosia", "Limassol", "Larnaca", "Paphos", "Paralimni", "Ayia Napa"].map((name) => ({ "@type": "City", name })), { "@type": "Country", name: "Cyprus" }], parentOrganization: { "@id": `${siteConfig.url}/#organization` } },
     { "@type": "WebSite", "@id": `${siteConfig.url}/#website`, name: "VISION.", url: siteConfig.url, inLanguage: "en", publisher: { "@id": `${siteConfig.url}/#organization` } },
   ] };
   return (
