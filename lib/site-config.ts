@@ -4,7 +4,7 @@ export const siteConfig = {
   title: "VISION. Local Digital Growth Company",
   description:
     "Website design, local SEO and digital growth for ambitious Cyprus businesses.",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "onboarding@vision.cy",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@vision.cy",
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+357 99900853",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "35722000000",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://vision.cy",
