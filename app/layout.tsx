@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@/components/analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { AttributionTracker } from "@/components/attribution-tracker";
 import { CookieConsent } from "@/components/cookie-consent";
 import { ScrollToTop } from "@/components/scroll-to-top";
@@ -53,6 +54,7 @@ export default function RootLayout({
         <CookieConsent />
         <AttributionTracker />
         <Analytics />
+        <VercelAnalytics />
       </body>
     </html>
   );
