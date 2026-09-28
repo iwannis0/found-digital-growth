@@ -3,7 +3,7 @@ export const siteConfig = {
   tagline: "Designed for what’s next.",
   title: "VISION. Local Digital Growth Company",
   description:
-    "Website design, local SEO and digital growth for ambitious Cyprus businesses.",
+    "Websites designed and built in Cyprus to bring you enquiries: web design, local SEO, Google Business Profile and ongoing care. Free website audit.",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@vision.cy",
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+357 99900853",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "35722000000",

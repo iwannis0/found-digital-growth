@@ -11,6 +11,8 @@ import {
 export const services = [
   {
     slug: "web-design",
+    seoTitle: "Website Design & Development Cyprus",
+    seoDescription: "Custom websites for Cyprus businesses, designed around enquiries, bookings and sales: responsive design, fast development, SEO foundations and tracking.",
     title: "Website Design & Development",
     short: "Modern websites designed and developed around the business goals that matter: enquiries, bookings, calls and sales.",
     icon: Globe2,
@@ -34,6 +36,8 @@ export const services = [
   },
   {
     slug: "local-seo",
+    seoTitle: "Local SEO Services Cyprus",
+    seoDescription: "Local SEO for businesses in Nicosia, Limassol, Larnaca and Paphos: keyword research, technical SEO, service and location content, and search tracking.",
     title: "Local SEO",
     short: "Search visibility shaped around your services, locations and the demand nearby customers show.",
     icon: Search,
@@ -55,6 +59,8 @@ export const services = [
   },
   {
     slug: "google-business",
+    seoTitle: "Google Business Profile Optimisation Cyprus",
+    seoDescription: "Set up and optimise your Google Business Profile: categories, services, hours, photos and a review strategy, so local customers can find and contact you.",
     title: "Google Business",
     short: "A complete and credible Google Business Profile that connects customers with the right information, website, services and actions.",
     icon: MapPin,
@@ -76,6 +82,8 @@ export const services = [
   },
   {
     slug: "website-care",
+    seoTitle: "Website Care, Hosting & Maintenance Cyprus",
+    seoDescription: "Managed hosting, SSL, backups, monitoring and monthly content updates for your website, from €49 a month. Keep your site fast, secure and up to date.",
     title: "Website Care",
     short: "Hosting, monitoring, backups and routine updates that keep the website dependable after launch.",
     icon: ShieldCheck,
@@ -98,6 +106,8 @@ export const services = [
   },
   {
     slug: "analytics",
+    seoTitle: "Website Analytics & Conversion Tracking",
+    seoDescription: "Track calls, WhatsApp clicks, bookings and form enquiries with GA4 and Search Console, so you know which pages and campaigns bring customers.",
     title: "Analytics & Tracking",
     short: "Measure calls, messages, bookings and forms so decisions are based on real customer signals.",
     icon: BarChart3,
@@ -119,6 +129,8 @@ export const services = [
   },
   {
     slug: "conversion-design",
+    seoTitle: "Conversion-Focused Web Design Cyprus",
+    seoDescription: "Page structure, calls to action, forms and trust signals designed to turn visitors into calls, bookings and enquiries, on mobile and desktop.",
     title: "Conversion-Focused Design",
     short: "Decision paths shaped around trust, reassurance and the action customers are ready to take.",
     icon: Crosshair,
@@ -143,6 +155,8 @@ export const services = [
 export const customCapabilities = [
   {
     slug: "automation",
+    seoTitle: "Lead & Booking Automation",
+    seoDescription: "Connect your website to email, your CRM, bookings and newsletters so enquiries are routed and followed up automatically, without extra admin.",
     title: "Lead & Booking Automation",
     short: "Practical workflows added when a project genuinely benefits from them.",
     icon: Bot,

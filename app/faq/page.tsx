@@ -4,7 +4,7 @@ import { ArrowDown } from "lucide-react";
 import { FAQList } from "@/components/faq-list";
 import { faqs } from "@/lib/faqs";
 
-export const metadata: Metadata = { title: "Frequently Asked Questions", description: "Answers about VISION. pricing, timelines, ownership, hosting, SEO, website care and support.", alternates: { canonical: "/faq" } };
+export const metadata: Metadata = { title: "Web Design FAQ: Cost, Timelines & Ownership", description: "Answers to common questions about website cost in Cyprus, timelines, who owns the site and domain, hosting, SEO, Website Care and support.", alternates: { canonical: "/faq" } };
 
 const mostAsked = ["How much does a website cost?", "Who owns the website?", "How long does a website take?", "Is Website Care mandatory?"];
 

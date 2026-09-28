@@ -5,7 +5,7 @@ import { CTASection } from "@/components/cta-section";
 import { PageMotion } from "@/components/page-motion";
 import { customCapabilities, services } from "@/lib/content";
 
-export const metadata: Metadata = { title: "Website Design, SEO & Digital Foundations", description: "Website design, local SEO, Google Business, website care, analytics and conversion-focused design for Cyprus businesses.", alternates: { canonical: "/services" } };
+export const metadata: Metadata = { title: "Web Design, SEO & Google Business Services Cyprus", description: "Website design and development, local SEO, Google Business Profile, analytics and Website Care for Cyprus businesses, with clear scope and starting prices.", alternates: { canonical: "/services" } };
 
 const orderedServices = ["web-design", "conversion-design", "local-seo", "google-business", "analytics", "website-care"].map((slug) => services.find((service) => service.slug === slug)!);
 const automationService = customCapabilities.find(({ slug }) => slug === "automation")!;

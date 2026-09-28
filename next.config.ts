@@ -14,7 +14,14 @@ const csp = [
   "form-action 'self'",
 ].join("; ");
 
+// Search engines should see one address for the site. Preview deployments use their own
+// hostnames, so matching these two exact hosts leaves previews untouched.
+const duplicateHosts = ["www.vision.cy", "found-digital-growth.vercel.app"];
+
 const nextConfig: NextConfig = {
+  async redirects() {
+    return duplicateHosts.map((host) => ({ source: "/:path*", has: [{ type: "host" as const, value: host }], destination: "https://vision.cy/:path*", permanent: true }));
+  },
   async headers() {
     return [
       {

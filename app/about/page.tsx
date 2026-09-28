@@ -4,8 +4,8 @@ import { ArrowUpRight, ChartNoAxesColumnIncreasing, Gem, MessageSquareText, Rock
 import { PageMotion } from "@/components/page-motion";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Meet Ioannis Georgiou and Stylianos Panagiotou, the people behind VISION., a Cyprus digital growth company.",
+  title: "About Us: Web Design Studio in Cyprus",
+  description: "Meet Ioannis Georgiou and Stylianos Panagiotou, the founders of VISION., a web design and digital growth studio working with businesses across Cyprus.",
   alternates: { canonical: "/about" },
 };
 

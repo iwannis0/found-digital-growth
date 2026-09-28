@@ -12,13 +12,13 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "VISION. | Website Design & Digital Growth Cyprus",
+    default: "VISION. | Website Design & Local SEO in Cyprus",
     template: "%s | VISION.",
   },
   description: siteConfig.description,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "VISION. | Website Design & Digital Growth Cyprus",
+    title: "VISION. | Website Design & Local SEO in Cyprus",
     description: siteConfig.description,
     type: "website",
     locale: "en_CY",
@@ -37,10 +37,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Business details for search engines. Social profiles are only listed once their URLs are configured.
+  const sameAs = Object.values(siteConfig.socials).filter(Boolean);
+  const logo = `${siteConfig.url}/images/logo.png`;
   const structuredData = { "@context": "https://schema.org", "@graph": [
-    { "@type": "Organization", name: "VISION.", url: siteConfig.url, email: siteConfig.email, slogan: siteConfig.tagline },
-    { "@type": "LocalBusiness", name: "VISION.", url: siteConfig.url, areaServed: { "@type": "Country", name: "Cyprus" }, priceRange: "€€", email: siteConfig.email },
-    { "@type": "WebSite", name: "VISION.", url: siteConfig.url, inLanguage: "en" },
+    { "@type": "Organization", "@id": `${siteConfig.url}/#organization`, name: "VISION.", url: siteConfig.url, logo, email: siteConfig.email, telephone: siteConfig.phone, slogan: siteConfig.tagline, ...(sameAs.length ? { sameAs } : {}) },
+    { "@type": "ProfessionalService", "@id": `${siteConfig.url}/#business`, name: "VISION.", description: siteConfig.description, url: siteConfig.url, logo, image: `${siteConfig.url}/images/social/og-default.jpg`, email: siteConfig.email, telephone: siteConfig.phone, priceRange: "€€", address: { "@type": "PostalAddress", addressCountry: "CY" },
+      areaServed: [...["Nicosia", "Limassol", "Larnaca", "Paphos"].map((name) => ({ "@type": "City", name })), { "@type": "Country", name: "Cyprus" }], parentOrganization: { "@id": `${siteConfig.url}/#organization` } },
+    { "@type": "WebSite", "@id": `${siteConfig.url}/#website`, name: "VISION.", url: siteConfig.url, inLanguage: "en", publisher: { "@id": `${siteConfig.url}/#organization` } },
   ] };
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>

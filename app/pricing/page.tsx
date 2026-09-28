@@ -5,7 +5,7 @@ import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
 import { PageMotion } from "@/components/page-motion";
 
-export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Transparent website packages for Cyprus local businesses, from €550 setup.", alternates: { canonical: "/pricing" } };
+export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Website design packages for Cyprus businesses from €550 setup, with optional Website Care from €49 a month. See exactly what each package includes.", alternates: { canonical: "/pricing" } };
 
 const plans = [
   { name: "Professional Website Foundation", short: "Foundation", setup: "€550", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,

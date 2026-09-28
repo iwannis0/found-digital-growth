@@ -156,7 +156,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const service = getService(slug);
   if (!service) return {};
   const canonicalSlug = legacyServiceAliases[slug as keyof typeof legacyServiceAliases] ?? service.slug;
-  return { title: service.title, description: service.short, alternates: { canonical: `/services/${canonicalSlug}` } };
+  // Search titles add the location people search with; the on-page headings stay short.
+  return { title: service.seoTitle, description: service.seoDescription, alternates: { canonical: `/services/${canonicalSlug}` } };
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -171,7 +172,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const accent = headlineAccents[service.slug];
   const lead = accent && service.headline.endsWith(accent) ? service.headline.slice(0, -accent.length).trim() : service.headline;
   const structuredData = { "@context": "https://schema.org", "@graph": [
-    { "@type": "Service", name: service.title, description: service.short, provider: { "@type": "Organization", name: "VISION.", url: siteConfig.url }, areaServed: { "@type": "Country", name: "Cyprus" }, url: `${siteConfig.url}/services/${service.slug}` },
+    { "@type": "Service", name: service.title, description: service.short, provider: { "@type": "Organization", "@id": `${siteConfig.url}/#organization`, name: "VISION.", url: siteConfig.url }, areaServed: { "@type": "Country", name: "Cyprus" }, url: `${siteConfig.url}/services/${service.slug}` },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Services", item: `${siteConfig.url}/services` }, { "@type": "ListItem", position: 2, name: service.title, item: `${siteConfig.url}/services/${service.slug}` }] },
   ] };
   return (

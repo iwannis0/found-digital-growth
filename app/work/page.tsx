@@ -42,7 +42,7 @@ const customerJourneys = [
   ["Lead generation", Target],
 ] as const;
 
-export const metadata: Metadata = { title: "What We Can Build", description: "See how VISION. shapes websites around different businesses, customer journeys and commercial goals.", alternates: { canonical: "/work" }, openGraph: { images: ["/images/social/og-work.jpg"] }, twitter: { card: "summary_large_image", images: ["/images/social/og-work.jpg"] } };
+export const metadata: Metadata = { title: "Web Design Portfolio Cyprus", description: "Live websites and design concepts by VISION.: e-commerce, retail, dental, real estate and beauty sites, each built around how the business wins customers.", alternates: { canonical: "/work" }, openGraph: { images: ["/images/social/og-work.jpg"] }, twitter: { card: "summary_large_image", images: ["/images/social/og-work.jpg"] } };
 
 export default function WorkPage() {
   return <main className="motion-page work-motion-page">
