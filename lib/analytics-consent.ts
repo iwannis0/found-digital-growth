@@ -1,45 +1,125 @@
 export const consentStorageKey = "cookie-consent";
 export const consentChangedEvent = "site:consent-changed";
-const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+export const analyticsConsentGrantedEvent =
+  "analytics_consent_granted";
+
+export const analyticsConsentDeniedEvent =
+  "analytics_consent_denied";
+
+type ConsentValue = "accepted" | "rejected" | null;
 
 type AnalyticsWindow = Window & {
+  dataLayer?: unknown[];
   gtag?: (...args: unknown[]) => void;
 };
 
-export function hasAnalyticsConsent() {
-  if (typeof window === "undefined") return false;
+let lastSyncedConsent: ConsentValue | undefined;
+
+function getStoredConsent(): ConsentValue {
+  if (typeof window === "undefined") return null;
+
   try {
-    return window.localStorage.getItem(consentStorageKey) === "accepted";
+    const value = window.localStorage.getItem(consentStorageKey);
+
+    if (value === "accepted" || value === "rejected") {
+      return value;
+    }
+
+    return null;
   } catch {
-    return false;
+    return null;
   }
+}
+
+function getAnalyticsWindow(): AnalyticsWindow | null {
+  if (typeof window === "undefined") return null;
+
+  const analyticsWindow = window as AnalyticsWindow;
+
+  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+
+  return analyticsWindow;
+}
+
+export function hasAnalyticsConsent() {
+  return getStoredConsent() === "accepted";
 }
 
 export function syncAnalyticsConsent() {
-  const enabled = Boolean(measurementId) && hasAnalyticsConsent();
-  if (typeof window !== "undefined" && measurementId) {
-    // Also stops automatic events from an already-loaded Google tag.
-    Object.assign(window, { [`ga-disable-${measurementId}`]: !enabled });
+  if (typeof window === "undefined") return false;
+
+  const consent = getStoredConsent();
+  const enabled = consent === "accepted";
+
+  if (consent === lastSyncedConsent) {
+    return enabled;
   }
+
+  lastSyncedConsent = consent;
+
+  const analyticsWindow = getAnalyticsWindow();
+
+  if (!analyticsWindow) {
+    return enabled;
+  }
+
+  analyticsWindow.gtag?.("consent", "update", {
+    analytics_storage: enabled ? "granted" : "denied",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
+
+  analyticsWindow.dataLayer?.push({
+    event: enabled
+      ? analyticsConsentGrantedEvent
+      : analyticsConsentDeniedEvent,
+  });
+
   return enabled;
 }
 
-export function watchAnalyticsConsent(onChange: (enabled: boolean) => void) {
-  const refresh = () => onChange(syncAnalyticsConsent());
-  const storage = (event: StorageEvent) => {
-    if (event.key === consentStorageKey || event.key === null) refresh();
+export function watchAnalyticsConsent(
+  onChange?: (enabled: boolean) => void
+) {
+  const refresh = () => {
+    const enabled = syncAnalyticsConsent();
+    onChange?.(enabled);
   };
+
+  const storage = (event: StorageEvent) => {
+    if (
+      event.key === consentStorageKey ||
+      event.key === null
+    ) {
+      refresh();
+    }
+  };
+
   refresh();
+
   window.addEventListener(consentChangedEvent, refresh);
   window.addEventListener("storage", storage);
+
   return () => {
     window.removeEventListener(consentChangedEvent, refresh);
     window.removeEventListener("storage", storage);
   };
 }
 
-export function trackEvent(name: string, parameters: Record<string, string | number | boolean> = {}) {
-  // Read the current choice for every event, even before React rerenders.
-  if (!syncAnalyticsConsent()) return;
-  (window as AnalyticsWindow).gtag?.("event", name, parameters);
+export function trackEvent(
+  name: string,
+  parameters: Record<string, string | number | boolean> = {}
+) {
+  if (typeof window === "undefined") return;
+
+  if (!hasAnalyticsConsent()) return;
+
+  const analyticsWindow = getAnalyticsWindow();
+
+  analyticsWindow?.dataLayer?.push({
+    event: name,
+    ...parameters,
+  });
 }

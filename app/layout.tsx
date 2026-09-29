@@ -114,7 +114,32 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <Script id="google-tag-manager" strategy="beforeInteractive">
+        {/* Default Google consent state before GTM loads */}
+        <Script
+          id="google-consent-default"
+          strategy="beforeInteractive"
+        >
+          {`
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied'
+            });
+          `}
+        </Script>
+
+        {/* Google Tag Manager */}
+        <Script
+          id="google-tag-manager"
+          strategy="beforeInteractive"
+        >
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -127,6 +152,7 @@ export default function RootLayout({
       </head>
 
       <body className="antialiased">
+        {/* Google Tag Manager noscript */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-PTZ6QSVS"
@@ -136,6 +162,7 @@ export default function RootLayout({
           />
         </noscript>
 
+        {/* Structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -153,6 +180,7 @@ export default function RootLayout({
         <div id="main-content">{children}</div>
 
         <SiteFooter />
+
         <CookieConsent />
         <AttributionTracker />
         <Analytics />
