@@ -5,9 +5,14 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { HeroSearch } from "./search";
 
-const FRAME_COUNT = 182;
-const frameSource = (index: number) =>
-  `/work/nova-estates/hero-sequence/frame-${String(index + 1).padStart(3, "0")}.webp`;
+const SOURCE_FRAME_COUNT = 182;
+const MOBILE_FRAME_COUNT = 61;
+const frameSource = (index: number, frameCount: number) => {
+  const sourceIndex = frameCount === SOURCE_FRAME_COUNT
+    ? index
+    : Math.round(index * (SOURCE_FRAME_COUNT - 1) / (frameCount - 1));
+  return `/work/nova-estates/hero-sequence/frame-${String(sourceIndex + 1).padStart(3, "0")}.webp`;
+};
 
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 const rangeProgress = (value: number, start: number, end: number) =>
@@ -26,10 +31,11 @@ export function NovaScrollHero() {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileViewport = window.matchMedia("(max-width: 900px)").matches;
-    const frameCacheSize = mobileViewport ? 12 : 22;
-    const frameLookAhead = mobileViewport ? 8 : 16;
-    const frameLookBehind = mobileViewport ? 4 : 6;
-    const decodeWorkers = mobileViewport ? 2 : 3;
+    const frameCount = mobileViewport ? MOBILE_FRAME_COUNT : SOURCE_FRAME_COUNT;
+    const frameCacheSize = mobileViewport ? 8 : 22;
+    const frameLookAhead = mobileViewport ? 5 : 16;
+    const frameLookBehind = mobileViewport ? 2 : 6;
+    const decodeWorkers = mobileViewport ? 1 : 3;
     let animationFrame = 0;
     let activeFrame = 0;
     let previousFrame = 0;
@@ -49,7 +55,7 @@ export function NovaScrollHero() {
       const pending = frameRequests.get(index);
       if (pending) return pending;
 
-      const request = fetch(frameSource(index))
+      const request = fetch(frameSource(index, frameCount))
         .then((response) => {
           if (!response.ok) throw new Error(`Unable to load NOVA frame ${index}`);
           return response.blob();
@@ -72,8 +78,8 @@ export function NovaScrollHero() {
       const request = getFrameBlob(index).then(async (blob) => {
         const image = mobileViewport
           ? await createImageBitmap(blob, {
-              resizeWidth: 1280,
-              resizeHeight: 720,
+              resizeWidth: 960,
+              resizeHeight: 540,
               resizeQuality: "high",
             })
           : await createImageBitmap(blob);
@@ -104,7 +110,7 @@ export function NovaScrollHero() {
       const height = canvas.clientHeight;
       if (!width || !height) return;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, mobileViewport ? 1.25 : 1.5);
       const renderWidth = Math.round(width * pixelRatio);
       const renderHeight = Math.round(height * pixelRatio);
       if (canvas.width !== renderWidth || canvas.height !== renderHeight) {
@@ -126,7 +132,7 @@ export function NovaScrollHero() {
     const drawNearestFrame = () => {
       const exact = decodedFrames.get(activeFrame);
       if (exact) return drawFrame(exact);
-      for (let distance = 1; distance < FRAME_COUNT; distance += 1) {
+      for (let distance = 1; distance < frameCount; distance += 1) {
         const forward = decodedFrames.get(activeFrame + distance * scrollDirection);
         const backward = decodedFrames.get(activeFrame - distance * scrollDirection);
         if (forward || backward) return drawFrame(forward ?? backward!);
@@ -160,7 +166,7 @@ export function NovaScrollHero() {
         if (distance <= frameLookBehind) candidates.push(index - distance * scrollDirection);
       }
       for (const candidate of candidates) {
-        if (candidate < 0 || candidate >= FRAME_COUNT) continue;
+        if (candidate < 0 || candidate >= frameCount) continue;
         if (decodedFrames.has(candidate) || decodeRequests.has(candidate) || queuedFrames.has(candidate)) continue;
         decodeQueue.push(candidate);
         queuedFrames.add(candidate);
@@ -192,7 +198,7 @@ export function NovaScrollHero() {
       const search = sticky.querySelector<HTMLElement>(".nova-search");
       if (search) search.style.pointerEvents = searchFade > 0.1 ? "auto" : "none";
 
-      requestFrame(reducedMotion.matches ? 0 : Math.round(progress * (FRAME_COUNT - 1)));
+      requestFrame(reducedMotion.matches ? 0 : Math.round(progress * (frameCount - 1)));
     };
 
     const requestSync = () => {
@@ -206,15 +212,17 @@ export function NovaScrollHero() {
     void decodeFrame(0).then(() => {
       if (!disposed) requestSync();
     });
-    let preloadIndex = 1;
-    const preloadWorker = async () => {
-      while (!disposed && preloadIndex < FRAME_COUNT) {
-        const index = preloadIndex;
-        preloadIndex += 1;
-        await getFrameBlob(index);
-      }
-    };
-    void Promise.allSettled([preloadWorker(), preloadWorker(), preloadWorker(), preloadWorker()]);
+    if (!mobileViewport) {
+      let preloadIndex = 1;
+      const preloadWorker = async () => {
+        while (!disposed && preloadIndex < frameCount) {
+          const index = preloadIndex;
+          preloadIndex += 1;
+          await getFrameBlob(index);
+        }
+      };
+      void Promise.allSettled([preloadWorker(), preloadWorker(), preloadWorker(), preloadWorker()]);
+    }
     requestSync();
 
     return () => {

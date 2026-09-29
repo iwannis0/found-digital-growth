@@ -207,6 +207,10 @@ body:has(.aura-demo) > .site-footer { display: none; }
   .aura-faq-item > p { margin-left: 33px; }
 }
 
+.aura-treatment-meta { display: flex; flex-wrap: wrap; gap: 12px 26px; margin: 0 0 26px; color: #b88a63; font-size: 1rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.aura-treatment-meta span + span { border-left: 2px solid rgba(184, 138, 99, .48); padding-left: 24px; }
+@media (max-width: 480px) { .aura-treatment-meta { gap: 10px 16px; font-size: .85rem; } .aura-treatment-meta span + span { padding-left: 16px; } }
+
 @media (prefers-reduced-motion: reduce) {
   .aura-demo *, .aura-demo *::before, .aura-demo *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .aura-demo.is-animated .aura-reveal:not(.is-visible) { opacity: 1; transform: none; }

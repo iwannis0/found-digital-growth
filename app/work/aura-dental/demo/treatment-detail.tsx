@@ -46,6 +46,10 @@ export function TreatmentPage({ treatment }: { treatment: TreatmentDetail }) {
         <Link className="aura-treatment-back" href={`${demoPath}#aura-services`}><ArrowLeft size={16} /> All treatments</Link>
         <p className="aura-eyebrow">{treatment.eyebrow}</p>
         <h1>{treatment.name}</h1>
+        <div className="aura-treatment-meta" aria-label="Treatment price and duration">
+          <span>{treatment.price}</span>
+          <span>{treatment.duration}</span>
+        </div>
         <p className="aura-treatment-statement">{treatment.headline}</p>
         <p className="aura-treatment-lead">{treatment.intro}</p>
         <button className="aura-button aura-button-dark" type="button" onClick={openBooking}>Explore demo booking <ArrowUpRight size={17} /></button>
