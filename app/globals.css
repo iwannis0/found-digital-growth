@@ -282,9 +282,6 @@ button { cursor: pointer; }
 .footer-bottom { display: flex; justify-content: space-between; border-top: 1px solid #343430; padding: 24px 0; color: #aaa99f; font-size: .64rem; text-transform: uppercase; letter-spacing: .1em; }
 .footer-bottom p { margin: 0; }
 .footer-bottom-end { display: flex; align-items: center; gap: 28px; }
-.footer-admin-link { display: inline-flex; align-items: center; gap: 6px; color: #77766e; transition: color .2s ease; }
-.footer-admin-link svg { width: 12px; height: 12px; }
-.footer-admin-link:hover, .footer-admin-link:focus-visible { color: var(--white); }
 
 .cookie-banner { position: fixed; z-index: 60; right: 24px; bottom: 24px; left: 24px; display: flex; max-width: 960px; align-items: center; justify-content: space-between; gap: 30px; margin: auto; border: 1px solid #3f3f39; border-radius: 16px; background: #171715f2; color: var(--white); padding: 22px; box-shadow: 0 20px 60px #0005; backdrop-filter: blur(18px); }
 .cookie-banner strong { font-size: .9rem; }

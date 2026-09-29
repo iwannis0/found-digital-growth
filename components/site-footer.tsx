@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, LockKeyhole, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 const columns = [
@@ -57,7 +57,6 @@ export function SiteFooter() {
         <p>© {new Date().getFullYear()} VISION. Cyprus.</p>
         <div className="footer-bottom-end">
           <p>Websites and digital growth for Cyprus businesses.</p>
-          <Link href="/admin" className="footer-admin-link" rel="nofollow"><LockKeyhole aria-hidden="true" />Admin login</Link>
         </div>
       </div>
     </footer>
