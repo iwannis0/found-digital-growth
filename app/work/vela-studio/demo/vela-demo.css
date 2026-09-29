@@ -220,3 +220,26 @@ body:has(.vela-demo) #main-content{overflow:clip}
 .vela-booking-success{display:grid;align-content:center;justify-items:start;padding:75px 60px}.vela-booking-success h3{margin:25px 0 15px;font-size:54px}.vela-booking-success p{max-width:440px;font-size:17px;line-height:1.65}.vela-booking-success button{margin-top:25px;min-width:180px}
 .vela-opening-hours{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:end;margin-bottom:75px;padding:55px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.vela-opening-hours h2{max-width:560px;margin:0;font-size:clamp(52px,5vw,78px)}.vela-opening-hours dl{margin:0}.vela-opening-hours dl>div{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(117,80,57,.25);font-size:16px}.vela-opening-hours dt,.vela-opening-hours dd{margin:0}
 @media (max-width:809px){.vela-booking-overlay{padding:12px}.vela-booking-modal{max-height:calc(100vh - 24px);grid-template-columns:1fr}.vela-booking-intro{padding:55px 24px 35px}.vela-booking-intro h2{font-size:64px}.vela-booking-hours{margin-top:30px}.vela-booking-form{padding:35px 24px}.vela-booking-form>div{grid-template-columns:1fr}.vela-booking-success{padding:55px 24px}.vela-opening-hours{grid-template-columns:1fr;gap:35px;margin-bottom:50px}.vela-opening-hours h2{font-size:54px}}
+
+/* Final mobile layout guard: keep editorial sections readable after desktop refinements. */
+@media (max-width:809px){
+ .vela-team{display:block;width:calc(100% - 38px);padding:90px 0}
+ .vela-team-intro,.vela-team-grid,.vela-team-grid article{min-width:0}
+ .vela-team-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:46px;margin-top:52px}
+ .vela-team-grid article,.vela-team-grid article:last-child{grid-column:1;width:100%}
+ .vela-team-grid img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center top}
+ .vela-team-grid h3{margin:16px 0 5px;font-size:32px;line-height:.95}
+ .vela-team-grid p{font-size:11px;line-height:1.45}
+
+ .vela-home-faq{display:grid;width:calc(100% - 38px);padding:70px 0 110px;grid-template-columns:minmax(0,1fr);gap:48px}
+ .vela-home-faq-title,.vela-home-faq>div{min-width:0}
+ .vela-home-faq-title h2{max-width:9ch;font-size:clamp(54px,15vw,72px)}
+ .vela-faq-item button{gap:18px;padding:22px 4px;font-size:16px;line-height:1.4}
+ .vela-faq-answer p{padding:0 4px 22px;font-size:15px;line-height:1.65}
+
+ .vela-contact{width:calc(100% - 38px);padding:110px 0 70px}
+ .vela-contact-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:58px;align-items:start}
+ .vela-contact-grid>*,.vela-contact form{min-width:0;width:100%}
+ .vela-contact h2{max-width:8ch;margin-bottom:44px;font-size:clamp(62px,17vw,82px)}
+ .vela-contact-image{width:100%;height:auto;aspect-ratio:4/5;margin:0}
+}

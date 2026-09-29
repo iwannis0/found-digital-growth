@@ -1435,10 +1435,27 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .lit-hero-grid { grid-template-columns: 1fr; gap: 20px; min-height: 0; }
   .lit-hero h1 { font-size: clamp(3rem, 13vw, 4.6rem); }
   .lit-hero-lead { font-size: 1rem; }
-  .work-hero-stage { height: 290px; margin-top: 12px; }
+  .work-hero-stage { width: min(100%, 760px); height: min(440px, 62vw); min-height: 360px; margin: 18px auto 0; perspective: 1200px; }
   .work-hero-frame { border-radius: 10px; }
   .work-hero-frame > b { height: 16px; gap: 4px; padding: 0 8px; }
   .work-hero-frame > b i { width: 4px; height: 4px; }
+  .work-hero-frame-nova { top: 1%; left: 2%; width: 42%; transform: rotate(2deg); }
+  .work-hero-frame-discount { top: 0; right: 1%; width: 44%; transform: rotate(-2deg); }
+  .work-hero-frame-aura { right: 2%; bottom: 3%; width: 40%; transform: rotate(-2deg); }
+  .work-hero-frame-vela { bottom: 2%; left: 2%; width: 40%; transform: rotate(2deg); }
+  .work-hero-frame-front { top: 19%; left: 14%; width: 72%; transform: rotate(-1deg); }
+}
+@media (max-width: 600px) {
+  .lit-hero { padding-bottom: 34px; }
+  .work-hero-stage { height: min(340px, 86vw); min-height: 270px; margin-top: 26px; perspective: none; }
+  .work-hero-stage::after { right: 8%; bottom: -4%; left: 8%; height: 62px; }
+  .work-hero-frame { border-radius: 8px; box-shadow: 0 22px 45px #0000009c; }
+  .work-hero-frame > b { height: 13px; padding: 0 6px; }
+  .work-hero-frame-nova { top: 1%; left: 0; width: 42%; }
+  .work-hero-frame-discount { top: 0; right: 0; width: 43%; }
+  .work-hero-frame-aura { right: 1%; bottom: 2%; width: 41%; }
+  .work-hero-frame-vela { bottom: 1%; left: 1%; width: 41%; }
+  .work-hero-frame-front { top: 20%; left: 14%; width: 72%; }
 }
 
 /* Pricing: lit hero with the three plans floating, darker Care policy, tiled add-ons, card FAQ. */

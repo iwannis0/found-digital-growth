@@ -35,6 +35,21 @@ body:has(.nova-demo){background:#f3f0e9}.nova-demo{--navy:#111c29;--cream:#f3f0e
 /* A more visible, continuous hero push-in. */
 .nova-hero-media{inset:-9%;animation:novaPush 20s cubic-bezier(.45,0,.55,1) infinite alternate}@keyframes novaPush{from{transform:scale(1)}to{transform:scale(1.18) translate3d(-1.5%,-.6%,0)}}
 
-
 /* Phones: show all four search tabs as a 2x2 grid instead of a row you have to swipe. */
 @media(max-width:560px){.nova-search-tabs{display:grid;grid-template-columns:1fr 1fr;height:auto;gap:0 16px;overflow:visible}.nova-search-tabs button{height:44px;text-align:left;white-space:normal}}
+
+.nova-hero-media--sequence{inset:0;animation:none;background:#07101a url('/images/nova-demo/nova-hero.png') center/cover no-repeat}
+.nova-hero-canvas{display:block;width:100%;height:100%;pointer-events:none;contain:paint;transform:translateZ(0);backface-visibility:hidden}
+.nova-scroll-hero{position:relative;height:450svh;background:#07101a;color:#fff}
+.nova-scroll-hero__sticky.nova-hero{position:sticky;top:0;width:100%;height:100svh;min-height:0;margin:0;overflow:hidden;background:#07101a}
+.nova-scroll-hero .nova-hero-media{position:absolute;inset:0;animation:none;transform:none;will-change:auto}
+.nova-scroll-hero .nova-hero-copy{opacity:var(--nova-copy-opacity,1);transform:translateY(var(--nova-copy-shift,0));animation:none;will-change:opacity,transform}
+.nova-scroll-hero .nova-search{opacity:var(--nova-search-opacity,1);transform:translate(-50%,var(--nova-search-shift,0));animation:none;will-change:opacity,transform}
+.nova-scroll-hero .nova-scroll{opacity:var(--nova-search-opacity,1)}
+@media(max-width:900px){.nova-scroll-hero{height:360svh}.nova-scroll-hero__sticky.nova-hero{height:100svh}.nova-scroll-hero .nova-hero-copy{top:102px}.nova-scroll-hero .nova-search{bottom:18px}}
+@media(max-width:560px){.nova-scroll-hero{height:320svh}.nova-scroll-hero .nova-hero-copy{top:88px}.nova-scroll-hero .nova-hero h1{font-size:clamp(46px,14vw,58px)}.nova-scroll-hero .nova-hero-copy>p:not(.nova-eyebrow){font-size:14px;line-height:1.55}.nova-scroll-hero .nova-search-fields{grid-template-columns:1fr 1fr}.nova-scroll-hero .nova-search-submit{grid-column:1/-1}}
+@media(max-width:560px) and (max-height:760px){.nova-scroll-hero .nova-hero-copy>p:not(.nova-eyebrow),.nova-scroll-hero .nova-hero-copy .nova-button{display:none}.nova-scroll-hero .nova-search{bottom:12px}}
+
+/* Keep the portfolio shell outside every NOVA demo route. */
+.nova-demo-shell{min-height:100vh}
+body:has(.nova-demo-shell)>.site-header{display:none!important}

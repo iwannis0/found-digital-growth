@@ -8,4 +8,4 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work/nova-estates/demo" },
 };
 
-export default function NovaDemoLayout({children}:{children:React.ReactNode}) { return <><NovaConceptBar />{children}</>; }
+export default function NovaDemoLayout({children}:{children:React.ReactNode}) { return <div className="nova-demo-shell"><NovaConceptBar />{children}</div>; }
