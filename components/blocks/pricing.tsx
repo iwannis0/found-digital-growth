@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import NumberFlow from "@number-flow/react";
 import { ArrowRight, Check, Star } from "lucide-react";
+
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -22,28 +23,67 @@ export interface PricingPlan {
   care: readonly string[];
 }
 
-const confettiColors = ["#3F35B5", "#6A5FE0", "#2E2690", "#EFEDFF"];
-const toAmount = (value: string) => Number(value.replace(/[^\d]/g, ""));
+const confettiColors = [
+  "#3F35B5",
+  "#6A5FE0",
+  "#2E2690",
+  "#EFEDFF",
+];
 
-export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
+const toAmount = (value: string) =>
+  Number(value.replace(/[^\d]/g, ""));
+
+export function Pricing({
+  plans,
+}: {
+  plans: readonly PricingPlan[];
+}) {
   const [showCare, setShowCare] = useState(false);
-  // Phones show one plan at a time, picked from the tab bar; desktop shows all three.
-  const [activePlan, setActivePlan] = useState(() => Math.max(0, plans.findIndex((plan) => plan.popular)));
+
+  // Phones show one plan at a time, picked from the tab bar;
+  // desktop shows all three.
+  const [activePlan, setActivePlan] = useState(() =>
+    Math.max(
+      0,
+      plans.findIndex((plan) => plan.popular)
+    )
+  );
+
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const reduceMotion = useReducedMotion();
   const switchRef = useRef<HTMLButtonElement>(null);
 
   async function handleToggle(checked: boolean) {
     setShowCare(checked);
-    if (!checked || reduceMotion || !switchRef.current) return;
+
+    if (!checked || reduceMotion || !switchRef.current) {
+      return;
+    }
+
     const rect = switchRef.current.getBoundingClientRect();
-    const { default: confetti } = await import("canvas-confetti");
-    // The default instance spawns a blob worker, which the site's CSP (correctly) blocks.
-    const fire = confetti.create(undefined, { resize: true, useWorker: false });
+
+    const { default: confetti } = await import(
+      "canvas-confetti"
+    );
+
+    // The default instance spawns a blob worker, which the site's
+    // CSP correctly blocks.
+    const fire = confetti.create(undefined, {
+      resize: true,
+      useWorker: false,
+    });
+
     fire({
       particleCount: 50,
       spread: 60,
-      origin: { x: (rect.left + rect.width / 2) / window.innerWidth, y: (rect.top + rect.height / 2) / window.innerHeight },
+      origin: {
+        x:
+          (rect.left + rect.width / 2) /
+          window.innerWidth,
+        y:
+          (rect.top + rect.height / 2) /
+          window.innerHeight,
+      },
       colors: confettiColors,
       ticks: 200,
       gravity: 1.2,
@@ -55,8 +95,18 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
 
   return (
     <>
-      <div className="mb-8 flex flex-wrap md:mb-12 items-center justify-center gap-3 text-sm font-semibold">
-        <span className={cn("transition-colors", !showCare ? "text-foreground" : "text-muted-foreground")}>One-off setup</span>
+      <div className="mb-8 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold md:mb-12">
+        <span
+          className={cn(
+            "transition-colors",
+            !showCare
+              ? "text-foreground"
+              : "text-muted-foreground"
+          )}
+        >
+          One-off setup
+        </span>
+
         <Label className="cursor-pointer">
           <Switch
             ref={switchRef}
@@ -66,12 +116,26 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
             className="data-[size=default]:h-7 data-[size=default]:w-12 data-[state=unchecked]:bg-[#bdb9ae] data-[state=checked]:bg-[var(--acid)] [&_[data-slot=switch-thumb]]:!size-6 data-[state=checked]:[&_[data-slot=switch-thumb]]:!translate-x-[calc(100%-2px)]"
           />
         </Label>
-        <span className={cn("transition-colors", showCare ? "text-foreground" : "text-muted-foreground")}>
-          Website Care <span className="text-[var(--acid)] max-md:hidden">(optional, monthly)</span>
+
+        <span
+          className={cn(
+            "transition-colors",
+            showCare
+              ? "text-foreground"
+              : "text-muted-foreground"
+          )}
+        >
+          Website Care{" "}
+          <span className="text-[var(--acid)] max-md:hidden">
+            (optional, monthly)
+          </span>
         </span>
       </div>
 
-      <div className="pricing-tabs md:hidden" aria-label="Choose a plan">
+      <div
+        className="pricing-tabs md:hidden"
+        aria-label="Choose a plan"
+      >
         {plans.map((plan, index) => (
           <button
             key={plan.name}
@@ -80,11 +144,24 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
             aria-controls={`plan-${index}`}
             onClick={() => setActivePlan(index)}
           >
-            <span>{plan.short}{index === activePlan && <i aria-hidden="true" />}</span>
+            <span>
+              {plan.short}
+              {index === activePlan && (
+                <i aria-hidden="true" />
+              )}
+            </span>
+
             <NumberFlow
-              value={toAmount(showCare ? plan.monthly : plan.setup)}
+              value={toAmount(
+                showCare ? plan.monthly : plan.setup
+              )}
               locales="en-GB"
-              format={{ style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }}
+              format={{
+                style: "currency",
+                currency: "EUR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }}
               className="tabular-nums"
             />
           </button>
@@ -96,61 +173,132 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
           <motion.article
             key={plan.name}
             id={`plan-${index}`}
-            initial={reduceMotion ? false : { y: 40, opacity: 1 }}
-            whileInView={reduceMotion ? undefined : { y: isDesktop && plan.popular ? -18 : 0, opacity: 1, scale: isDesktop && !plan.popular ? 0.97 : 1 }}
+            initial={
+              reduceMotion
+                ? false
+                : { y: 40, opacity: 1 }
+            }
+            whileInView={
+              reduceMotion
+                ? undefined
+                : {
+                    y:
+                      isDesktop && plan.popular
+                        ? -18
+                        : 0,
+                    opacity: 1,
+                    scale:
+                      isDesktop && !plan.popular
+                        ? 0.97
+                        : 1,
+                  }
+            }
             viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, damping: 26, delay: 0.12 + index * 0.08 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              damping: 26,
+              delay: 0.12 + index * 0.08,
+            }}
             className={cn(
               "relative flex flex-col rounded-2xl border bg-white p-6 text-center shadow-sm md:p-7",
               index !== activePlan && "max-md:hidden",
-              plan.popular ? "z-10 border-2 border-[var(--acid)] shadow-xl shadow-[color:var(--acid)]/10" : "border-[var(--line)]",
+              plan.popular
+                ? "z-10 border-2 border-[var(--acid)] shadow-xl shadow-[color:var(--acid)]/10"
+                : "border-[var(--line)]"
             )}
           >
             {plan.popular && (
               <div className="absolute right-0 top-0 flex items-center rounded-bl-xl rounded-tr-2xl bg-[var(--acid)] px-3 py-1 text-white">
-                <Star className="size-4 fill-current" aria-hidden="true" />
-                <span className="ml-1 text-xs font-bold tracking-wide">Most Popular</span>
+                <Star
+                  className="size-4 fill-current"
+                  aria-hidden="true"
+                />
+                <span className="ml-1 text-xs font-bold tracking-wide">
+                  Most Popular
+                </span>
               </div>
             )}
 
-            <p className="mx-auto max-w-[16em] md:min-h-[2.6em] text-xs font-extrabold uppercase leading-snug tracking-[.16em] text-muted-foreground">{plan.name}</p>
+            <p className="mx-auto max-w-[16em] text-xs font-extrabold uppercase leading-snug tracking-[.16em] text-muted-foreground md:min-h-[2.6em]">
+              {plan.name}
+            </p>
 
-            <div className="mt-4 flex items-baseline md:mt-5 justify-center gap-x-2">
+            <div className="mt-4 flex items-baseline justify-center gap-x-2 md:mt-5">
               <NumberFlow
-                value={toAmount(showCare ? plan.monthly : plan.setup)}
+                value={toAmount(
+                  showCare ? plan.monthly : plan.setup
+                )}
                 locales="en-GB"
-                format={{ style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }}
-                transformTiming={{ duration: 500, easing: "ease-out" }}
+                format={{
+                  style: "currency",
+                  currency: "EUR",
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                }}
+                transformTiming={{
+                  duration: 500,
+                  easing: "ease-out",
+                }}
                 willChange
                 className="text-4xl font-bold tracking-tight text-foreground tabular-nums md:text-5xl"
               />
-              <span className="text-sm font-semibold tracking-wide text-muted-foreground">{showCare ? "/ month" : "setup"}</span>
+
+              <span className="text-sm font-semibold tracking-wide text-muted-foreground">
+                {showCare ? "/ month" : "setup"}
+              </span>
             </div>
-            <p className="mt-1 text-xs md:min-h-[3.75em] leading-5 text-muted-foreground">
-              {showCare ? "Optional Website Care after launch. 3-month minimum term, then month-to-month." : `One-off. 50% deposit to begin, 50% before launch. Optional Website Care after launch: ${plan.monthly} / month.`}
+
+            <p className="mt-1 text-xs leading-5 text-muted-foreground md:min-h-[3.75em]">
+              {showCare
+                ? "Optional Website Care after launch. 3-month minimum term, then month-to-month."
+                : `One-off. 50% deposit to begin, 50% before launch. Optional Website Care after launch: ${plan.monthly} / month.`}
             </p>
 
-            <p className="mx-auto mt-3 max-w-[24em] text-sm md:mt-4 md:min-h-[6.5em] leading-relaxed text-muted-foreground">{plan.best}</p>
+            <p className="mx-auto mt-3 max-w-[24em] text-sm leading-relaxed text-muted-foreground md:mt-4 md:min-h-[6.5em]">
+              {plan.best}
+            </p>
 
             <hr className="my-5 w-full border-[var(--line)]" />
 
-            {/* One-off build and optional monthly care are listed separately so the setup price never looks like it includes hosting. */}
             <div className="flex flex-1 flex-col text-left">
-              <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">Included in setup</p>
+              <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">
+                Included in setup
+              </p>
+
               <ul className="flex flex-col gap-2.5">
                 {plan.items.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm leading-snug">
-                    <Check className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]" aria-hidden="true" />
+                  <li
+                    key={item}
+                    className="flex items-start gap-2 text-sm leading-snug"
+                  >
+                    <Check
+                      className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]"
+                      aria-hidden="true"
+                    />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
+
               <div className="mt-5 rounded-xl bg-[var(--paper-deep)] p-4">
-                <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">With Website Care · {plan.monthly} / month</p>
+                <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">
+                  With Website Care · {plan.monthly} / month
+                </p>
+
                 <ul className="flex flex-col gap-2">
-                  {[...plan.care, `Up to ${plan.minutes} of minor updates / month`].map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm leading-snug">
-                      <Check className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]" aria-hidden="true" />
+                  {[
+                    ...plan.care,
+                    `Up to ${plan.minutes} of minor updates / month`,
+                  ].map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-sm leading-snug"
+                    >
+                      <Check
+                        className="mt-0.5 size-4 flex-shrink-0 text-[var(--acid)]"
+                        aria-hidden="true"
+                      />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -159,10 +307,19 @@ export function Pricing({ plans }: { plans: readonly PricingPlan[] }) {
             </div>
 
             <Link
-              className={cn("button button-large mt-7 w-full", plan.popular ? "button-accent" : "button-dark")}
-              href={`/contact?package=${encodeURIComponent(plan.name)}`}
-              data-track="pricing_cta_click"
+              className={cn(
+                "button button-large mt-7 w-full",
+                plan.popular
+                  ? "button-accent"
+                  : "button-dark"
+              )}
+              href={`/contact?package=${encodeURIComponent(
+                plan.name
+              )}`}
+              data-track="package_click"
               data-track-label={plan.name}
+              data-track-package-name={plan.name}
+              data-track-location="pricing"
             >
               Choose this package
               <ArrowRight aria-hidden="true" />

@@ -20,14 +20,29 @@ export function Analytics() {
 
       const name = target?.dataset.track;
 
-      if (name) {
-        trackEvent(name, {
-          label:
-            target.dataset.trackLabel ??
-            target.textContent?.trim().slice(0, 80) ??
-            "",
-        });
+      if (!name) return;
+
+      const parameters: Record<
+        string,
+        string | number | boolean
+      > = {
+        label:
+          target.dataset.trackLabel ??
+          target.textContent?.trim().slice(0, 80) ??
+          "",
+      };
+
+      if (target.dataset.trackLocation) {
+        parameters.location =
+          target.dataset.trackLocation;
       }
+
+      if (target.dataset.trackPackageName) {
+        parameters.package_name =
+          target.dataset.trackPackageName;
+      }
+
+      trackEvent(name, parameters);
     };
 
     document.addEventListener("click", click);
