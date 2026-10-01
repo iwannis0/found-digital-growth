@@ -1,3 +1,5 @@
+import { getAttribution } from "@/lib/client-attribution";
+
 export const consentStorageKey = "cookie-consent";
 export const consentChangedEvent = "site:consent-changed";
 
@@ -71,11 +73,37 @@ export function syncAnalyticsConsent() {
     ad_personalization: "denied",
   });
 
-  analyticsWindow.dataLayer?.push({
+  const consentEvent: Record<string, string> = {
     event: enabled
       ? analyticsConsentGrantedEvent
       : analyticsConsentDeniedEvent,
-  });
+  };
+
+  if (enabled) {
+    const attribution = getAttribution();
+
+    if ("utmSource" in attribution && attribution.utmSource) {
+      consentEvent.campaign_source = attribution.utmSource;
+    }
+
+    if ("utmMedium" in attribution && attribution.utmMedium) {
+      consentEvent.campaign_medium = attribution.utmMedium;
+    }
+
+    if ("utmCampaign" in attribution && attribution.utmCampaign) {
+      consentEvent.campaign_name = attribution.utmCampaign;
+    }
+
+    if ("utmContent" in attribution && attribution.utmContent) {
+      consentEvent.campaign_content = attribution.utmContent;
+    }
+
+    if ("utmTerm" in attribution && attribution.utmTerm) {
+      consentEvent.campaign_term = attribution.utmTerm;
+    }
+  }
+
+  analyticsWindow.dataLayer?.push(consentEvent);
 
   return enabled;
 }
