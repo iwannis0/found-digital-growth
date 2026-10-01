@@ -1,4 +1,4 @@
-import { safeHtml } from "@/lib/security";
+import { clientConfirmationEmail, teamNotificationEmail } from "@/lib/emails";
 
 const retryDelays = [0, 250, 750];
 
@@ -43,12 +43,13 @@ export async function sendEnquiryEmails(kind: "contact" | "audit", payload: Reco
   const from = process.env.EMAIL_FROM;
   const recipients = [...new Set((process.env.EMAIL_TO ?? "").split(",").map((email) => email.trim()).filter(Boolean))];
   if (!apiKey || !from || recipients.length === 0) return;
-  const business = safeHtml(payload.businessName || "New business");
-  const person = safeHtml(payload.name);
-  const rows = Object.entries(payload).filter(([key]) => !["companyWebsite", "consent"].includes(key)).map(([key, value]) => `<tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>${safeHtml(key)}</strong></td><td style="padding:8px;border-bottom:1px solid #eee">${safeHtml(value)}</td></tr>`).join("");
+  const team = teamNotificationEmail(kind, payload);
+  const client = clientConfirmationEmail(kind, payload);
+  const replyTo = String(payload.email ?? "").trim();
   const deliveries = await Promise.allSettled([
-    resend(apiKey, { from, to: recipients, subject: kind === "audit" ? `New VISION. audit request - ${business}` : `New VISION. enquiry - ${business}`, html: `<div style="font-family:Arial,sans-serif;max-width:680px"><h1>New ${kind === "audit" ? "audit request" : "enquiry"}</h1><p>A new form submission is ready to review in the VISION. admin area.</p><table style="border-collapse:collapse;width:100%">${rows}</table></div>` }),
-    resend(apiKey, { from, to: [String(payload.email)], subject: kind === "audit" ? "We received your audit request | VISION." : "We received your enquiry | VISION.", html: `<div style="font-family:Arial,sans-serif;max-width:600px"><h1>VISION.</h1><p>Hi ${person},</p><p>Thank you for contacting VISION. We have received the details for ${business} and will review them carefully.</p><p>We usually reply within two working days.</p><p>Designed for what’s next.</p></div>` }),
+    // Replying to the team notification goes straight to the person who enquired.
+    resend(apiKey, { from, to: recipients, subject: team.subject, html: team.html, text: team.text, ...(replyTo ? { reply_to: replyTo } : {}) }),
+    resend(apiKey, { from, to: [String(payload.email)], subject: client.subject, html: client.html, text: client.text }),
   ]);
   const failures = deliveries.filter((result) => result.status === "rejected");
   if (failures.length) throw new AggregateError(failures.map((result) => (result as PromiseRejectedResult).reason), "One or more enquiry emails failed");
