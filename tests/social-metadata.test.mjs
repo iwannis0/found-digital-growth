@@ -15,7 +15,7 @@ test("all configured social sharing image assets exist", async () => {
 test("root metadata configures the default OG and Twitter image", async () => {
   const source = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
   assert.match(source, /openGraph:[\s\S]*images: \["\/images\/social\/og-default\.jpg"\]/);
-  assert.match(source, /twitter: \{ card: "summary_large_image"[\s\S]*images: \["\/images\/social\/og-default\.jpg"\]/);
+  assert.match(source, /twitter:\s*\{[\s\S]*?card:\s*"summary_large_image"[\s\S]*?images:\s*\[\s*"\/images\/social\/og-default\.jpg"\s*\]/);
 });
 
 test("Work and Free Audit override both social image formats", async () => {

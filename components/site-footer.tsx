@@ -37,6 +37,25 @@ const columns = [
   },
 ] as const;
 
+// lucide-react no longer ships brand icons, so these two are inline.
+function InstagramMark() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function FacebookMark() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V11H5.5v4H8v6h4v-6h3l.5-4H12V7.5A1.5 1.5 0 0 1 13.5 6H15V3Z" />
+    </svg>
+  );
+}
+
 export function SiteFooter() {
   function openCookieSettings(
     event: React.MouseEvent<HTMLAnchorElement>
@@ -111,6 +130,34 @@ export function SiteFooter() {
               <Phone aria-hidden="true" />
               {siteConfig.phone}
             </a>
+
+            <div className="footer-socials">
+              {siteConfig.socials.instagram && (
+                <a
+                  href={siteConfig.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="VISION. on Instagram"
+                  data-track="social_click"
+                  data-track-label="instagram"
+                >
+                  <InstagramMark />
+                </a>
+              )}
+
+              {siteConfig.socials.facebook && (
+                <a
+                  href={siteConfig.socials.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="VISION. on Facebook"
+                  data-track="social_click"
+                  data-track-label="facebook"
+                >
+                  <FacebookMark />
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

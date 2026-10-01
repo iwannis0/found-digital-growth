@@ -279,6 +279,13 @@ button { cursor: pointer; }
 .footer-columns a:hover { color: var(--acid-light); }
 .footer-contact a { display: flex; align-items: center; gap: 8px; overflow-wrap: anywhere; }
 .footer-contact svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--acid-light); }
+.footer-socials { display: flex; gap: 10px; margin-top: 4px; }
+.footer-socials a { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #ffffff2b; border-radius: 10px; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
+.footer-socials svg { width: 17px; height: 17px; }
+@media (hover: hover) {
+  .footer-socials a:hover { border-color: var(--acid-light); background: #ffffff12; transform: translateY(-2px); }
+}
+.footer-socials a:focus-visible { outline: 2px solid var(--acid-light); outline-offset: 2px; }
 .footer-bottom { display: flex; justify-content: space-between; border-top: 1px solid #343430; padding: 24px 0; color: #aaa99f; font-size: .64rem; text-transform: uppercase; letter-spacing: .1em; }
 .footer-bottom p { margin: 0; }
 .footer-bottom-end { display: flex; align-items: center; gap: 28px; }
@@ -426,6 +433,13 @@ button { cursor: pointer; }
 }
 
 @media (max-width: 1050px) {
+  /* Free audit on phones and tablets: lead with the form, since the hero and its
+     example scorecard otherwise push it well below the fold. DOM order is unchanged,
+     so the h1 still comes first for search engines and screen readers. */
+  .audit-page { display: flex; flex-direction: column; }
+  .audit-page .audit-form-section { order: -1; padding-top: 34px; }
+  .audit-page .audit-lit-hero { order: 0; }
+  .audit-page .audit-areas { order: 1; }
   .site-container { width: min(100% - 40px, 920px); }
   .header-inner, .home-hero .site-container { width: min(100% - 48px, 920px); }
   .desktop-nav { gap: 18px; margin-right: 22px; }

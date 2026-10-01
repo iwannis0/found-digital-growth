@@ -10,8 +10,8 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://vision.cy",
   address: "Cyprus",
   socials: {
-    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
-    linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "",
+    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "https://www.instagram.com/visionstudio.cy",
+    facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "https://www.facebook.com/share/1NZ6P2ckPX/",
   },
 } as const;
 
