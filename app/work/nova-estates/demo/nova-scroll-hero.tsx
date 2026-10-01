@@ -6,7 +6,9 @@ import { useEffect, useRef } from "react";
 import { HeroSearch } from "./search";
 
 const SOURCE_FRAME_COUNT = 182;
-const MOBILE_FRAME_COUNT = 61;
+const DESKTOP_FRAME_COUNT = 120;
+const TABLET_FRAME_COUNT = 48;
+const MOBILE_FRAME_COUNT = 32;
 const frameSource = (index: number, frameCount: number) => {
   const sourceIndex = frameCount === SOURCE_FRAME_COUNT
     ? index
@@ -30,12 +32,17 @@ export function NovaScrollHero() {
     if (!section || !sticky || !canvas) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobileViewport = window.matchMedia("(max-width: 900px)").matches;
-    const frameCount = mobileViewport ? MOBILE_FRAME_COUNT : SOURCE_FRAME_COUNT;
-    const frameCacheSize = mobileViewport ? 8 : 22;
-    const frameLookAhead = mobileViewport ? 5 : 16;
-    const frameLookBehind = mobileViewport ? 2 : 6;
-    const decodeWorkers = mobileViewport ? 1 : 3;
+    const compactViewport = window.matchMedia("(max-width: 600px)").matches;
+    const tabletViewport = !compactViewport && window.matchMedia("(max-width: 900px)").matches;
+    const frameCount = compactViewport
+      ? MOBILE_FRAME_COUNT
+      : tabletViewport
+        ? TABLET_FRAME_COUNT
+        : DESKTOP_FRAME_COUNT;
+    const frameCacheSize = compactViewport ? 14 : tabletViewport ? 14 : 26;
+    const frameLookAhead = compactViewport ? 4 : tabletViewport ? 6 : 14;
+    const frameLookBehind = compactViewport ? 2 : tabletViewport ? 3 : 6;
+    const decodeWorkers = compactViewport ? 1 : tabletViewport ? 2 : 3;
     let animationFrame = 0;
     let activeFrame = 0;
     let previousFrame = 0;
@@ -76,10 +83,20 @@ export function NovaScrollHero() {
       if (pending) return pending;
 
       const request = getFrameBlob(index).then(async (blob) => {
-        const image = mobileViewport
+        // The opening portrait frame fills a tall mobile viewport, so keep it at
+        // source resolution. Every subsequent frame stays lightweight for scroll.
+        const image = compactViewport && (index === 0 || index === frameCount - 1)
+          ? await createImageBitmap(blob)
+          : compactViewport
           ? await createImageBitmap(blob, {
-              resizeWidth: 960,
-              resizeHeight: 540,
+              resizeWidth: 640,
+              resizeHeight: 360,
+              resizeQuality: "high",
+            })
+          : tabletViewport
+          ? await createImageBitmap(blob, {
+              resizeWidth: 800,
+              resizeHeight: 450,
               resizeQuality: "high",
             })
           : await createImageBitmap(blob);
@@ -110,7 +127,10 @@ export function NovaScrollHero() {
       const height = canvas.clientHeight;
       if (!width || !height) return;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, mobileViewport ? 1.25 : 1.5);
+      const pixelRatio = Math.min(
+        window.devicePixelRatio || 1,
+        compactViewport ? 1 : tabletViewport ? 1.25 : 1.5,
+      );
       const renderWidth = Math.round(width * pixelRatio);
       const renderHeight = Math.round(height * pixelRatio);
       if (canvas.width !== renderWidth || canvas.height !== renderHeight) {
@@ -212,16 +232,23 @@ export function NovaScrollHero() {
     void decodeFrame(0).then(() => {
       if (!disposed) requestSync();
     });
-    if (!mobileViewport) {
-      let preloadIndex = 1;
-      const preloadWorker = async () => {
-        while (!disposed && preloadIndex < frameCount) {
-          const index = preloadIndex;
-          preloadIndex += 1;
-          await getFrameBlob(index);
-        }
-      };
-      void Promise.allSettled([preloadWorker(), preloadWorker(), preloadWorker(), preloadWorker()]);
+    let preloadIndex = 1;
+    const preloadWorker = async () => {
+      while (!disposed && preloadIndex < frameCount) {
+        const index = preloadIndex;
+        preloadIndex += 1;
+        await getFrameBlob(index);
+      }
+    };
+    const beginPreload = () => {
+      const workerCount = compactViewport ? 1 : tabletViewport ? 2 : 3;
+      void Promise.allSettled(Array.from({ length: workerCount }, preloadWorker));
+    };
+    if ("requestIdleCallback" in window) {
+      const idle = window as Window & { requestIdleCallback: (callback: () => void, options?: { timeout: number }) => number };
+      idle.requestIdleCallback(beginPreload, { timeout: 1200 });
+    } else {
+      globalThis.setTimeout(beginPreload, 350);
     }
     requestSync();
 
