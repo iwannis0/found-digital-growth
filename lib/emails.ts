@@ -34,7 +34,7 @@ function shell(preheader: string, content: string) {
           &nbsp;·&nbsp; <a href="tel:${siteConfig.phone.replace(/\s/g, "")}" style="color:${ACID};text-decoration:none">${siteConfig.phone}</a>
         </p>
         <p style="margin:0;font-size:12px;color:#8a8a80;line-height:1.6">
-          <a href="${siteConfig.url}" style="color:#8a8a80;text-decoration:none">vision.cy</a> — website design and local SEO in Cyprus
+          <a href="${siteConfig.url}" style="color:#8a8a80;text-decoration:none">vision.cy</a> — website development services in Cyprus
         </p>
       </td></tr>
     </table>
@@ -148,7 +148,7 @@ export function clientConfirmationEmail(kind: "contact" | "audit", payload: Payl
     "No reply needed for now. If anything changes, just reply to this email and it reaches us directly.",
     "",
     `${siteConfig.email} · ${siteConfig.phone}`,
-    `${siteConfig.url} — website design and local SEO in Cyprus`,
+    `${siteConfig.url} — website development services in Cyprus`,
   ].join("\n");
 
   return { subject, html, text };
