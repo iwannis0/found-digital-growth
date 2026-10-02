@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, CircleCheck, Clock3, Menu, X } from "lucide-react";
 import { BookingModal } from "./booking-modal";
 import { treatmentDetails, type TreatmentDetail } from "./treatment-data";
 
@@ -47,23 +47,23 @@ export function TreatmentPage({ treatment }: { treatment: TreatmentDetail }) {
         <p className="aura-eyebrow">{treatment.eyebrow}</p>
         <h1>{treatment.name}</h1>
         <div className="aura-treatment-meta" aria-label="Treatment price and duration">
-          <span>{treatment.price}</span>
-          <span>{treatment.duration}</span>
+          <span><CircleCheck size={15} aria-hidden="true" /> {treatment.price}</span>
+          <span><Clock3 size={15} aria-hidden="true" /> {treatment.duration}</span>
         </div>
         <p className="aura-treatment-statement">{treatment.headline}</p>
         <p className="aura-treatment-lead">{treatment.intro}</p>
         <button className="aura-button aura-button-dark" type="button" onClick={openBooking}>Explore demo booking <ArrowUpRight size={17} /></button>
       </div>
       <figure className="aura-treatment-visual"><Image src={treatment.image} alt={`Illustrative ${treatment.name.toLowerCase()} concept visual`} fill sizes="(max-width: 900px) 100vw, 50vw" unoptimized /><span className="aura-treatment-visual-number" aria-hidden="true">{String(treatmentIndex + 1).padStart(2, "0")}</span><figcaption>Illustrative concept visual · not a patient result</figcaption></figure>
-    </div><div className="aura-shell aura-treatment-hero-foot"><span>AURA DENTAL / TREATMENT GUIDE</span><span>{String(treatmentIndex + 1).padStart(2, "0")} / 04</span></div></section>
+    </div><div className="aura-shell aura-treatment-hero-foot"><span>AURA DENTAL / TREATMENT GUIDE</span><span>PERSONALISED CARE</span><span>{String(treatmentIndex + 1).padStart(2, "0")} / 04</span></div></section>
 
-    <section className="aura-treatment-body aura-section"><div className="aura-shell"><div className="aura-treatment-body-intro"><div><p className="aura-eyebrow">THE APPROACH</p><h2>What a visit<br />could involve.</h2></div><p>Every person and treatment plan is different. Here is how this concept makes the first steps easier to understand.</p></div><div className="aura-treatment-includes">{treatment.includes.map((item, index) => <div key={item}><span>0{index + 1}</span><p>{item}</p></div>)}</div></div></section>
+    <section className="aura-treatment-body aura-section"><div className="aura-shell"><div className="aura-treatment-body-intro"><div><p className="aura-eyebrow">THE APPROACH</p><h2>What a visit<br />could involve.</h2></div><p>Every person and treatment plan is different. Here is how this concept makes the first steps easier to understand.</p></div><div className="aura-treatment-includes">{treatment.includes.map((item, index) => <div key={item}><span>0{index + 1}</span><div className="aura-treatment-step-icon" aria-hidden="true">0{index + 1}</div><p>{item}</p><small>{index === 0 ? "Listen" : index === 1 ? "Understand" : "Move forward"}</small></div>)}</div></div></section>
 
     <section className="aura-treatment-expect aura-section"><div className="aura-shell aura-treatment-expect-grid"><div><p className="aura-eyebrow">WHAT TO EXPECT</p><span className="aura-treatment-expect-mark" aria-hidden="true">✳</span></div><div><h2>Know the path<br />before you begin.</h2><p>{treatment.expectation}</p><p className="aura-treatment-disclaimer">This is a fictional portfolio concept. The information is illustrative and does not replace advice from a dental professional.</p></div></div></section>
 
     <section className="aura-treatment-next"><div className="aura-shell"><div><p className="aura-eyebrow">A CALMER NEXT STEP</p><h2>Start with a conversation.</h2><p>Choose a sample date and time to see how the booking experience works.</p></div><button className="aura-button aura-button-light" type="button" onClick={openBooking}>Explore demo booking <ArrowUpRight size={17} /></button></div></section>
 
-    <section className="aura-treatment-more"><div className="aura-shell"><div className="aura-treatment-more-heading"><div><p className="aura-eyebrow">KEEP EXPLORING</p><h2>More ways to care<br />for your smile.</h2></div><Link className="aura-treatment-all" href={`${demoPath}#aura-services`}>View all treatments <ArrowUpRight size={16} /></Link></div><div className="aura-treatment-more-grid">{otherTreatments.map((item) => <Link href={`${demoPath}/treatments/${item.slug}`} key={item.slug}><span>{item.eyebrow}</span><strong>{item.name}</strong><ArrowRight aria-hidden="true" /></Link>)}</div></div></section>
+    <section className="aura-treatment-more"><div className="aura-shell"><div className="aura-treatment-more-heading"><div><p className="aura-eyebrow">KEEP EXPLORING</p><h2>More ways to care<br />for your smile.</h2></div><Link className="aura-treatment-all" href={`${demoPath}#aura-services`}>View all treatments <ArrowUpRight size={16} /></Link></div><div className="aura-treatment-more-grid">{otherTreatments.map((item) => <Link href={`${demoPath}/treatments/${item.slug}`} key={item.slug}><Image src={item.image} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" unoptimized /><span>{item.eyebrow}</span><strong>{item.name}</strong><em>Discover treatment <ArrowRight aria-hidden="true" /></em></Link>)}</div></div></section>
 
     <footer className="aura-footer aura-treatment-footer"><div className="aura-shell"><div><Link href={demoPath} className="aura-wordmark" aria-label="AURA Dental, back to home">AURA<span>DENTAL</span></Link><p>A fictional website concept by VISION.</p></div><Link href="/work/aura-dental">Back to the case study <ArrowUpRight size={16} /></Link></div></footer>
     {bookingOpen && <BookingModal onClose={closeBooking} />}

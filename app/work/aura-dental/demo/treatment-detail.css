@@ -61,6 +61,73 @@
 .aura-treatment-footer p { margin: 24px 0 0; color: #bababa; font-size: .8rem; }
 .aura-treatment-footer > .aura-shell > a { display: inline-flex; align-items: center; gap: 8px; font-size: .76rem; }
 
+/* Gallery-like treatment guide using the AURA demo's neutral black, white and bronze palette. */
+.aura-treatment-page { --treatment-ink: #1e1e1e; --treatment-mint: #f1efeb; --treatment-sand: #be986e; --treatment-paper: #fff; background: var(--treatment-paper); color: var(--treatment-ink); }
+.aura-treatment-header-wrap, .aura-treatment-hero { background: var(--treatment-ink); }
+.aura-treatment-header-wrap .aura-header { border-bottom-color: #ffffff2e; }
+.aura-treatment-hero { position: relative; overflow: hidden; }
+.aura-treatment-hero::before { position: absolute; width: min(54vw, 760px); height: min(54vw, 760px); right: -23vw; top: -36vw; border: 1px solid #ffffff28; border-radius: 50%; box-shadow: 0 0 0 72px #ffffff0a, 0 0 0 145px #ffffff06; content: ""; pointer-events: none; }
+.aura-treatment-hero-grid { position: relative; min-height: 720px; gap: clamp(38px, 6.5vw, 110px); }
+.aura-treatment-back { border-bottom-color: #ffffff72; color: #e6e4e1; }
+.aura-treatment-hero .aura-eyebrow { color: #be986e; }
+.aura-treatment-hero h1 { max-width: 700px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(4.3rem, 7vw, 8rem); font-weight: 400; letter-spacing: -.075em; line-height: .86; }
+.aura-treatment-meta { order: 2; gap: 8px; margin: 25px 0 0; color: #be986e; font-size: .68rem; font-weight: 700; letter-spacing: .11em; }
+.aura-treatment-meta span { display: inline-flex; min-height: 33px; align-items: center; gap: 7px; border: 1px solid #be986e66; border-radius: 999px; padding: 0 12px; }
+.aura-treatment-meta span + span { border-left: 1px solid #be986e66; padding-left: 12px; }
+.aura-treatment-statement { color: #ead8c3; font-size: clamp(1.6rem, 2.15vw, 2.5rem); }
+.aura-treatment-lead { color: #cacaca; }
+.aura-treatment-hero .aura-button { border: 1px solid #fff; background: #fff; color: #1e1e1e; }
+.aura-treatment-hero .aura-button:hover { background: #fff; }
+.aura-treatment-visual { min-height: 630px; border-radius: 2px 2px 120px 2px; box-shadow: 18px 20px 0 #ffffff12; }
+.aura-treatment-visual::before { position: absolute; z-index: 2; top: 24px; right: 24px; width: 64px; height: 64px; border: 1px solid #fff; border-radius: 50%; background: #1e1e1eab; content: ""; }
+.aura-treatment-visual::after { background: linear-gradient(180deg, #1e1e1e36, transparent 35%, #1e1e1ea8); }
+.aura-treatment-visual-number { z-index: 3; top: 45px; right: 41px; left: auto; }
+.aura-treatment-visual figcaption { z-index: 3; left: 29px; }
+.aura-treatment-hero-foot { position: relative; grid-template-columns: 1fr auto 1fr; align-items: center; color: #d6d4d0; }
+.aura-treatment-hero-foot span:nth-child(2) { color: #be986e; font-size: .58rem; }
+.aura-treatment-hero-foot span:last-child { text-align: right; }
+
+.aura-treatment-body { background: var(--treatment-paper); }
+.aura-treatment-body-intro > p { color: #666a6d; }
+.aura-treatment-body h2, .aura-treatment-expect h2, .aura-treatment-next h2, .aura-treatment-more h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing: -.07em; }
+.aura-treatment-includes { gap: 14px; border: 0; }
+.aura-treatment-includes > div { position: relative; min-height: 290px; overflow: hidden; border: 1px solid #e0e0de; padding: 28px; background: #fff; transition: transform .25s ease, box-shadow .25s ease; }
+.aura-treatment-includes > div::after { position: absolute; right: -28px; bottom: -49px; width: 126px; height: 126px; border: 1px solid #ece8e1; border-radius: 50%; content: ""; }
+.aura-treatment-includes > div + div { border-left: 1px solid #e0e0de; padding-left: 28px; }
+.aura-treatment-includes > div:hover { transform: translateY(-6px); box-shadow: 0 15px 30px #1d1d1d0d; }
+.aura-treatment-includes > div > span { color: #a6815d; }
+.aura-treatment-step-icon { display: grid; width: 44px; height: 44px; place-items: center; margin-top: 29px; border-radius: 50%; background: var(--treatment-mint); color: #6c5946; font-size: .67rem; font-weight: 700; letter-spacing: .08em; }
+.aura-treatment-includes p { position: relative; z-index: 1; margin-top: 23px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.27rem, 1.65vw, 1.68rem); }
+.aura-treatment-includes small { position: absolute; z-index: 1; bottom: 27px; color: #7b7b78; font-size: .63rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+
+.aura-treatment-expect { position: relative; overflow: hidden; background: #f1efeb; }
+.aura-treatment-expect::after { position: absolute; right: -12vw; bottom: -24vw; width: 54vw; height: 54vw; border: 1px solid #be986e55; border-radius: 50%; content: ""; pointer-events: none; }
+.aura-treatment-expect-grid { position: relative; z-index: 1; }
+.aura-treatment-expect .aura-eyebrow { color: #756a5e; }
+.aura-treatment-expect-mark { color: #c3a686; }
+.aura-treatment-expect-grid > div:last-child > p:not(.aura-treatment-disclaimer) { color: #525555; }
+.aura-treatment-disclaimer { border-top-color: #cecbc6; color: #777976; }
+
+.aura-treatment-next { background: linear-gradient(90deg, #1e1e1ef7 0%, #1e1e1ee8 45%, #1e1e1e8a 100%), url('/images/aura-demo/patient-experience.png') center / cover; }
+.aura-treatment-next .aura-eyebrow { color: #d7bb9c; }
+.aura-treatment-next button { border-radius: 999px; background: #e7ddce; }
+.aura-treatment-next button:hover { background: #fff4e5; }
+
+.aura-treatment-more { background: #f5f6f7; }
+.aura-treatment-more-grid { gap: 16px; }
+.aura-treatment-more-grid a { isolation: isolate; min-height: 330px; overflow: hidden; border: 0; padding: 25px; color: #fff; }
+.aura-treatment-more-grid a::after { position: absolute; z-index: -1; inset: 0; background: linear-gradient(180deg, #1e1e1e28 0%, #1e1e1edb 100%); content: ""; transition: background .3s ease; }
+.aura-treatment-more-grid a > img { z-index: -2; object-fit: cover; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.aura-treatment-more-grid a:hover { border-color: transparent; background: transparent; }
+.aura-treatment-more-grid a:hover::after { background: linear-gradient(180deg, #1e1e1e14 0%, #1e1e1ef0 100%); }
+.aura-treatment-more-grid a:hover > img { transform: scale(1.06); }
+.aura-treatment-more-grid span { color: #e1c1a0; }
+.aura-treatment-more-grid strong { color: #fff; font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing: -.05em; }
+.aura-treatment-more-grid em { display: inline-flex; align-items: center; gap: 10px; color: #e8e8e8; font-size: .72rem; font-style: normal; font-weight: 700; }
+.aura-treatment-more-grid em svg { position: static; width: 17px; }
+.aura-treatment-more-grid a:hover em svg { transform: translateX(4px); }
+.aura-treatment-footer { background: #1e1e1e; }
+
 @media (max-width: 1000px) {
   .aura-treatment-hero-grid { min-height: 0; grid-template-columns: 1fr; gap: 48px; }
   .aura-treatment-back { margin-bottom: 35px; }
@@ -68,6 +135,8 @@
   .aura-treatment-hero h1 { max-width: 780px; }
   .aura-treatment-visual { min-height: 0; aspect-ratio: 1.5; }
   .aura-treatment-hero-foot { padding-top: 22px; }
+  .aura-treatment-hero-foot { grid-template-columns: 1fr auto; }
+  .aura-treatment-hero-foot span:nth-child(2) { display: none; }
 }
 
 @media (max-width: 700px) {
@@ -81,9 +150,10 @@
   .aura-treatment-body-intro, .aura-treatment-more-heading { align-items: start; flex-direction: column; gap: 22px; margin-bottom: 38px; }
   .aura-treatment-body h2, .aura-treatment-expect h2, .aura-treatment-next h2, .aura-treatment-more h2 { font-size: clamp(2.95rem, 10vw, 4.7rem); }
   .aura-treatment-includes { grid-template-columns: 1fr; }
-  .aura-treatment-includes > div { min-height: 0; padding: 20px 0 27px; }
-  .aura-treatment-includes > div + div { border-top: 1px solid #d2d2d0; border-left: 0; padding-left: 0; }
-  .aura-treatment-includes p { max-width: 100%; margin-top: 25px; }
+  .aura-treatment-includes > div { min-height: 225px; padding: 22px; }
+  .aura-treatment-includes > div + div { border-top: 1px solid #e0e0de; border-left: 1px solid #e0e0de; padding-left: 22px; }
+  .aura-treatment-includes p { max-width: 100%; margin-top: 18px; }
+  .aura-treatment-step-icon { width: 38px; height: 38px; margin-top: 16px; }
   .aura-treatment-expect-grid { grid-template-columns: 1fr; gap: 32px; }
   .aura-treatment-expect-mark { margin-top: 0; font-size: 6rem; }
   .aura-treatment-next > .aura-shell { min-height: 0; align-items: start; flex-direction: column; gap: 35px; padding-block: 95px; }
