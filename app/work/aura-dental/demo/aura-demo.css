@@ -15,7 +15,7 @@ body:has(.aura-demo) > .site-footer { display: none; }
 .aura-demo h1, .aura-demo h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing: -.065em; }
 .aura-demo h1 em, .aura-demo h2 em { font-weight: 400; }
 .aura-demo p { line-height: 1.6; }
-.aura-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 42px; min-height: 58px; padding: 0 27px; border: 1px solid transparent; border-radius: 100px; font-size: .73rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; transition: background .25s, transform .25s, border-color .25s; }
+.aura-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 42px; min-height: 58px; padding: 0 27px; border: 1px solid transparent; border-radius: 100px; font-size: .84rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; transition: background .25s, transform .25s, border-color .25s; }
 .aura-button:hover { transform: translateY(-3px); }
 .aura-button:hover svg, .aura-text-link:hover svg, .aura-nav-book:hover svg { transform: translate(3px, -3px); }
 .aura-button svg, .aura-text-link svg, .aura-nav-book svg { flex: none; transition: transform .25s; }
@@ -36,10 +36,10 @@ body:has(.aura-demo) > .site-footer { display: none; }
 .aura-wordmark { display: inline-flex; width: fit-content; flex-direction: column; color: #2b2923; font-family: Georgia, 'Times New Roman', serif; font-size: 2.4rem; letter-spacing: .21em; line-height: .78; }
 .aura-wordmark span { margin-top: 12px; font-family: Arial, Helvetica, sans-serif; font-size: .56rem; font-weight: 700; letter-spacing: .62em; }
 .aura-desktop-nav { display: flex; align-items: center; gap: clamp(18px, 2.35vw, 40px); }
-.aura-desktop-nav a, .aura-nav-book { font-size: .69rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.aura-desktop-nav a, .aura-nav-book { font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .aura-desktop-nav a { padding: 13px 0; border-bottom: 1px solid transparent; transition: border-color .2s; }
 .aura-desktop-nav a:hover { border-color: currentColor; }
-.aura-nav-book { display: inline-flex; min-height: 50px; align-items: center; justify-content: space-between; gap: 20px; justify-self: end; border: 1px solid #5a53469e; border-radius: 100px; padding: 0 21px; background: transparent; cursor: pointer; }
+.aura-nav-book { display: inline-flex; min-height: 51px; align-items: center; justify-content: space-between; gap: 22px; justify-self: end; border: 1px solid #5a53469e; border-radius: 3px; padding: 0 23px; background: transparent; cursor: pointer; }
 .aura-menu-button, .aura-mobile-nav { display: none; }
 .aura-hero-content { width: min(1490px, calc(100% - 96px)); margin: auto auto auto; padding-block: 45px 80px; }
 .aura-hero-content .aura-eyebrow { margin-bottom: 28px; color: #4e4b40; }
@@ -234,7 +234,7 @@ body:has(.aura-demo) > .site-footer { display: none; }
 .aura-hero h1 { max-width: 710px; font-size: clamp(4.2rem, 6.6vw, 7.2rem); line-height: .98; }
 .aura-hero-copy { max-width: 410px; margin-top: 30px; color: #e0dedb; font-size: 1.03rem; }
 .aura-hero-actions { gap: 12px; margin-top: 28px; }
-.aura-hero-actions .aura-button { min-height: 51px; border-radius: 3px; padding-inline: 20px; font-size: .66rem; letter-spacing: .04em; text-transform: none; }
+.aura-hero-actions .aura-button { min-height: 54px; border-radius: 3px; padding-inline: 23px; font-size: .82rem; letter-spacing: .03em; text-transform: none; }
 .aura-hero-actions button, .aura-contact-copy button { cursor: pointer; }
 .aura-hero-actions .aura-button-dark { background: #fff; color: #1e1e1e; }
 .aura-hero-actions .aura-button-dark:hover { background: #e8e4de; }
@@ -301,7 +301,7 @@ body:has(.aura-demo) > .site-footer { display: none; }
 .aura-faq { background: #f5f6f7; }
 .aura-faq-grid { grid-template-columns: .82fr 1fr; gap: 10%; }
 .aura-faq-grid > div:first-child > p:last-of-type { max-width: 330px; margin-top: 21px; color: #62676a; font-size: .92rem; }
-.aura-faq-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 29px; border: 1px solid #d0d2d3; border-radius: 3px; padding: 13px 16px; font-size: .74rem; font-weight: 600; }
+.aura-faq-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 29px; border: 1px solid #d0d2d3; border-radius: 3px; padding: 14px 18px; font-size: .84rem; font-weight: 700; }
 .aura-faq-item { border-color: #d9dcdd; }
 .aura-faq-list { border-color: #d9dcdd; }
 .aura-faq-item summary { grid-template-columns: 1fr 20px; gap: 14px; padding: 21px 0; font-family: Arial, Helvetica, sans-serif; font-size: .92rem; font-weight: 600; }
@@ -314,7 +314,7 @@ body:has(.aura-demo) > .site-footer { display: none; }
 .aura-contact dl > div { grid-template-columns: 90px 1fr; gap: 10px; border-color: #ffffff45; padding: 13px 0; }
 .aura-contact dt { font-size: .64rem; }
 .aura-contact dd { font-size: .81rem; }
-.aura-contact-copy .aura-button { min-height: 47px; border-radius: 3px; font-size: .67rem; letter-spacing: .02em; text-transform: none; }
+.aura-contact-copy .aura-button { min-height: 51px; border-radius: 3px; font-size: .82rem; letter-spacing: .02em; text-transform: none; }
 .aura-contact-preview-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px 23px; margin-top: 28px; }
 .aura-contact-preview-actions > span { display: inline-flex; align-items: center; gap: 5px; border-bottom: 1px solid #d9d9d1a8; padding-bottom: 4px; color: #eeece7; font-size: .76rem; font-weight: 600; }
 .aura-contact-preview-actions > button { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; border: 1px solid #ffffff70; border-radius: 3px; padding: 0 10px; background: transparent; color: #eeece7; font-size: .74rem; font-weight: 600; cursor: default; opacity: 1; }
@@ -322,7 +322,7 @@ body:has(.aura-demo) > .site-footer { display: none; }
 .aura-contact-photo { position: relative; min-height: 540px; }
 .aura-contact-photo img { object-fit: cover; object-position: 55% center; }
 .aura-footer { background: #1e1e1e; border-top: 1px solid #ffffff2b; }
-.aura-footer-book { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; border: 0; padding: 0; background: transparent; color: #eee8db; cursor: pointer; font-size: .83rem; }
+.aura-footer-book { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; border: 0; padding: 0; background: transparent; color: #eee8db; cursor: pointer; font-size: .92rem; font-weight: 600; }
 .aura-footer-book:hover { text-decoration: underline; }
 
 .aura-booking-overlay { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; overflow-y: auto; padding: 22px; background: #121210bd; color: #24231f; }
@@ -422,7 +422,7 @@ body:has(.aura-demo) > .site-footer { display: none; }
   .aura-hero { min-height: 700px; }
   .aura-hero h1 { font-size: 3.4rem; }
   .aura-hero-actions { align-items: stretch; flex-direction: row; }
-  .aura-hero-actions .aura-button { gap: 12px; padding-inline: 13px; font-size: .6rem; }
+  .aura-hero-actions .aura-button { gap: 12px; padding-inline: 13px; font-size: .74rem; }
   .aura-experience-stats { grid-template-columns: auto auto; gap: 5px 9px; padding: 12px; }
   .aura-person-meta h3 { font-size: .95rem; }
 }

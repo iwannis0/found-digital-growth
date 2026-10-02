@@ -58,6 +58,21 @@ body:has(.nova-demo){background:#f3f0e9}.nova-demo{--navy:#111c29;--cream:#f3f0e
  .nova-scroll-hero .nova-hero h1{font-size:clamp(58px,6.5vw,76px)}
  .nova-scroll-hero .nova-search{top:auto;bottom:clamp(28px,4svh,56px);width:min(92vw,920px)}
 }
+@media (min-width:901px) and (max-height:720px){
+ .nova-scroll-hero .nova-hero-copy{top:clamp(112px,18svh,138px);max-width:520px}
+ .nova-scroll-hero .nova-hero h1{margin:18px 0;font-size:clamp(52px,5.2vw,76px)}
+ .nova-scroll-hero .nova-hero-copy>p:not(.nova-eyebrow){max-width:430px;font-size:14px;line-height:1.5}
+ .nova-scroll-hero .nova-hero-copy .nova-button{margin-top:24px}
+ .nova-scroll-hero .nova-search{bottom:clamp(42px,7svh,64px);width:min(94vw,1180px);padding:0 24px 18px}
+ .nova-scroll-hero .nova-search-tabs{height:48px}
+ .nova-scroll-hero .nova-search label{padding-top:12px}
+ .nova-scroll-hero .nova-scroll{display:none}
+}
+@media (min-width:901px) and (min-height:721px) and (max-height:900px){
+ .nova-scroll-hero .nova-hero-copy{top:clamp(122px,19vh,171px)}
+ .nova-scroll-hero .nova-hero-copy .nova-button{margin-top:24px}
+ .nova-scroll-hero .nova-search{bottom:clamp(42px,7svh,64px)}
+}
 @media (max-width:900px){
  .nova-scroll-hero .nova-hero-copy{top:clamp(96px,13svh,126px)}
  .nova-scroll-hero .nova-search{bottom:clamp(18px,3svh,28px)}
@@ -79,3 +94,27 @@ body:has(.nova-demo){background:#f3f0e9}.nova-demo{--navy:#111c29;--cream:#f3f0e
 /* Keep the portfolio shell outside every NOVA demo route. */
 .nova-demo-shell{min-height:100vh}
 body:has(.nova-demo-shell)>.site-header{display:none!important}
+
+/* Responsive hardening for the NOVA demo shell and opening hero. */
+.nova-demo-shell{overflow-x:clip}
+@media (max-width:900px){
+ .nova-demo .nova-nav{position:relative;z-index:2}
+ .nova-demo .nova-menu-button{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:0;color:#fff;position:relative;z-index:3}
+ .nova-demo .nova-menu-button svg{width:25px;height:25px;stroke-width:2}
+ .nova-demo .nova-nav nav{z-index:2}
+ .nova-scroll-hero .nova-hero-copy{right:24px;left:24px;max-width:min(620px,calc(100% - 48px))}
+ .nova-scroll-hero .nova-search{width:min(92vw,760px)}
+}
+@media (max-width:700px){
+ .nova-concept-bar{gap:10px;padding-inline:16px}
+ .nova-concept-bar span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .nova-concept-bar a{flex:0 0 auto;font-size:0;gap:0;white-space:nowrap}
+ .nova-concept-bar a::before{content:"Case study";font-size:.56rem}
+ .nova-concept-bar a svg{width:12px;height:12px;margin-left:6px}
+}
+@media (max-width:560px){
+ .nova-scroll-hero .nova-hero-copy{top:88px;right:20px;left:20px;max-width:calc(100% - 40px)}
+ .nova-scroll-hero .nova-search{bottom:12px;width:calc(100% - 28px)}
+ .nova-scroll-hero .nova-search-fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .nova-scroll-hero .nova-search label{min-width:0}
+}
