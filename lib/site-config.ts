@@ -4,14 +4,14 @@ export const siteConfig = {
   title: "VISION. Local Digital Growth Company",
   description:
     "Websites designed and built in Cyprus to bring you enquiries: web design, local SEO, Google Business Profile and ongoing care. Free website audit.",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@vision.cy",
-  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+357 99900853",
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "35722000000",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://vision.cy",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@vision.cy",
+  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+357 99900853",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "35722000000",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://vision.cy",
   address: "Cyprus",
   socials: {
-    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "https://www.instagram.com/visionstudio.cy",
-    facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "https://www.facebook.com/share/1NZ6P2ckPX/",
+    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/visionstudio.cy",
+    facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL || "https://www.facebook.com/share/1NZ6P2ckPX/",
   },
 } as const;
 
