@@ -1,5 +1,5 @@
 export const faqs = [
-  ["How much does a website cost?", "Our current packages start at €550 setup. Optional Website Care after launch starts at €49 per month. The right package depends on page count, integrations, content and the role the website plays in your business."],
+  ["How much does a website cost?", "Our current packages start at €599 setup. Optional Website Care after launch starts at €49 per month. The right package depends on page count, integrations, content and the role the website plays in your business."],
   ["Is Website Care mandatory?", "No. Website Care is optional after launch. It is available for businesses that want managed hosting, backups, monitoring, technical support and ongoing minor updates."],
   ["How many design revisions are included?", "Professional Website Foundation includes 1 revision round, Custom Growth Website includes 2 revision rounds, and Advanced Digital Presence includes 3 revision rounds during the agreed design phase.\n\nA revision round means one consolidated set of feedback on the current design direction. Additional revision rounds or significant changes outside the agreed scope may be quoted separately."],
   ["Who owns the website?", "Once the project has been paid in full, the client owns the final website content and agreed project deliverables.\n\nThird-party platforms, software, fonts, plugins or services remain subject to their own licences and terms."],
@@ -13,7 +13,7 @@ export const faqs = [
   ["What does Website Care include?", "Website Care covers hosting, monitoring, technical updates, backups and the monthly allowance for minor text, image, contact-detail or opening-hour changes."],
   ["Does unused Website Care time roll over?", "No. Your monthly minor-update allowance is reserved for that month and does not roll over."],
   ["Do you guarantee first place on Google?", "No responsible provider can guarantee a ranking. We build a sound SEO foundation and improve relevance, quality and visibility over time."],
-  ["Can you write the website content?", "All packages include content structure and guidance. Growth includes copywriting assistance. Full or specialist copywriting can be quoted separately."],
+  ["Can you write the website content?", "All packages include content structure and guidance. Growth includes content refinement. Full or specialist copywriting can be quoted separately."],
   ["What about photography and video?", "We can work with your existing assets, recommend a shoot or coordinate professional photography and videography as an add-on."],
   ["Can the website be in Greek and English?", "Advanced Digital Presence includes a multilingual-ready architecture. Translation, content entry and complete second-language setup can be scoped separately."],
   ["Will I see calls and enquiries in analytics?", "Yes. Where consent and technology allow, we track meaningful actions such as phone, WhatsApp, email, booking and form interactions."],

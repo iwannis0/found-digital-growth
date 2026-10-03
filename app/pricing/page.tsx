@@ -5,21 +5,21 @@ import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
 import { PageMotion } from "@/components/page-motion";
 
-export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Website design packages for Cyprus businesses from €550 setup, with optional Website Care from €49 a month. See exactly what each package includes.", alternates: { canonical: "/pricing" } };
+export const metadata: Metadata = { title: "Website Design Pricing Cyprus", description: "Website design packages for Cyprus businesses from €599 setup, with optional Website Care from €49 a month. See exactly what each package includes.", alternates: { canonical: "/pricing" } };
 
 const plans = [
-  { name: "Professional Website Foundation", short: "Foundation", setup: "€550", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,
+  { name: "Professional Website Foundation", short: "Foundation", setup: "€599", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,
     items: ["Up to 4 pages", "1 design revision round", "Responsive, mobile-first design", "Contact form", "Google Maps", "WhatsApp / click-to-call", "SEO foundations: titles, sitemap and structured data", "Google Analytics setup", "Launch on your domain with SSL"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates"] },
-  { name: "Custom Growth Website", short: "Growth", setup: "€850", monthly: "€69", best: "Businesses that want a stronger website built around visibility, enquiries and bookings.", minutes: "30 minutes", popular: true,
-    items: ["5 to 7 pages", "2 design revision rounds", "Custom design direction", "Conversion-focused page structure", "Copywriting assistance", "Google Business Profile setup & optimisation", "Local SEO foundations", "Analytics, Search Console & conversion tracking", "Enquiry or booking form", "WhatsApp and click-to-call", "Speed optimisation"],
+  { name: "Custom Growth Website", short: "Growth", setup: "€899", monthly: "€69", best: "Businesses that want a stronger website built around visibility, enquiries and bookings.", minutes: "30 minutes", popular: true,
+    items: ["5 to 7 pages", "2 design revision rounds", "Custom design direction", "Conversion-focused page structure", "Content refinement", "Google Business Profile setup & optimisation", "Local SEO foundations", "Analytics, Search Console & conversion tracking", "Enquiry or booking form", "WhatsApp and click-to-call", "Speed optimisation"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates", "Monthly analytics check"] },
-  { name: "Advanced Digital Presence", short: "Advanced", setup: "€1,350", monthly: "€119", best: "Businesses that need a larger website with more functionality, a stronger conversion structure and priority care.", minutes: "60 minutes", popular: false,
-    items: ["8 to 12 pages", "3 design revision rounds", "Tailored design direction", "Advanced conversion-focused structure", "Refined interactions and animations", "Editable content / blog (CMS)", "Booking system integration", "Multilingual-ready structure", "Enhanced Local SEO foundations", "Analytics, Search Console & conversion tracking"],
+  { name: "Advanced Digital Presence", short: "Advanced", setup: "€1,399", monthly: "€119", best: "Businesses that need a larger website with more functionality, a stronger conversion structure and priority care.", minutes: "60 minutes", popular: false,
+    items: ["8 to 10 pages", "3 design revision rounds", "Tailored design direction", "Advanced conversion-focused structure", "Refined interactions and animations", "Editable content / blog (CMS) or booking system integration", "Multilingual-ready structure", "Enhanced Local SEO foundations", "Analytics, Search Console & conversion tracking"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates", "Priority support: reply within one working day", "Quarterly technical & SEO health check"] },
 ] as const;
 
-const addons = [["Extra language setup (translation separate)", "€150 to €300+"], ["Advanced booking workflow", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO", "Quote"], ["Google Business ongoing optimisation", "Quote"], ["Google Ads setup & conversion tracking", "Quote"], ["Lead & booking automation", "Quote"], ["AI chat assistant", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Monthly analytics reporting", "Quote"], ["Blog & SEO content writing", "Quote"], ["Advanced copywriting", "Quote"], ["Photography & video (through a partner)", "Quote"], ["Website migration", "Quote"]] as const;
+const addons = [["Extra language setup (translation separate)", "€150 to €300+"], ["Advanced third party booking workflow", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO and Google Business", "Quote"], ["Google Ads setup & conversion tracking", "Quote"], ["Lead & booking automation", "Quote"], ["AI chat assistant", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Monthly analytics reporting", "Quote"], ["Blog & SEO content writing", "Quote"], ["Advanced copywriting", "Quote"], ["Photography & video (through a partner)", "Quote"], ["Website migration", "Quote"]] as const;
 
 export default function PricingPage() {
   return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />

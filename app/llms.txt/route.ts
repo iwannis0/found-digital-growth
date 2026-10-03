@@ -20,7 +20,7 @@ ${serviceLines}
 Nicosia, Limassol, Larnaca, Paphos, Paralimni, Ayia Napa and across Cyprus. Projects can be run remotely anywhere in Cyprus.
 
 ## Pricing
-Website projects start at EUR 550 setup. Optional Website Care (hosting, updates, monitoring) starts at EUR 49 per month. Full pricing: ${siteConfig.url}/pricing
+Website projects start at EUR 599 setup. Optional Website Care (hosting, updates, monitoring) starts at EUR 49 per month. Full pricing: ${siteConfig.url}/pricing
 
 ## Key pages
 - Home: ${siteConfig.url}
