@@ -244,7 +244,7 @@ export const deployedProjects = [
     image: "/images/work/mastrohome-cover.webp",
     name: "MastroHome",
     industry: "Retail / Loyalty Platform",
-    url: "https://mastrohome.vercel.app/",
+    url: "https://mastrohome.vision.cy/",
     summary: "A clearance retail platform running four connected apps: public store, customer loyalty app, admin dashboard and cashier till.",
   },
 ] as const;
