@@ -236,7 +236,7 @@ export const deployedProjects = [
     image: "/images/work/zafiri-jewellery-cover.webp",
     name: "Zafiri Jewellery",
     industry: "Retail / E-commerce",
-    url: "https://zafiri-jewellery.vercel.app/",
+    url: "https://zafiri.vision.cy/",
     summary: "A premium jewellery boutique store with engagement guidance, bespoke commissions, wishlist and secure checkout.",
   },
   {
