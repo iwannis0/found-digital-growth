@@ -19,7 +19,7 @@ const plans = [
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates", "Priority support: reply within one working day", "Quarterly technical & SEO health check"] },
 ] as const;
 
-const addons = [["Extra language setup (translation separate)", "€150 to €300+"], ["Advanced third party booking workflow", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO and Google Business", "Quote"], ["Google Ads setup & conversion tracking", "Quote"], ["Lead & booking automation", "Quote"], ["AI chat assistant", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Monthly analytics reporting", "Quote"], ["Blog & SEO content writing", "Quote"], ["Advanced copywriting", "Quote"], ["Photography & video (through a partner)", "Quote"], ["Website migration", "Quote"]] as const;
+const addons = [["Extra language setup (translation separate)", "€150 to €300+"], ["Advanced third party booking workflow", "€150 to €400+"], ["E-commerce", "Quote"], ["Ongoing Local SEO and Google Business", "Quote"], ["Google Ads setup & conversion tracking", "Quote"], ["Lead & booking automation", "Quote"], ["Custom AI integrations", "On request"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Monthly analytics reporting", "Quote"], ["Photography & video (through a partner)", "Quote"], ["Website migration after technical review", "Quote"]] as const;
 
 export default function PricingPage() {
   return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />
