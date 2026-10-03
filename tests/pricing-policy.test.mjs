@@ -24,7 +24,7 @@ test("Website Care policy defines optional care, scope and cancellation terms", 
   assert.match(pricing, /other work outside the agreed package are quoted separately/);
 });
 
-test("FAQ covers ownership, scope, revisions, cancellation and VAT", () => {
+test("FAQ covers ownership, scope, revisions and cancellation", () => {
   for (const question of [
     "Is Website Care mandatory?",
     "How many design revisions are included?",
@@ -32,7 +32,6 @@ test("FAQ covers ownership, scope, revisions, cancellation and VAT", () => {
     "Who owns the domain?",
     "What happens if I cancel Website Care?",
     "Are additional features included in the package price?",
-    "Do prices include VAT?",
   ]) assert.match(faqs, new RegExp(question.replace(/[?]/g, "\\?")));
   assert.match(faqs, /client owns the final website content and agreed project deliverables/);
   assert.match(faqs, /domain should be registered in the client’s name/);

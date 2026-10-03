@@ -6,7 +6,6 @@ export const faqs = [
   ["Who owns the domain?", "The domain should be registered in the client’s name. VISION. can assist with setup and management where required."],
   ["What happens if I cancel Website Care?", "After the initial 3-month period, Website Care can be cancelled with 30 days’ notice.\n\nIf the website is hosted or managed through VISION., we will explain the available handover or migration options before the service ends."],
   ["Are additional features included in the package price?", "Each package covers the agreed scope listed on the Pricing page.\n\nNew pages, advanced integrations, custom functionality, e-commerce, CRM connections, automation, additional languages and other work outside the package scope are quoted separately."],
-  ["Do prices include VAT?", "VAT, where applicable, will be confirmed before work begins."],
   ["How long does a website take?", "A focused small business website usually takes a few weeks once content and feedback are supplied. More complex sites take longer. Your proposal will include a realistic schedule."],
   ["How do payments work?", "The standard process is 50% to begin and 50% before launch. If Website Care is selected, monthly care starts when the site goes live."],
   ["Do you provide hosting?", "Yes. Managed hosting, SSL, monitoring and backups are included in the Website Care shown with the pricing packages."],
