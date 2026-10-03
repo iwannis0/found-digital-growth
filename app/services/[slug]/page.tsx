@@ -22,16 +22,6 @@ const serviceDetails: Record<string, ServiceDetail> = {
       { label: "Integrations", body: "Calls, WhatsApp, forms, booking tools, maps and analytics are selected around the customer journey." },
     ],
   },
-  "local-seo": {
-    eyebrow: "The first 90 days",
-    title: "Search visibility grows from consistent local signals.",
-    intro: "Local SEO is not an overnight ranking promise. The first three months focus on making your services, service areas and website signals easier for search engines to understand.",
-    items: [
-      { label: "Days 1–30", body: "Research the business, local searches, competitors and technical priorities." },
-      { label: "Days 31–60", body: "Improve service and location structure, metadata, internal links and search setup." },
-      { label: "Days 61–90", body: "Check indexing, visibility signals and the next content or optimisation priorities." },
-    ],
-  },
   "google-business": {
     eyebrow: "Profile checklist",
     title: "Small profile details shape the first local impression.",
@@ -101,8 +91,8 @@ const serviceApproaches: Record<string, ServiceApproach> = {
   ],
   "local-seo": [
     { title: "Understand local demand", body: "We review the services, locations and searches that matter most to the business." },
-    { title: "Strengthen local signals", body: "We improve the technical, content and location signals search engines need to understand." },
-    { title: "Review the evidence", body: "We check indexing, visibility and the priorities that follow without promising unrealistic rankings." },
+    { title: "Build in local signals", body: "We set up the technical, content and location signals search engines need to understand the business." },
+    { title: "Launch ready for search", body: "Before launch we connect Search Console, submit the sitemap and check every page can be indexed." },
   ],
   "google-business": [
     { title: "Audit the profile", body: "We check categories, contact details, services, photos and the information customers see first." },
@@ -129,6 +119,30 @@ const serviceApproaches: Record<string, ServiceApproach> = {
     { title: "Build only what helps", body: "One practical workflow is scoped around the tools and process the business already uses." },
     { title: "Keep ownership clear", body: "The workflow is tested and explained so the team can understand and manage it." },
   ],
+};
+
+// Where "What is included" would overpromise: not every package includes every item, and
+// Local SEO separates the foundations built into a project from the optional ongoing service.
+const includedHeadings: Record<string, { eyebrow: string; title: string }> = {
+  "web-design": { eyebrow: "Websites can include", title: "A complete service, focused on the parts that create value." },
+  "local-seo": { eyebrow: "Local SEO foundations", title: "Set up during your website project." },
+};
+const defaultIncludedHeading = { eyebrow: "What is included", title: "A complete service, focused on the parts that create value." };
+
+// Optional monthly work that sits outside the website project, shown near the bottom of the page.
+const ongoingServices: Record<string, ServiceDetail & { cta: string; href: string }> = {
+  "local-seo": {
+    eyebrow: "Optional monthly service",
+    title: "Ongoing Local SEO",
+    intro: "Local SEO foundations are part of the website project. If you want search visibility worked on after launch, Ongoing Local SEO is available as a separate monthly service, quoted for your business.",
+    items: [
+      { label: "Monitoring & competitors", body: "Regular checks on search visibility and on what local competitors are doing." },
+      { label: "Content planning", body: "New service, location and FAQ content planned around the searches that bring enquiries." },
+      { label: "Google Business & improvements", body: "Continued profile optimisation and steady improvements as search behaviour changes." },
+    ],
+    cta: "Ask about Ongoing Local SEO",
+    href: "/contact?service=Local+SEO",
+  },
 };
 
 // The part of each headline set in the accent serif, as on the other lit heroes.
@@ -169,6 +183,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const detail = serviceDetails[service.slug];
   const ctaLabel = custom ? "Discuss a custom capability" : serviceCtas[service.slug] ?? "Get a Free Website Audit";
   const approach = serviceApproaches[service.slug];
+  const included = includedHeadings[service.slug] ?? defaultIncludedHeading;
+  const ongoing = ongoingServices[service.slug];
+  // The side rail lists only the sections this page actually has, in page order.
+  const progressSections = [
+    { id: "service-overview", label: "Overview" },
+    { id: "service-included", label: "Included" },
+    ...(detail ? [{ id: "service-detail", label: "Details" }] : []),
+    { id: "service-outcome", label: "Outcome" },
+    { id: "service-approach", label: "Approach" },
+    ...(ongoing ? [{ id: "service-ongoing", label: "Ongoing" }] : []),
+  ];
   const accent = headlineAccents[service.slug];
   const lead = accent && service.headline.endsWith(accent) ? service.headline.slice(0, -accent.length).trim() : service.headline;
   const structuredData = { "@context": "https://schema.org", "@graph": [
@@ -176,7 +201,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Services", item: `${siteConfig.url}/services` }, { "@type": "ListItem", position: 2, name: service.title, item: `${siteConfig.url}/services/${service.slug}` }] },
   ] };
   return (
-    <main className="motion-page service-motion-page"><PageMotion /><ServiceProgress /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} /><PageTracker event="service_view" label={service.title} />
+    <main className="motion-page service-motion-page"><PageMotion /><ServiceProgress sections={progressSections} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} /><PageTracker event="service_view" label={service.title} />
       <section id="service-overview" className="lit-hero service-lit-hero"><div className="site-container lit-hero-grid">
         <div><p className="eyebrow">{service.eyebrow}</p><h1>{accent && lead !== service.headline ? <>{lead} <em>{accent}</em></> : service.headline}</h1><p className="lit-hero-lead">{service.intro}</p><Link className="button button-accent button-large" href={custom ? "/contact?service=Lead+%26+Booking+Automation" : "/free-audit"}>{ctaLabel}<ArrowRight /></Link></div>
         <div className="service-emblem" aria-hidden="true">
@@ -186,12 +211,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </div></section>
       <section id="service-included" className="deliverables-section section-pad"><div className="site-container deliverables-grid">
-        <div data-motion="rise"><p className="eyebrow">What is included</p><h2>A complete service, focused on the parts that create value.</h2></div>
+        <div data-motion="rise"><p className="eyebrow">{included.eyebrow}</p><h2>{included.title}</h2></div>
         <div className="deliverable-list">{service.benefits.map((benefit) => <div data-motion="rise" key={benefit}><Check aria-hidden="true" /><span>{benefit}</span></div>)}</div>
       </div></section>
       {detail && <section id="service-detail" className="service-detail-section section-pad"><div className="site-container"><div className="about-section-head service-detail-head" data-motion="rise"><div><p className="eyebrow">{detail.eyebrow}</p><h2>{detail.title}</h2></div><p>{detail.intro}</p></div><div className="service-detail-grid">{detail.items.map((item, index) => <article data-motion="rise" key={item.label}><span>0{index + 1}</span><h3>{item.label}</h3><p>{item.body}</p></article>)}</div></div></section>}
       <section id="service-outcome" className="result-section"><div className="site-container" data-motion="rise"><p className="eyebrow">The outcome</p><blockquote>{service.result}</blockquote></div></section>
       <section id="service-approach" className="service-note"><header className="site-container service-note-head" data-motion="rise"><p className="eyebrow">How we work</p><h2>Three steps, <em>no surprises.</em></h2></header><div className="site-container">{approach.map((step, index) => <div data-motion="rise" key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><h2>{step.title}</h2><p>{step.body}</p></div>)}</div></section>
+      {ongoing && <section id="service-ongoing" className="service-detail-section section-pad"><div className="site-container"><div className="about-section-head service-detail-head" data-motion="rise"><div><p className="eyebrow">{ongoing.eyebrow}</p><h2>{ongoing.title}</h2></div><p>{ongoing.intro}</p></div><div className="service-detail-grid">{ongoing.items.map((item, index) => <article data-motion="rise" key={item.label}><span>0{index + 1}</span><h3>{item.label}</h3><p>{item.body}</p></article>)}</div><Link className="text-link service-ongoing-link" href={ongoing.href} data-motion="rise">{ongoing.cta} <ArrowRight aria-hidden="true" /></Link></div></section>}
     </main>
   );
 }

@@ -1314,6 +1314,7 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
 .deliverable-list span { padding-top: 4px; font-size: .88rem; line-height: 1.45; }
 
 .service-detail-grid { gap: 14px; border-top: 0; }
+.service-ongoing-link { margin-top: 34px; }
 .service-detail-grid article, .service-detail-grid article + article { min-height: 220px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); padding: 28px 28px 30px; }
 .service-detail-grid span { color: var(--acid-dark); }
 .service-detail-grid h3 { margin-top: 44px; }
