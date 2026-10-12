@@ -1100,6 +1100,51 @@ button { cursor: pointer; }
 .preview-faq { border-top: 1px solid var(--line); }
 .preview-faq .faq-list { max-width: 900px; }
 
+/* Articles: index cards and a readable single-column article. */
+.article-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.article-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 20px; background: var(--white); padding: 34px; transition: border-color .25s ease, transform .35s cubic-bezier(.22,.7,.2,1); }
+.article-card:hover { border-color: var(--acid); transform: translateY(-3px); }
+.article-card .eyebrow { margin: 0 0 22px; }
+.article-card h2 { margin: 0; font-size: clamp(1.6rem, 2.4vw, 2.2rem); font-weight: 500; letter-spacing: -.045em; line-height: 1.08; }
+.article-card > p:not(.eyebrow) { margin: 16px 0 28px; color: var(--ink-soft); line-height: 1.65; }
+.article-card-meta { display: flex; align-items: center; gap: 6px; margin-top: auto; color: var(--ink-soft); font-size: .82rem; }
+.article-card-meta svg { width: 16px; margin-left: auto; color: var(--acid); }
+.article-hero h1 { max-width: 980px; font-size: clamp(2.8rem, 5.4vw, 5.6rem); }
+.article-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 34px; color: #bcbcb2; font-size: .85rem; }
+.article-back svg { width: 15px; }
+.article-meta { margin: 28px 0 0; color: #8f8e86; font-size: .9rem; }
+.article-body { max-width: 760px; padding: 80px 0 40px; color: var(--ink); font-size: 1.08rem; line-height: 1.75; }
+.article-body p, .article-body ul, .article-body ol { margin: 0 0 22px; }
+.article-body .article-lead { font-size: 1.3rem; line-height: 1.6; letter-spacing: -.01em; }
+.article-body h2 { margin: 64px 0 20px; font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 500; letter-spacing: -.05em; line-height: 1.08; }
+.article-body h3 { margin: 34px 0 10px; font-size: 1.2rem; font-weight: 650; letter-spacing: -.02em; }
+.article-body ul, .article-body ol { padding-left: 1.25em; }
+.article-body ul { list-style: disc; }
+.article-body ol { list-style: decimal; }
+.article-body li { margin-bottom: 10px; }
+.article-body li::marker { color: var(--acid); }
+.article-body a { color: var(--acid-dark); text-decoration: underline; text-underline-offset: 3px; }
+.article-table-wrap { overflow-x: auto; margin: 0 0 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+.article-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: .92rem; line-height: 1.5; }
+.article-table th, .article-table td { border-bottom: 1px solid var(--line); padding: 14px 18px; text-align: left; vertical-align: top; }
+.article-table thead th { color: var(--ink-soft); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.article-table tbody tr:last-child > * { border-bottom: 0; }
+.article-table tbody th { font-weight: 650; }
+.article-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 30px; max-width: 980px; margin-top: 40px; margin-bottom: 40px; border-radius: 24px; background: var(--ink); color: var(--white); padding: 44px; }
+.article-cta > div { max-width: 520px; }
+.article-cta h2 { margin: 0; font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 500; letter-spacing: -.05em; line-height: 1.05; }
+.article-cta p:not(.eyebrow) { margin: 14px 0 0; color: #bcbcb2; line-height: 1.6; }
+.article-faq { max-width: 760px; padding: 50px 0 110px; }
+.article-faq h2 { margin: 0 0 24px; font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 500; letter-spacing: -.05em; }
+@media (max-width: 760px) {
+  .article-list { grid-template-columns: 1fr; }
+  .article-card { padding: 26px; }
+  .article-body { padding-top: 50px; font-size: 1rem; }
+  .article-body .article-lead { font-size: 1.15rem; }
+  .article-cta { padding: 30px 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .article-card:hover { transform: none; } }
+
 /* Legal */
 .legal-hero { padding: 100px 0 80px; background: var(--paper-deep); }
 .legal-hero h1 { margin: 0; font-size: clamp(4rem, 8vw, 8rem); font-weight: 500; letter-spacing: -.08em; }

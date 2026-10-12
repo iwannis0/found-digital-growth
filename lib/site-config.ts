@@ -21,6 +21,7 @@ export const navigation = [
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
+  { label: "Articles", href: "/articles" },
 ];
 
 export const leadStatuses = [
