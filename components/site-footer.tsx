@@ -13,7 +13,6 @@ const columns = [
       ["Work", "/work"],
       ["Pricing", "/pricing"],
       ["Free Audit", "/free-audit"],
-      ["Free Website Preview", "/free-website-preview"],
       ["Articles", "/articles"],
       ["Contact", "/contact"],
     ],

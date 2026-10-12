@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FAQList } from "@/components/faq-list";
 import { PageMotion } from "@/components/page-motion";
-import { articles, formatArticleDate, getArticle } from "@/lib/articles";
+import { articles, defaultArticleCta, formatArticleDate, getArticle } from "@/lib/articles";
 import { siteConfig } from "@/lib/site-config";
 
 export const dynamicParams = false;
@@ -27,6 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const article = getArticle((await params).slug);
   if (!article) notFound();
+  const cta = article.cta ?? defaultArticleCta;
+  const related = articles.filter((other) => other.slug !== article.slug).slice(0, 2);
 
   const url = `${siteConfig.url}/articles/${article.slug}`;
   const structuredData = {
@@ -42,6 +44,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         dateModified: article.updated,
         inLanguage: "en",
         image: `${siteConfig.url}/images/social/og-default.jpg`,
+        citation: article.sources.map(([name, href]) => ({ "@type": "CreativeWork", name, url: href })),
         author: { "@id": `${siteConfig.url}/#organization` },
         publisher: { "@id": `${siteConfig.url}/#organization` },
       },
@@ -76,16 +79,26 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <article className="article-body site-container">{article.body}</article>
+      <article className="article-body site-container">
+        {article.body}
+        <aside className="article-sources" aria-labelledby="article-sources-title">
+          <h2 id="article-sources-title">Sources</h2>
+          <ol>
+            {article.sources.map(([label, href]) => (
+              <li key={href}><a href={href} target="_blank" rel="noopener noreferrer">{label}</a></li>
+            ))}
+          </ol>
+        </aside>
+      </article>
 
       <section className="article-cta site-container" data-motion="rise">
         <div>
-          <p className="eyebrow">Free website preview</p>
-          <h2>See your new website before you pay.</h2>
-          <p>We design your homepage for free, on desktop and mobile. If you like it, we build the rest. If not, you owe nothing.</p>
+          <p className="eyebrow">{cta.eyebrow}</p>
+          <h2>{cta.title}</h2>
+          <p>{cta.body}</p>
         </div>
-        <Link className="button button-accent button-large" href="/free-website-preview" data-track="preview_cta_click" data-track-location={`article_${article.slug}`}>
-          Request My Free Preview <ArrowRight aria-hidden="true" />
+        <Link className="button button-accent button-large" href={cta.href} data-track="article_cta_click" data-track-location={`article_${article.slug}`}>
+          {cta.label} <ArrowRight aria-hidden="true" />
         </Link>
       </section>
 
@@ -93,6 +106,21 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <h2>Common questions</h2>
         <FAQList list={article.faqs} />
       </section>
+
+      {related.length > 0 && (
+        <section className="article-related site-container">
+          <h2>Keep reading</h2>
+          <div className="article-list">
+            {related.map((other) => (
+              <Link className="article-card" href={`/articles/${other.slug}`} key={other.slug}>
+                <p className="eyebrow">{other.eyebrow}</p>
+                <h3>{other.title}</h3>
+                <span className="article-card-meta">{other.readingMinutes} min read <ArrowRight aria-hidden="true" /></span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

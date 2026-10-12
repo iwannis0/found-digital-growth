@@ -28,7 +28,10 @@ const nextConfig: NextConfig = {
   },
 
   async redirects() {
-    return duplicateHosts.map((host) => ({
+    // The free website preview page was briefly live; its offer now lives in the free audit.
+    const retiredPages = [{ source: "/free-website-preview", destination: "/free-audit", permanent: true }];
+
+    return [...retiredPages, ...duplicateHosts.map((host) => ({
       source: "/:path*",
       has: [
         {
@@ -38,7 +41,7 @@ const nextConfig: NextConfig = {
       ],
       destination: "https://vision.cy/:path*",
       permanent: true,
-    }));
+    }))];
   },
 
   async headers() {

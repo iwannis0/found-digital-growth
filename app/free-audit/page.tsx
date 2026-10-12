@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { PageMotion } from "@/components/page-motion";
 import { Eye, FileText, Gauge, MapPin, MousePointerClick, Search, Smartphone, Users } from "lucide-react";
 import { AuditForm } from "@/components/audit-form";
+import { FAQList } from "@/components/faq-list";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = { title: "Free Website Audit Cyprus", description: "Get a free review of your website: design, mobile experience, speed, SEO and Google presence, with clear recommendations and no obligation.", alternates: { canonical: "/free-audit" }, openGraph: { images: ["/images/social/og-free-audit.jpg"] }, twitter: { card: "summary_large_image", images: ["/images/social/og-free-audit.jpg"] } };
 
@@ -10,10 +12,22 @@ const reviewAreas = [[Eye, "Design", "First impression and visual credibility"],
 // Illustrative only: the shape of the written review a client receives.
 const examplePriorities = [["Add a clear booking button to the first screen", "Conversion", "High"], ["Mobile pages take almost 6 seconds to load", "Performance", "High"], ["Complete the Google Business profile", "Google presence", "Medium"], ["Show reviews and credentials on the homepage", "Trust", "Medium"]] as const;
 
-export default function FreeAuditPage() { return <main className="audit-page motion-page"><PageMotion />
+const auditFaqs = [
+  ["Is the website audit really free?", "Yes. The audit costs nothing and there is no obligation to work with us afterwards. You receive the written review either way."],
+  ["What does the website audit cover?", `We review ${reviewAreas.length} areas: design, mobile experience, conversion, SEO, Google presence, performance, trust and content. The review lists the issues that matter most, in order of impact.`],
+  ["How long does it take?", "You receive the written review by email within two working days of sending the form."],
+  ["Do you need access to my website?", "No. We review the website the way your customers and Google see it, so you do not need to share any logins and nothing on your site is changed."],
+  ["What happens after the audit?", "You can act on the recommendations yourself or with your current provider. If you would like VISION. to handle them, or to redesign the site, we send a clear quote."],
+  ["I do not have a website yet. Can you still help?", "The audit reviews an existing website, so it needs one to start from. If you are starting from nothing, get in touch through the contact page and we will talk through what the business needs."],
+] as const;
+
+export default function FreeAuditPage() {
+  const structuredData = { "@context": "https://schema.org", "@graph": [{ "@type": "Offer", name: "Free Website Audit", description: metadata.description, url: `${siteConfig.url}/free-audit`, price: "0", priceCurrency: "EUR", areaServed: { "@type": "Country", name: "Cyprus" }, seller: { "@id": `${siteConfig.url}/#business` } }, { "@type": "FAQPage", mainEntity: auditFaqs.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })) }] };
+  return <main className="audit-page motion-page"><PageMotion /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
   <section className="lit-hero audit-lit-hero"><div className="site-container lit-hero-grid"><div><p className="eyebrow">Free website audit</p><h1>Find your <em>next step.</em></h1><p className="lit-hero-lead">A practical website review with clear priorities for visibility, trust and customer action.</p><p className="audit-deliverable">Written review by email within two working days.</p></div>
     <div className="hero-panel audit-scorecard" aria-label="Example of the written review"><p className="hero-panel-head"><span>Example review</span><span>Impact</span></p>{examplePriorities.map(([finding, area, impact], index) => <div className="scorecard-row audit-priority" key={finding}><span>0{index + 1}</span><div><strong>{finding}</strong><small>{area}</small></div><em data-impact={impact.toLowerCase()}>{impact}</em></div>)}<p className="hero-panel-foot"><span>{reviewAreas.length} areas reviewed</span><strong>{examplePriorities.length} priorities</strong></p></div>
   </div></section>
   <section className="audit-form-section"><div className="site-container audit-form-grid"><div data-motion="rise"><p className="eyebrow">Your details</p><h2>Give us enough context to make the review useful.</h2><p>Only the essential details are required. Anything else helps us make the review more relevant to your business.</p></div><div className="form-panel" data-motion="rise"><AuditForm /></div></div></section>
   <section className="audit-areas section-pad"><div className="site-container"><p className="eyebrow" data-motion="rise">What we review</p><div className="audit-area-grid">{reviewAreas.map(([Icon, title, body]) => <article key={title} data-motion="rise"><i aria-hidden="true"><Icon /></i><h2>{title}</h2><p>{body}</p></article>)}</div></div></section>
+  <section className="audit-faq section-pad"><div className="site-container"><div className="section-heading" data-motion="rise"><p className="eyebrow">Questions</p><h2>Free, and no catch.</h2></div><FAQList list={auditFaqs} /></div></section>
   </main>; }
