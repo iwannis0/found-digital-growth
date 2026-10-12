@@ -199,7 +199,7 @@ export const projects = [
   },
   {
     slug: "nova-estates",
-    image: "/images/nova-demo/nova-demo-home.webp",
+    image: "/images/work/nova-estates-demo.webp",
     name: "NOVA Estates",
     industry: "Luxury Real Estate",
     tone: "nova",

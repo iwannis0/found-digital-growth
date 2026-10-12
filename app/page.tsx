@@ -92,7 +92,7 @@ export default function HomePage() {
             {featuredConcepts.map((project, index) => (
               <Link href={`/work/${project.slug}`} className={`project-card project-${project.tone}`} key={project.slug} data-motion="rise">
                 <div className="project-image-wrap" data-motion-parallax>
-                  <Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 900px) 100vw, 50vw" className="project-image" />
+                  <Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 900px) 100vw, 50vw" quality={project.slug === "nova-estates" ? 90 : 75} unoptimized={project.slug === "nova-estates"} className="project-image" />
                   <ProjectCover slug={project.slug} fallback={<span className="concept-badge">Concept Project</span>} />
                 </div>
                 <div className="project-meta"><div><span>{project.industry}</span><h3>{project.name}</h3></div><span className="project-index">0{deployedProjects.length + index + 1}</span></div>

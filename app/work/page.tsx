@@ -50,7 +50,7 @@ export default function WorkPage() {
     <section className="lit-hero"><div className="site-container lit-hero-grid">
       <div className="work-hero-copy"><p className="eyebrow">Our work</p><h1>Different businesses. <em>Different websites.</em></h1><p className="lit-hero-lead">Selected websites and digital concepts, each shaped around a different business, audience and objective.</p></div>
       <div className="work-hero-stage" aria-hidden="true">
-        {heroFrames.map(([key, src, coverSlug]) => <div className={`work-hero-frame work-hero-frame-${key}`} key={key}><b><i /><i /><i /></b><div><Image src={src} alt="" fill sizes="(max-width: 900px) 70vw, 40vw" priority={key === "front"} />{coverSlug && <ProjectCover slug={coverSlug} />}</div></div>)}
+        {heroFrames.map(([key, src, coverSlug]) => <div className={`work-hero-frame work-hero-frame-${key}`} key={key}><b><i /><i /><i /></b><div><Image src={src} alt="" fill sizes="(max-width: 900px) 70vw, 40vw" quality={key === "nova" ? 90 : 75} unoptimized={key === "nova"} priority={key === "front"} />{coverSlug && <ProjectCover slug={coverSlug} />}</div></div>)}
       </div>
     </div></section>
 
@@ -59,7 +59,7 @@ export default function WorkPage() {
       <div className="deployed-grid">{deployedProjects.map((project) => <a href={project.url} target="_blank" rel="noopener noreferrer" className="deployed-card" key={project.slug} data-motion="rise"><div className="deployed-card-image" data-motion-parallax><Image src={project.image} alt={`${project.name} live website`} fill sizes="(max-width: 900px) 100vw, 50vw" /></div><div className="deployed-card-meta"><div><small>{project.industry}</small><h3>{project.name}</h3></div><span className="deployed-card-visit">Visit live site <ArrowUpRight aria-hidden="true" /></span></div></a>)}</div>
 
       <div className="work-group-head work-group-head-concepts" data-motion="rise"><p className="eyebrow">Concept projects</p><h2>Three examples <em>of our approach.</em></h2></div>
-      <div className="concept-grid">{projects.map((project, index) => <Link href={`/work/${project.slug}`} className="concept-preview" key={project.slug} data-motion="rise"><div className="concept-preview-image" data-motion-parallax><Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 700px) 100vw, 33vw" /><ProjectCover slug={project.slug} fallback={<span>Concept Project</span>} /></div><div className="concept-preview-meta"><div><small>0{index + 1} / {project.industry}</small><h3>{project.name}</h3></div><ArrowUpRight aria-hidden="true" /></div></Link>)}</div>
+      <div className="concept-grid">{projects.map((project, index) => <Link href={`/work/${project.slug}`} className="concept-preview" key={project.slug} data-motion="rise"><div className="concept-preview-image" data-motion-parallax><Image src={project.image} alt={`${project.name} concept website cover`} fill sizes="(max-width: 700px) 100vw, 50vw" quality={project.slug === "nova-estates" ? 90 : 75} unoptimized={project.slug === "nova-estates"} /><ProjectCover slug={project.slug} fallback={<span>Concept Project</span>} /></div><div className="concept-preview-meta"><div><small>0{index + 1} / {project.industry}</small><h3>{project.name}</h3></div><ArrowUpRight aria-hidden="true" /></div></Link>)}</div>
     </div></section>
 
     <section className="business-types-section section-pad"><div className="site-container">
