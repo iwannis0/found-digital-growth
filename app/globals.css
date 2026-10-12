@@ -1089,6 +1089,16 @@ button { cursor: pointer; }
 .audit-form-grid > div:first-child { position: sticky; top: 120px; }
 .audit-form-grid h2 { margin: 0; font-size: clamp(2.7rem, 4.8vw, 5rem); font-weight: 500; letter-spacing: -.065em; line-height: .97; }
 .audit-form-grid > div:first-child > p:not(.eyebrow) { color: #aaa99f; line-height: 1.7; }
+/* Free website preview: reuses the audit page sections, plus a hero button, reassurance list and FAQ. */
+.preview-hero-cta { margin-top: 34px; }
+.preview-page .audit-lit-hero .audit-deliverable { display: flex; width: fit-content; }
+.preview-reassurance { display: grid; gap: 14px; margin: 34px 0 0; padding: 0; list-style: none; }
+.preview-reassurance li { display: flex; align-items: center; gap: 12px; color: #e3e2dc; font-size: .9rem; }
+.preview-reassurance svg { flex: none; width: 18px; color: var(--acid-light); }
+.preview-work-link { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 40px 0 0; color: var(--ink-soft); font-size: .95rem; }
+.preview-work-link svg { width: 16px; color: var(--acid); }
+.preview-faq { border-top: 1px solid var(--line); }
+.preview-faq .faq-list { max-width: 900px; }
 
 /* Legal */
 .legal-hero { padding: 100px 0 80px; background: var(--paper-deep); }
