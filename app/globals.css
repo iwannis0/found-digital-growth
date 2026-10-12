@@ -325,6 +325,30 @@ button { cursor: pointer; }
 .work-motion-page .work-page-hero > .site-container > p:last-child { animation-delay: .22s; }
 @keyframes motionEnter { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+/* Intro, first visit per session only: the VISION letters rise out of a mask, the dot drops in,
+   then the paper sheet wipes up to uncover the page. Pure CSS so it stays smooth while the page
+   hydrates underneath. A head script sets data-intro="on" only for the first visit without reduced motion. */
+.intro { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; background: var(--paper); pointer-events: none; will-change: transform; animation: introWipe .56s cubic-bezier(.76,0,.24,1) .9s both; }
+:root:not([data-intro="on"]) .intro { display: none; }
+.intro-word { display: flex; align-items: baseline; overflow: hidden; padding: .06em .12em .1em; color: var(--ink); font-size: clamp(3.6rem, 13vw, 7.5rem); font-weight: 900; letter-spacing: -.085em; line-height: 1; animation: introLift .56s cubic-bezier(.76,0,.24,1) .9s both; }
+.intro-word > span { display: inline-block; animation: introLetter .46s cubic-bezier(.22,1,.36,1) both; }
+.intro-word > span:nth-child(2) { animation-delay: .04s; }
+.intro-word > span:nth-child(3) { animation-delay: .08s; }
+.intro-word > span:nth-child(4) { animation-delay: .12s; }
+.intro-word > span:nth-child(5) { animation-delay: .16s; }
+.intro-word > span:nth-child(6) { animation-delay: .2s; }
+.intro-word > .intro-dot { color: var(--acid); animation: introDot .42s cubic-bezier(.34,1.56,.64,1) .42s both; }
+@keyframes introLetter { from { transform: translateY(105%); } }
+@keyframes introDot { from { opacity: 0; transform: translateY(-120%) scale(.4); } }
+@keyframes introLift { to { opacity: 0; transform: translateY(-40px); } }
+/* Only transform and opacity animate, so the intro runs on the compositor and stays smooth while the main thread hydrates. */
+@keyframes introWipe { to { transform: translateY(-100%); visibility: hidden; } }
+/* While the intro plays, the hero entrances wait for the sheet so they rise as it lifts. */
+:root[data-intro="on"] .home-motion-page .home-hero-copy > *, :root[data-intro="on"] .work-motion-page .work-page-hero .eyebrow { animation-delay: .9s; }
+:root[data-intro="on"] .home-motion-page .home-hero-copy h1, :root[data-intro="on"] .work-motion-page .work-page-hero h1 { animation-delay: 1s; }
+:root[data-intro="on"] .home-motion-page .home-hero-lead, :root[data-intro="on"] .home-motion-page .home-hero-art, :root[data-intro="on"] .work-motion-page .work-page-hero > .site-container > p:last-child { animation-delay: 1.12s; }
+:root[data-intro="on"] .home-motion-page .home-hero-actions { animation-delay: 1.24s; }
+
 .home-motion-page .home-growth-card { animation: homeCardFloat 7s ease-in-out infinite; }
 .home-motion-page .home-brand-card { animation: homeCardFloat 8s ease-in-out -2s infinite; }
 .home-motion-page .home-analytics-card { animation: homeCardFloat 7.5s ease-in-out -4s infinite; }

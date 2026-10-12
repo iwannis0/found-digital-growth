@@ -38,6 +38,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before first paint and decides whether the intro plays: once per session, never under reduced motion.
+const introScript = `try{var d=document.documentElement;if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!sessionStorage.getItem("vision-intro")){sessionStorage.setItem("vision-intro","1");d.dataset.intro="on"}}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -152,6 +155,18 @@ export default function RootLayout({
       </head>
 
       <body className="antialiased">
+        {/* Must run during HTML parsing, before the intro paints. Shipped as server HTML so the
+            parser executes it while React (which never runs client-rendered scripts) leaves it alone. */}
+        <div className="contents" dangerouslySetInnerHTML={{ __html: `<script>${introScript}</script>` }} />
+        <div className="intro" aria-hidden="true">
+          <div className="intro-word">
+            {"VISION".split("").map((letter, index) => (
+              <span key={index}>{letter}</span>
+            ))}
+            <span className="intro-dot">.</span>
+          </div>
+        </div>
+
         {/* Google Tag Manager noscript */}
         <noscript>
           <iframe
