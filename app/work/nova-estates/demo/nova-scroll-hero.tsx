@@ -13,11 +13,11 @@ export function NovaScrollHero() {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
           >
-            <source media="(max-width: 560px)" src="/work/nova-estates/nova-scroll-hero-mobile.mp4" type="video/mp4" />
-            <source src="/work/nova-estates/nova-scroll-hero.mp4" type="video/mp4" />
+            <source media="(min-width: 701px)" src="/work/nova-estates/nova-scroll-hero-mobile.mp4" type="video/mp4" />
           </video>
+          <div className="nova-hero-mobile-photo" />
         </div>
         <div className="nova-hero-shade" />
         <div className="nova-hero-copy">
