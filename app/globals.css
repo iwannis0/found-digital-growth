@@ -2,6 +2,10 @@
 @import "tw-animate-css";
 @import "../vendor/shadcn-tailwind-4.13.0.css";
 
+/* Unused shadcn components stay in the repo but are not scanned, so their utilities do not ship
+   in the render-blocking stylesheet. Remove a name from this list when you start using it. */
+@source not "../components/ui/{alert,aspect-ratio,attachment,avatar,badge,breadcrumb,bubble,button-group,calendar,card,carousel,chart,checkbox,collapsible,combobox,command,context-menu,direction,drawer,dropdown-menu,empty,field,form,hover-card,input-group,input-otp,item,kbd,marker,menubar,message-scroller,message,native-select,navigation-menu,pagination,popover,progress,radio-group,resizable,scroll-area,select,separator,sidebar,skeleton,sonner,spinner,tabs,toggle-group,toggle,tooltip}.tsx";
+
 @utility scrollbar-thin { scrollbar-width: thin; }
 @utility scrollbar-none { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
 @utility scrollbar-gutter-stable { scrollbar-gutter: stable; }
@@ -314,6 +318,9 @@ button { cursor: pointer; }
 .home-motion-page .home-hero-lead { animation-delay: .22s; }
 .home-motion-page .home-hero-actions { animation-delay: .34s; }
 .home-motion-page .home-hero-art { animation-delay: .22s; }
+/* The headline, lead and hero image are the LCP candidates: they rise in but are never invisible, so they paint on the first frame. */
+.home-motion-page .home-hero-copy h1, .home-motion-page .home-hero-lead, .home-motion-page .home-hero-art { animation-name: motionRise; }
+@keyframes motionRise { from { transform: translateY(20px); } to { transform: translateY(0); } }
 .work-motion-page .work-page-hero h1 { animation-delay: .1s; }
 .work-motion-page .work-page-hero > .site-container > p:last-child { animation-delay: .22s; }
 @keyframes motionEnter { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -427,7 +434,7 @@ button { cursor: pointer; }
   .home-motion-page .home-growth-card, .home-motion-page .home-brand-card, .home-motion-page .home-analytics-card { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-motion-page .home-hero-copy > *, .home-motion-page .home-hero-art, .work-motion-page .work-page-hero .eyebrow, .work-motion-page .work-page-hero h1, .work-motion-page .work-page-hero > .site-container > p:last-child, .home-motion-page .home-growth-card, .home-motion-page .home-brand-card, .home-motion-page .home-analytics-card { animation: none; }
+  .home-motion-page .home-hero-copy > *, .home-motion-page .home-hero-copy h1, .home-motion-page .home-hero-art, .work-motion-page .work-page-hero .eyebrow, .work-motion-page .work-page-hero h1, .work-motion-page .work-page-hero > .site-container > p:last-child, .home-motion-page .home-growth-card, .home-motion-page .home-brand-card, .home-motion-page .home-analytics-card { animation: none; }
   .motion-page [data-motion-parallax] img, .motion-page .project-card:hover [data-motion-parallax] img, .motion-page .concept-preview:hover [data-motion-parallax] img { transform: none; }
   .motion-page.motion-ready [data-motion], .motion-page.motion-ready .motion-reveal { opacity: 1; transform: none; }
 }

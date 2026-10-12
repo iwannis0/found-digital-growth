@@ -135,10 +135,10 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Google Tag Manager */}
+        {/* Google Tag Manager, loaded once the page is idle so it never competes with the first render */}
         <Script
           id="google-tag-manager"
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
         >
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
