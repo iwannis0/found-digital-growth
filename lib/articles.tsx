@@ -106,7 +106,7 @@ export const articles: Article[] = [
     slug: "website-cost-cyprus",
     title: "How much does a website cost in Cyprus in 2026?",
     seoTitle: "How Much Does a Website Cost in Cyprus? (2026 Guide)",
-    description: "What a small business website costs in Cyprus in 2026, what moves the price, the running costs most quotes leave out, and what the .cy domain really costs.",
+    description: "What a small business website costs in Cyprus in 2026, what moves the price, the running costs most quotes leave out, and what you really need for a domain.",
     eyebrow: "Website costs",
     published: "2026-10-13",
     updated: "2026-10-13",
@@ -134,7 +134,7 @@ export const articles: Article[] = [
         </p>
         <h3>Languages</h3>
         <p>
-          In Cyprus, Greek and English are often both needed, and sometimes Russian or Hebrew for specific markets. A second language is not just translation: every page, form, email and search setting needs a version, so it typically adds a meaningful share to the build.
+          In Cyprus, most businesses need Greek, English or both. Other languages are possible on request for specific markets. A second language is not just translation: every page, form, email and search setting needs a version, so it typically adds a meaningful share to the build.
         </p>
         <h3>Content</h3>
         <p>
@@ -152,7 +152,7 @@ export const articles: Article[] = [
         <h2>The running costs</h2>
         <h3>The domain</h3>
         <p>
-          A .com domain typically costs from around €10 to €20 a year through a registrar. A .cy domain is registered through the official registry at nic.cy, run by the University of Cyprus. Its published fees, including VAT, are <strong>€20 for one year, €30 for two years and €50 for five years</strong>. Anyone can register a .cy or .com.cy name, while some extensions are restricted: ltd.cy, for example, is reserved for limited companies registered with the Registrar of Companies. Whichever you choose, it should be registered in your business&apos;s name, not your designer&apos;s.
+          You do not need a .cy domain. A .com, .eu or any other extension works just as well, so choose the name that is easiest for customers to remember. If you already own a domain, the new website can simply be connected to it, with no need to change the address customers know. A new .com typically costs from around €10 to €20 a year. If you do want a .cy address, it is registered through the official registry at nic.cy, whose published fees, including VAT, are <strong>€20 for one year, €30 for two years and €50 for five years</strong>. Whichever you choose, it should be registered in your business&apos;s name, not your designer&apos;s.
         </p>
         <h3>Hosting and care</h3>
         <p>
@@ -182,8 +182,8 @@ export const articles: Article[] = [
     ),
     faqs: [
       ["How much does a small business website cost in Cyprus?", "Typically from around €500 to €1,000 for a simple professional site, and around €900 to €2,500 for a custom site built to bring enquiries. Larger sites with booking, payments or several languages cost more and are quoted on scope."],
-      ["How much does a .cy domain cost?", "The official .cy registry at nic.cy lists fees of €20 for one year, €30 for two years and €50 for five years, including VAT."],
-      ["Who can register a .cy domain?", "Anyone, from any country, can register a .cy or .com.cy domain. Some extensions are restricted, such as ltd.cy, which is for limited companies registered with the Cyprus Registrar of Companies."],
+      ["Do I need a .cy domain for a business in Cyprus?", "No. A .com, .eu or any other extension works just as well. If you already have a domain, the new website can be connected to it, so customers keep using the same address."],
+      ["How much does a .cy domain cost?", "If you choose a .cy address, the official registry at nic.cy lists fees of €20 for one year, €30 for two years and €50 for five years, including VAT."],
       ["Are there monthly costs after the website is built?", "Yes: the yearly domain renewal and hosting at minimum, and usually maintenance such as backups, updates and small edits, often bundled into a monthly care plan."],
     ],
     sources: [
