@@ -4,8 +4,8 @@ import test from "node:test";
 
 const [css, home, project] = await Promise.all([
   readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
-  readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-  readFile(new URL("../app/work/[slug]/page.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../views/home.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../views/project.tsx", import.meta.url), "utf8"),
 ]);
 
 test("mobile hero sizing is scoped to the three affected routes", () => {

@@ -176,11 +176,6 @@ export const customCapabilities = [
   },
 ] as const;
 
-export const legacyServiceAliases = {
-  maintenance: "website-care",
-  "conversion-optimisation": "conversion-design",
-} as const;
-
 export const projects = [
   {
     slug: "aura-dental",

@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getAttribution } from "@/lib/client-attribution";
 import { trackEvent } from "@/components/analytics";
+import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
 const goals = [
   "Get more enquiries / leads",
@@ -27,7 +29,15 @@ const budgets = [
   "Not sure",
 ];
 
-export function AuditForm() {
+export function AuditForm({
+  locale,
+  copy,
+  formCopy,
+}: {
+  locale: Locale;
+  copy: Dictionary["auditForm"];
+  formCopy: Dictionary["forms"];
+}) {
   const [goal, setGoal] = useState("");
   const [budget, setBudget] = useState("");
   const [consent, setConsent] = useState(false);
@@ -63,6 +73,7 @@ export function AuditForm() {
       message: data.get("message"),
       consent,
       companyWebsite: data.get("companyWebsite"),
+      locale,
       ...getAttribution(),
     };
 
@@ -76,15 +87,16 @@ export function AuditForm() {
       });
 
       const result = (await response.json()) as {
+        error?: string;
         message?: string;
         fields?: Record<string, string[]>;
       };
 
       if (!response.ok) {
-        setFields(result.fields ?? {});
+        setFields(localizeFields(result.fields ?? {}, formCopy.fieldErrors));
 
         throw new Error(
-          result.message ?? "We could not submit your request."
+          (result.error && formCopy.errors[result.error]) ?? result.message ?? copy.failed
         );
       }
 
@@ -103,7 +115,7 @@ export function AuditForm() {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Please try again."
+          : formCopy.retry
       );
     }
   }
@@ -114,23 +126,22 @@ export function AuditForm() {
         <CheckCircle2 />
 
         <p className="eyebrow">
-          Audit request saved
+          {copy.successEyebrow}
         </p>
 
         <h2>
-          Your audit request is in.
+          {copy.successTitle}
         </h2>
 
         <p>
-          We usually send the practical written review by email
-          within two working days.
+          {copy.successBody}
         </p>
 
         <button
           className="text-link"
           onClick={() => setStatus("idle")}
         >
-          Submit another website
+          {copy.again}
         </button>
       </div>
     );
@@ -143,19 +154,19 @@ export function AuditForm() {
       noValidate
     >
       <p className="form-required-note">
-        Fields marked <strong>*</strong> are required.
+        {formCopy.requiredBefore} <strong>*</strong> {formCopy.requiredAfter}
       </p>
 
       <div className="form-row">
         <Field
-          label="Name"
+          label={copy.name}
           name="name"
           required
           error={fields.name?.[0]}
         />
 
         <Field
-          label="Business Name"
+          label={copy.business}
           name="businessName"
           required
           error={fields.businessName?.[0]}
@@ -164,7 +175,7 @@ export function AuditForm() {
 
       <div className="form-row">
         <Field
-          label="Email"
+          label={copy.email}
           name="email"
           type="email"
           required
@@ -172,7 +183,7 @@ export function AuditForm() {
         />
 
         <Field
-          label="Phone"
+          label={copy.phone}
           name="phone"
           type="tel"
           error={fields.phone?.[0]}
@@ -180,7 +191,7 @@ export function AuditForm() {
       </div>
 
       <Field
-        label="Website"
+        label={copy.website}
         name="website"
         type="url"
         placeholder="https://"
@@ -190,13 +201,13 @@ export function AuditForm() {
 
       <div className="form-row">
         <Field
-          label="Industry"
+          label={copy.industry}
           name="industry"
           error={fields.industry?.[0]}
         />
 
         <Field
-          label="City"
+          label={copy.city}
           name="city"
           error={fields.city?.[0]}
         />
@@ -204,30 +215,32 @@ export function AuditForm() {
 
       <div className="form-row">
         <SelectField
-          label="Main Goal"
+          label={copy.goal}
           name="goal"
           value={goal}
           onChange={setGoal}
           options={goals}
-          placeholder="Choose your main goal"
+          optionLabels={copy.optionLabels}
+          placeholder={copy.chooseGoal}
           required
           error={fields.goal?.[0]}
         />
 
         <SelectField
-          label="Approximate Budget"
+          label={copy.budget}
           name="budget"
           value={budget}
           onChange={setBudget}
           options={budgets}
-          placeholder="Choose a range"
+          optionLabels={copy.optionLabels}
+          placeholder={copy.chooseBudget}
           error={fields.budget?.[0]}
         />
       </div>
 
       <div className="form-field">
         <Label htmlFor="problem">
-          Current Problem
+          {copy.problem}
         </Label>
 
         <Textarea
@@ -242,7 +255,7 @@ export function AuditForm() {
 
       <div className="form-field">
         <Label htmlFor="audit-message">
-          Anything else we should know?
+          {copy.message}
         </Label>
 
         <Textarea
@@ -267,8 +280,7 @@ export function AuditForm() {
         />
 
         <Label htmlFor="consent">
-          I agree that VISION. may use these details to review my
-          request and contact me.
+          {copy.consent}
         </Label>
       </div>
 
@@ -304,10 +316,10 @@ export function AuditForm() {
         disabled={status === "loading"}
       >
         {status === "loading" ? (
-          "Submitting..."
+          copy.sending
         ) : (
           <>
-            Get My Free Audit <ArrowRight />
+            {copy.submit} <ArrowRight />
           </>
         )}
       </button>
@@ -321,6 +333,7 @@ function SelectField({
   value,
   onChange,
   options,
+  optionLabels,
   placeholder,
   required,
   error,
@@ -330,6 +343,7 @@ function SelectField({
   value: string;
   onChange: (value: string) => void;
   options: readonly string[];
+  optionLabels: Record<string, string>;
   placeholder: string;
   required?: boolean;
   error?: string;
@@ -361,7 +375,7 @@ function SelectField({
             key={item}
             value={item}
           >
-            {item}
+            {optionLabels[item] ?? item}
           </option>
         ))}
       </select>
@@ -420,4 +434,9 @@ function FieldError({
       {value}
     </p>
   ) : null;
+}
+
+/** In Greek, server messages (written in English) are swapped for the field's or error code's translation. */
+function localizeFields(fields: Record<string, string[]>, translations: Record<string, string>) {
+  return Object.fromEntries(Object.entries(fields).map(([field, messages]) => [field, translations[field] ? [translations[field]] : messages]));
 }
