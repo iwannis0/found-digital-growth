@@ -4,8 +4,9 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { SectionHeading } from "@/components/section-heading";
+import type { Dictionary } from "@/lib/dictionaries";
 
-export function BeforeAfter() {
+export function BeforeAfter({ copy }: { copy: Dictionary["beforeAfter"] }) {
   const [value, setValue] = useState(38);
   const [mobileView, setMobileView] = useState<"before" | "after">("after");
   const [isIntroducing, setIsIntroducing] = useState(false);
@@ -39,33 +40,31 @@ export function BeforeAfter() {
   return (
     <section className="compare-section section-pad">
       <div className="site-container">
-        <SectionHeading eyebrow="Before and after" title="What your website could look like." body="Compare a typical outdated layout with a more deliberate redesign." />
+        <SectionHeading eyebrow={copy.eyebrow} title={copy.title} body={copy.body} />
         <div className="compare-meta" aria-hidden="true">
-          <span>Website transformation</span>
-          <span>Drag to compare</span>
+          <span>{copy.transformation}</span>
+          <span>{copy.drag}</span>
         </div>
-        <div className="compare-mobile-toggle" aria-label="Choose comparison view">
-          <button type="button" className={mobileView === "before" ? "is-active" : ""} onClick={() => setMobileView("before")} aria-pressed={mobileView === "before"}>Before</button>
-          <button type="button" className={mobileView === "after" ? "is-active" : ""} onClick={() => setMobileView("after")} aria-pressed={mobileView === "after"}>After</button>
+        <div className="compare-mobile-toggle" aria-label={copy.chooseView}>
+          <button type="button" className={mobileView === "before" ? "is-active" : ""} onClick={() => setMobileView("before")} aria-pressed={mobileView === "before"}>{copy.before}</button>
+          <button type="button" className={mobileView === "after" ? "is-active" : ""} onClick={() => setMobileView("after")} aria-pressed={mobileView === "after"}>{copy.after}</button>
         </div>
         <div className={`compare-frame${isIntroducing ? " is-introducing" : ""}`} data-mobile-view={mobileView} ref={frameRef}>
           <div className="compare-base compare-after">
-            <Image src="/images/BA/after.png" alt="Redesigned premium real estate website" fill sizes="(max-width: 700px) 100vw, 90vw" className="compare-image" />
+            <Image src="/images/BA/after.png" alt={copy.afterAlt} fill sizes="(max-width: 700px) 100vw, 90vw" className="compare-image" />
           </div>
           <div className="compare-base compare-before" style={{ clipPath: `inset(0 ${100 - value}% 0 0)` }}>
-            <Image src="/images/BA/before.png" alt="Outdated real estate website before redesign" fill sizes="(max-width: 700px) 100vw, 90vw" className="compare-image" />
+            <Image src="/images/BA/before.png" alt={copy.beforeAlt} fill sizes="(max-width: 700px) 100vw, 90vw" className="compare-image" />
           </div>
-          <div className="compare-label compare-label-before" aria-hidden="true">Before</div>
-          <div className="compare-label compare-label-after" aria-hidden="true">After</div>
+          <div className="compare-label compare-label-before" aria-hidden="true">{copy.before}</div>
+          <div className="compare-label compare-label-after" aria-hidden="true">{copy.after}</div>
           <div className="compare-handle" style={{ left: `${value}%` }} aria-hidden="true"><span><i>←</i><i>→</i></span></div>
           <div className="compare-slider-control">
-            <Slider min={0} max={100} step={1} value={[value]} onValueChange={handleValueChange} aria-label="Before and after comparison" />
+            <Slider min={0} max={100} step={1} value={[value]} onValueChange={handleValueChange} aria-label={copy.slider} />
           </div>
         </div>
-        <div className="compare-outcome" aria-label="What the redesign improves">
-          <span>Clearer property search</span>
-          <span>Stronger enquiry path</span>
-          <span>Better mobile hierarchy</span>
+        <div className="compare-outcome" aria-label={copy.outcomeLabel}>
+          {copy.outcomes.map((outcome) => <span key={outcome}>{outcome}</span>)}
         </div>
       </div>
     </section>

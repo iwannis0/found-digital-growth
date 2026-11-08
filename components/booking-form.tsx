@@ -1,18 +1,20 @@
 "use client";
 
 import { FormEvent, useState, useSyncExternalStore } from "react";
-import { addDays, addMonths, eachDayOfInterval, endOfMonth, endOfWeek, format, isAfter, isSameMonth, isWeekend, startOfMonth, startOfWeek } from "date-fns";
+import { addDays, addMonths, eachDayOfInterval, endOfMonth, endOfWeek, format, isAfter, isSameMonth, isWeekend, startOfMonth, startOfWeek, type Locale as DateLocale } from "date-fns";
+import { el as greekDates } from "date-fns/locale/el";
 import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, Phone, Video } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getAttribution } from "@/lib/client-attribution";
 import { trackEvent } from "@/components/analytics";
+import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import { callRequestService } from "@/lib/validation";
 
 const meetingTypes = [["Microsoft Teams", Video], ["Zoom", Video], ["Google Meet", Video], ["Phone call", Phone]] as const;
 const times = ["20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00"];
-const weekdays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 // Requests open from tomorrow, on weekdays, up to six weeks ahead.
 const bookingWindowDays = 42;
 
@@ -21,7 +23,12 @@ const subscribe = () => () => {};
 const browserToday = () => format(new Date(), "yyyy-MM-dd");
 const serverToday = () => "";
 
-export function BookingForm() {
+function localizeFields(fields: Record<string, string[]>, messages: Record<string, string>) {
+  return Object.fromEntries(Object.entries(fields).map(([key, value]) => [key, messages[key] ? [messages[key]] : value]));
+}
+
+export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: Dictionary["bookingForm"]; formCopy: Dictionary["forms"] }) {
+  const dateLocale = locale === "el" ? greekDates : undefined;
   const today = useSyncExternalStore(subscribe, browserToday, serverToday);
   const [monthOffset, setMonthOffset] = useState(0);
   const [date, setDate] = useState("");
@@ -48,18 +55,19 @@ export function BookingForm() {
     const text = (name: string) => String(data.get(name) ?? "").trim();
 
     const missing: Record<string, string[]> = {};
-    if (!date) missing.meetingDate = ["Choose a day"];
-    if (!time) missing.meetingTime = ["Choose a time"];
-    if (!meetingType) missing.meetingType = ["Choose how we should meet"];
-    if (meetingType === "Phone call" && !text("phone")) missing.phone = ["Add the number we should call"];
+    if (!date) missing.meetingDate = [copy.chooseDay];
+    if (!time) missing.meetingTime = [copy.chooseTime];
+    if (!meetingType) missing.meetingType = [copy.chooseMeeting];
+    if (meetingType === "Phone call" && !text("phone")) missing.phone = [copy.addPhone];
     if (Object.keys(missing).length) {
       setFields(missing);
       setStatus("error");
-      setMessage("Please check the highlighted fields.");
+      setMessage(copy.checkFields);
       return;
     }
 
-    const when = `${format(new Date(`${date}T00:00`), "EEEE d MMMM yyyy")} at ${time} (Cyprus time)`;
+    // In the visitor's language: this exact text appears in their confirmation email.
+    const when = copy.when.replace("{date}", format(new Date(`${date}T00:00`), "EEEE d MMMM yyyy", { locale: dateLocale })).replace("{time}", time);
 
     const summary = [
       "Call request",
@@ -78,6 +86,7 @@ export function BookingForm() {
       meetingType,
       message: summary,
       companyWebsite: data.get("companyWebsite"),
+      locale,
       ...getAttribution(),
     };
 
@@ -88,11 +97,11 @@ export function BookingForm() {
         body: JSON.stringify(payload),
       });
 
-      const result = (await response.json()) as { message?: string; fields?: Record<string, string[]> };
+      const result = (await response.json()) as { error?: string; message?: string; fields?: Record<string, string[]> };
 
       if (!response.ok) {
-        setFields(result.fields ?? {});
-        throw new Error(result.message ?? "We could not send your request.");
+        setFields(localizeFields(result.fields ?? {}, formCopy.fieldErrors));
+        throw new Error((result.error && formCopy.errors[result.error]) ?? result.message ?? copy.failed);
       }
 
       form.reset();
@@ -102,7 +111,7 @@ export function BookingForm() {
       trackEvent("generate_lead", { lead_type: "call_request" });
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Please try again.");
+      setMessage(error instanceof Error ? error.message : formCopy.retry);
     }
   }
 
@@ -110,11 +119,11 @@ export function BookingForm() {
     return (
       <div className="form-success booking-success" role="status">
         <CheckCircle2 />
-        <p className="eyebrow">Request received</p>
-        <h2>Thank you. We will confirm your call shortly.</h2>
-        <p>You asked for {meetingType === "Phone call" ? "a phone call" : `a ${meetingType} call`} on {requested}. We check the time and confirm it with you by email or phone. If that slot is taken, we suggest the nearest free one.</p>
+        <p className="eyebrow">{copy.successEyebrow}</p>
+        <h2>{copy.successTitle}</h2>
+        <p>{copy.successBody.replace("{meeting}", meetingType === "Phone call" ? copy.phoneCall : copy.videoCall.replace("{type}", meetingType)).replace("{when}", requested)}</p>
         <button className="text-link" onClick={() => { setStatus("idle"); setDate(""); setTime(""); setMeetingType(""); setRequested(""); }}>
-          Request another time
+          {copy.again}
         </button>
       </div>
     );
@@ -123,31 +132,31 @@ export function BookingForm() {
   return (
     <form className="site-form booking-form" onSubmit={submit} noValidate>
       <fieldset className="form-step">
-        <legend><span>01</span> Pick a day and time</legend>
+        <legend><span>01</span> {copy.stepWhen}</legend>
         <div className="booking-when">
-          {today ? <MonthGrid today={today} offset={monthOffset} onOffset={setMonthOffset} selected={date} onSelect={(day) => { setDate(day); clearError("meetingDate"); }} /> : <div className="booking-calendar booking-calendar-loading" aria-hidden="true" />}
+          {today ? <MonthGrid copy={copy} dateLocale={dateLocale} today={today} offset={monthOffset} onOffset={setMonthOffset} selected={date} onSelect={(day) => { setDate(day); clearError("meetingDate"); }} /> : <div className="booking-calendar booking-calendar-loading" aria-hidden="true" />}
           <div className="booking-times">
-            <p>{date ? format(new Date(`${date}T00:00`), "EEEE d MMMM") : "Choose a day first"}</p>
-            <div role="group" aria-label="Available times">
+            <p>{date ? format(new Date(`${date}T00:00`), "EEEE d MMMM", { locale: dateLocale }) : copy.chooseDayFirst}</p>
+            <div role="group" aria-label={copy.availableTimes}>
               {times.map((slot) => (
                 <button type="button" key={slot} className="booking-chip" aria-pressed={time === slot} disabled={!date} onClick={() => { setTime(slot); clearError("meetingTime"); }}>
                   {slot}
                 </button>
               ))}
             </div>
-            <small>Cyprus time, Monday to Friday.</small>
+            <small>{copy.timeNote}</small>
           </div>
         </div>
         <FieldError value={fields.meetingDate?.[0] ?? fields.meetingTime?.[0]} />
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>02</span> How should we meet?</legend>
-        <div className="booking-types" role="group" aria-label="Meeting type">
+        <legend><span>02</span> {copy.stepHow}</legend>
+        <div className="booking-types" role="group" aria-label={copy.meetingTypeLabel}>
           {meetingTypes.map(([label, Icon]) => (
             <button type="button" key={label} className="booking-type" aria-pressed={meetingType === label} onClick={() => { setMeetingType(label); clearError("meetingType"); }}>
               <Icon aria-hidden="true" />
-              {label}
+              {copy.optionLabels[label] ?? label}
             </button>
           ))}
         </div>
@@ -155,21 +164,21 @@ export function BookingForm() {
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>03</span> Your details</legend>
+        <legend><span>03</span> {copy.stepDetails}</legend>
         <p className="form-required-note">
-          Fields marked <strong>*</strong> are required.
+          {formCopy.requiredBefore} <strong>*</strong> {formCopy.requiredAfter}
         </p>
         <div className="form-row">
-          <Field label="Name" name="name" required autoComplete="name" error={fields.name?.[0]} />
-          <Field label="Business name" name="businessName" required autoComplete="organization" error={fields.businessName?.[0]} />
+          <Field label={copy.name} name="name" required autoComplete="name" error={fields.name?.[0]} />
+          <Field label={copy.business} name="businessName" required autoComplete="organization" error={fields.businessName?.[0]} />
         </div>
         <div className="form-row">
-          <Field label="Email" name="email" type="email" required autoComplete="email" error={fields.email?.[0]} />
-          <Field label="Phone" name="phone" type="tel" required={meetingType === "Phone call"} autoComplete="tel" error={fields.phone?.[0]} />
+          <Field label={copy.email} name="email" type="email" required autoComplete="email" error={fields.email?.[0]} />
+          <Field label={copy.phone} name="phone" type="tel" required={meetingType === "Phone call"} autoComplete="tel" error={fields.phone?.[0]} />
         </div>
         <div className="form-field">
-          <Label htmlFor="booking-notes">What would you like to talk about?</Label>
-          <Textarea id="booking-notes" name="notes" rows={4} placeholder="A new website, more enquiries, Google visibility..." />
+          <Label htmlFor="booking-notes">{copy.notes}</Label>
+          <Textarea id="booking-notes" name="notes" rows={4} placeholder={copy.notesPlaceholder} />
         </div>
       </fieldset>
 
@@ -187,13 +196,13 @@ export function BookingForm() {
       )}
 
       <button className="button button-accent button-large form-submit" type="submit" disabled={status === "loading"}>
-        {status === "loading" ? "Sending..." : <>Request This Time <ArrowRight /></>}
+        {status === "loading" ? copy.sending : <>{copy.submit} <ArrowRight /></>}
       </button>
     </form>
   );
 }
 
-function MonthGrid({ today, offset, onOffset, selected, onSelect }: { today: string; offset: number; onOffset: (offset: number) => void; selected: string; onSelect: (day: string) => void }) {
+function MonthGrid({ copy, dateLocale, today, offset, onOffset, selected, onSelect }: { copy: Dictionary["bookingForm"]; dateLocale?: DateLocale; today: string; offset: number; onOffset: (offset: number) => void; selected: string; onSelect: (day: string) => void }) {
   const first = addDays(new Date(`${today}T00:00`), 1);
   const last = addDays(first, bookingWindowDays - 1);
   const month = addMonths(startOfMonth(first), offset);
@@ -205,17 +214,17 @@ function MonthGrid({ today, offset, onOffset, selected, onSelect }: { today: str
   return (
     <div className="booking-calendar">
       <div className="booking-calendar-head">
-        <button type="button" onClick={() => onOffset(offset - 1)} disabled={!canGoBack} aria-label="Previous month"><ChevronLeft /></button>
-        <strong aria-live="polite">{format(month, "MMMM yyyy")}</strong>
-        <button type="button" onClick={() => onOffset(offset + 1)} disabled={!canGoForward} aria-label="Next month"><ChevronRight /></button>
+        <button type="button" onClick={() => onOffset(offset - 1)} disabled={!canGoBack} aria-label={copy.previousMonth}><ChevronLeft /></button>
+        <strong aria-live="polite">{format(month, "LLLL yyyy", { locale: dateLocale })}</strong>
+        <button type="button" onClick={() => onOffset(offset + 1)} disabled={!canGoForward} aria-label={copy.nextMonth}><ChevronRight /></button>
       </div>
       <div className="booking-calendar-grid">
-        {weekdays.map((day) => <span key={day} className="booking-weekday" aria-hidden="true">{day}</span>)}
+        {copy.weekdays.map((day) => <span key={day} className="booking-weekday" aria-hidden="true">{day}</span>)}
         {days.map((day) => {
           const key = format(day, "yyyy-MM-dd");
           if (!isSameMonth(day, month)) return <span key={key} />;
           return (
-            <button type="button" key={key} className="booking-day" disabled={!isOpen(day)} aria-pressed={selected === key} aria-label={format(day, "EEEE d MMMM")} onClick={() => onSelect(key)}>
+            <button type="button" key={key} className="booking-day" disabled={!isOpen(day)} aria-pressed={selected === key} aria-label={format(day, "EEEE d MMMM", { locale: dateLocale })} onClick={() => onSelect(key)}>
               {format(day, "d")}
             </button>
           );

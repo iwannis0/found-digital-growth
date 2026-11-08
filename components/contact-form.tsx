@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getAttribution } from "@/lib/client-attribution";
 import { trackEvent } from "@/components/analytics";
+import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
 const serviceOptions = [
   "Website Design & Development",
@@ -31,9 +33,15 @@ const packageOptions = [
 export function ContactForm({
   initialPackage = "",
   initialService = "",
+  locale,
+  copy,
+  formCopy,
 }: {
   initialPackage?: string;
   initialService?: string;
+  locale: Locale;
+  copy: Dictionary["contactForm"];
+  formCopy: Dictionary["forms"];
 }) {
   const selectedPackage = packageOptions.includes(initialPackage)
     ? initialPackage
@@ -73,6 +81,7 @@ export function ContactForm({
       packageName,
       message: data.get("message"),
       companyWebsite: data.get("companyWebsite"),
+      locale,
       ...getAttribution(),
     };
 
@@ -86,15 +95,16 @@ export function ContactForm({
       });
 
       const result = (await response.json()) as {
+        error?: string;
         message?: string;
         fields?: Record<string, string[]>;
       };
 
       if (!response.ok) {
-        setFields(result.fields ?? {});
+        setFields(localizeFields(result.fields ?? {}, formCopy.fieldErrors));
 
         throw new Error(
-          result.message ?? "We could not send your enquiry."
+          (result.error && formCopy.errors[result.error]) ?? result.message ?? copy.failed
         );
       }
 
@@ -112,7 +122,7 @@ export function ContactForm({
       setMessage(
         error instanceof Error
           ? error.message
-          : "Please try again."
+          : formCopy.retry
       );
     }
   }
@@ -123,18 +133,18 @@ export function ContactForm({
         <CheckCircle2 />
 
         <p className="eyebrow">
-          Enquiry received
+          {copy.successEyebrow}
         </p>
 
         <h2>
-          Thank you. We usually reply within two working days.
+          {copy.successTitle}
         </h2>
 
         <button
           className="text-link"
           onClick={() => setStatus("idle")}
         >
-          Send another enquiry
+          {copy.again}
         </button>
       </div>
     );
@@ -147,19 +157,19 @@ export function ContactForm({
       noValidate
     >
       <p className="form-required-note">
-        Fields marked <strong>*</strong> are required.
+        {formCopy.requiredBefore} <strong>*</strong> {formCopy.requiredAfter}
       </p>
 
       <div className="form-row">
         <Field
-          label="Name"
+          label={copy.name}
           name="name"
           required
           error={fields.name?.[0]}
         />
 
         <Field
-          label="Business"
+          label={copy.business}
           name="businessName"
           required
           error={fields.businessName?.[0]}
@@ -168,7 +178,7 @@ export function ContactForm({
 
       <div className="form-row">
         <Field
-          label="Email"
+          label={copy.email}
           name="email"
           type="email"
           required
@@ -176,7 +186,7 @@ export function ContactForm({
         />
 
         <Field
-          label="Phone"
+          label={copy.phone}
           name="phone"
           type="tel"
           error={fields.phone?.[0]}
@@ -184,7 +194,7 @@ export function ContactForm({
       </div>
 
       <Field
-        label="Website"
+        label={copy.website}
         name="website"
         type="url"
         placeholder="https://"
@@ -193,27 +203,29 @@ export function ContactForm({
 
       <div className="form-row">
         <SelectField
-          label="Service"
+          label={copy.service}
           name="service"
           value={service}
           onChange={setService}
           options={serviceOptions}
-          placeholder="Choose a service"
+          optionLabels={copy.optionLabels}
+          placeholder={copy.chooseService}
         />
 
         <SelectField
-          label="Package"
+          label={copy.package}
           name="package"
           value={packageName}
           onChange={setPackageName}
           options={packageOptions}
-          placeholder="Choose a package"
+          optionLabels={copy.optionLabels}
+          placeholder={copy.choosePackage}
         />
       </div>
 
       <div className="form-field">
         <Label htmlFor="message">
-          Message *
+          {copy.message} *
         </Label>
 
         <Textarea
@@ -257,10 +269,10 @@ export function ContactForm({
         disabled={status === "loading"}
       >
         {status === "loading" ? (
-          "Sending..."
+          copy.sending
         ) : (
           <>
-            Send Enquiry <ArrowRight />
+            {copy.submit} <ArrowRight />
           </>
         )}
       </button>
@@ -310,6 +322,7 @@ function SelectField({
   value,
   onChange,
   options,
+  optionLabels,
   placeholder,
 }: {
   label: string;
@@ -317,6 +330,7 @@ function SelectField({
   value: string;
   onChange: (value: string) => void;
   options: readonly string[];
+  optionLabels: Record<string, string>;
   placeholder: string;
 }) {
   return (
@@ -343,7 +357,7 @@ function SelectField({
             key={item}
             value={item}
           >
-            {item}
+            {optionLabels[item] ?? item}
           </option>
         ))}
       </select>
@@ -364,4 +378,9 @@ function FieldError({
       {value}
     </p>
   ) : null;
+}
+
+/** In Greek, server messages (written in English) are swapped for the field's or error code's translation. */
+function localizeFields(fields: Record<string, string[]>, translations: Record<string, string>) {
+  return Object.fromEntries(Object.entries(fields).map(([field, messages]) => [field, translations[field] ? [translations[field]] : messages]));
 }

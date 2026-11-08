@@ -34,6 +34,9 @@ Website projects start at EUR 599 setup. Optional Website Care (hosting, updates
 - Articles: ${siteConfig.url}/articles
 - Contact: ${siteConfig.url}/contact
 
+## Languages
+The site is available in English (${siteConfig.url}) and Greek (${siteConfig.url}/gr), with the same pages at the same paths under /gr.
+
 ## Contact
 Email: ${siteConfig.email}
 `;

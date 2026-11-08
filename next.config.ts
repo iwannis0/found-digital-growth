@@ -27,11 +27,22 @@ const nextConfig: NextConfig = {
     qualities: [75, 90],
   },
 
+  experimental: {
+    // English (app/(en)) and Greek (app/(el)) have separate root layouts, so URLs that match
+    // no route at all are answered by app/global-not-found.tsx.
+    globalNotFound: true,
+  },
+
   async redirects() {
     // The free website preview page was briefly live; the offer now lives on as the free prototype.
     const retiredPages = [{ source: "/free-website-preview", destination: "/free-prototype", permanent: true }];
+    // Earlier service URLs. They used to render a duplicate page with a canonical; a redirect is cleaner.
+    const renamedServices = [
+      { source: "/services/maintenance", destination: "/services/website-care", permanent: true },
+      { source: "/services/conversion-optimisation", destination: "/services/conversion-design", permanent: true },
+    ];
 
-    return [...retiredPages, ...duplicateHosts.map((host) => ({
+    return [...retiredPages, ...renamedServices, ...duplicateHosts.map((host) => ({
       source: "/:path*",
       has: [
         {

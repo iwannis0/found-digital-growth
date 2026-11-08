@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const [privacy, terms] = await Promise.all([
-  readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
-  readFile(new URL("../app/terms/page.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../views/privacy.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../views/terms.tsx", import.meta.url), "utf8"),
 ]);
 
 test("Privacy reflects current forms, consent and neutral retention policy", () => {

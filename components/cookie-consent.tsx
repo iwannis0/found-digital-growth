@@ -11,11 +11,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
+import type { Dictionary } from "@/lib/dictionaries";
 import { consentChangedEvent, consentStorageKey, hasAnalyticsConsent, syncAnalyticsConsent } from "@/lib/analytics-consent";
 
 type Consent = "accepted" | "rejected";
 
-export function CookieConsent() {
+export function CookieConsent({ copy }: { copy: Dictionary["cookies"] }) {
   const [visible, setVisible] = useState(false);
   const [manage, setManage] = useState(false);
   const [analytics, setAnalytics] = useState(false);
@@ -40,34 +41,34 @@ export function CookieConsent() {
   return (
     <>
       {visible && (
-        <aside className="cookie-banner" aria-label="Cookie consent">
+        <aside className="cookie-banner" aria-label={copy.bannerLabel}>
           <div>
-            <strong>Your privacy, clearly handled.</strong>
-            <p>We use essential cookies to run this site. Analytics only starts with your permission.</p>
+            <strong>{copy.title}</strong>
+            <p>{copy.body}</p>
           </div>
           <div className="cookie-actions">
-            <Button variant="ghost" onClick={() => { setAnalytics(hasAnalyticsConsent()); setManage(true); }}>Manage</Button>
-            <Button variant="outline" className="cookie-reject" onClick={() => save("rejected")}>Reject</Button>
-            <Button onClick={() => save("accepted")}>Accept</Button>
+            <Button variant="ghost" onClick={() => { setAnalytics(hasAnalyticsConsent()); setManage(true); }}>{copy.manage}</Button>
+            <Button variant="outline" className="cookie-reject" onClick={() => save("rejected")}>{copy.reject}</Button>
+            <Button onClick={() => save("accepted")}>{copy.accept}</Button>
           </div>
         </aside>
       )}
       <Dialog open={manage} onOpenChange={setManage}>
         <DialogContent className="cookie-dialog">
           <DialogHeader>
-            <DialogTitle>Cookie settings</DialogTitle>
-            <DialogDescription>Choose whether VISION. may use analytics to improve the website.</DialogDescription>
+            <DialogTitle>{copy.dialogTitle}</DialogTitle>
+            <DialogDescription>{copy.dialogDescription}</DialogDescription>
           </DialogHeader>
           <div className="cookie-setting-row">
-            <div><strong>Essential</strong><p>Required for core website functions and consent storage.</p></div>
-            <span>Always on</span>
+            <div><strong>{copy.essential}</strong><p>{copy.essentialBody}</p></div>
+            <span>{copy.alwaysOn}</span>
           </div>
           <div className="cookie-setting-row">
-            <div><strong>Analytics</strong><p>Helps us understand visits and meaningful actions.</p></div>
-            <Switch checked={analytics} onCheckedChange={setAnalytics} aria-label="Allow analytics cookies" />
+            <div><strong>{copy.analytics}</strong><p>{copy.analyticsBody}</p></div>
+            <Switch checked={analytics} onCheckedChange={setAnalytics} aria-label={copy.allowAnalytics} />
           </div>
           <DialogFooter>
-            <Button onClick={() => save(analytics ? "accepted" : "rejected")}>Save choices</Button>
+            <Button onClick={() => save(analytics ? "accepted" : "rejected")}>{copy.save}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

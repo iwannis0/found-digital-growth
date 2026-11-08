@@ -6,8 +6,8 @@ const [table, auditRoute, exportRoute, auditsPage, dashboard] = await Promise.al
   readFile(new URL("../components/admin-audits-table.tsx", import.meta.url), "utf8"),
   readFile(new URL("../app/api/admin/audits/[id]/route.ts", import.meta.url), "utf8"),
   readFile(new URL("../app/api/admin/export/audits/route.ts", import.meta.url), "utf8"),
-  readFile(new URL("../app/admin/audits/page.tsx", import.meta.url), "utf8"),
-  readFile(new URL("../app/admin/page.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../app/(en)/admin/audits/page.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../app/(en)/admin/page.tsx", import.meta.url), "utf8"),
 ]);
 
 test("audit search and status filtering share the existing lead status list", () => {

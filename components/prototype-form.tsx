@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getAttribution } from "@/lib/client-attribution";
 import { trackEvent } from "@/components/analytics";
+import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
 const cityOptions = ["Nicosia", "Limassol", "Larnaca", "Paphos", "Paralimni / Ayia Napa", "Elsewhere in Cyprus"];
 
@@ -18,7 +20,11 @@ const styleOptions = ["Clean and minimal", "Bold and modern", "Warm and friendly
 // notification emails and integrations as every other enquiry.
 export const prototypeService = "Free Prototype";
 
-export function PrototypeForm() {
+function localizeFields(fields: Record<string, string[]>, messages: Record<string, string>) {
+  return Object.fromEntries(Object.entries(fields).map(([key, value]) => [key, messages[key] ? [messages[key]] : value]));
+}
+
+export function PrototypeForm({ locale, copy, formCopy }: { locale: Locale; copy: Dictionary["prototypeForm"]; formCopy: Dictionary["forms"] }) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [fields, setFields] = useState<Record<string, string[]>>({});
@@ -36,9 +42,9 @@ export function PrototypeForm() {
     const text = (name: string) => String(data.get(name) ?? "").trim();
 
     if (!text("businessType")) {
-      setFields({ businessType: ["Tell us what the business does"] });
+      setFields({ businessType: [copy.businessTypeRequired] });
       setStatus("error");
-      setMessage("Please check the highlighted fields.");
+      setMessage(copy.checkFields);
       return;
     }
 
@@ -65,6 +71,7 @@ export function PrototypeForm() {
       packageName: "",
       message: summary,
       companyWebsite: data.get("companyWebsite"),
+      locale,
       ...getAttribution(),
     };
 
@@ -75,11 +82,11 @@ export function PrototypeForm() {
         body: JSON.stringify(payload),
       });
 
-      const result = (await response.json()) as { message?: string; fields?: Record<string, string[]> };
+      const result = (await response.json()) as { error?: string; message?: string; fields?: Record<string, string[]> };
 
       if (!response.ok) {
-        setFields(result.fields ?? {});
-        throw new Error(result.message ?? "We could not send your request.");
+        setFields(localizeFields(result.fields ?? {}, formCopy.fieldErrors));
+        throw new Error((result.error && formCopy.errors[result.error]) ?? result.message ?? copy.failed);
       }
 
       form.reset();
@@ -89,7 +96,7 @@ export function PrototypeForm() {
       trackEvent("generate_lead", { lead_type: "free_prototype" });
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Please try again.");
+      setMessage(error instanceof Error ? error.message : formCopy.retry);
     }
   }
 
@@ -97,10 +104,10 @@ export function PrototypeForm() {
     return (
       <div className="form-success" role="status">
         <CheckCircle2 />
-        <p className="eyebrow">Request received</p>
-        <h2>Thank you. We will be in touch within two working days to confirm your prototype.</h2>
+        <p className="eyebrow">{copy.successEyebrow}</p>
+        <h2>{copy.successTitle}</h2>
         <button className="text-link" onClick={() => setStatus("idle")}>
-          Send another request
+          {copy.again}
         </button>
       </div>
     );
@@ -109,60 +116,60 @@ export function PrototypeForm() {
   return (
     <form className="site-form" onSubmit={submit} noValidate>
       <p className="form-required-note">
-        Fields marked <strong>*</strong> are required.
+        {formCopy.requiredBefore} <strong>*</strong> {formCopy.requiredAfter}
       </p>
 
       <fieldset className="form-step">
-        <legend><span>01</span> About you</legend>
+        <legend><span>01</span> {copy.stepAbout}</legend>
         <div className="form-row">
-          <Field label="Name" name="name" required autoComplete="name" error={fields.name?.[0]} />
-          <Field label="Business name" name="businessName" required autoComplete="organization" error={fields.businessName?.[0]} />
+          <Field label={copy.name} name="name" required autoComplete="name" error={fields.name?.[0]} />
+          <Field label={copy.business} name="businessName" required autoComplete="organization" error={fields.businessName?.[0]} />
         </div>
         <div className="form-row">
-          <Field label="Email" name="email" type="email" required autoComplete="email" error={fields.email?.[0]} />
-          <Field label="Phone" name="phone" type="tel" autoComplete="tel" error={fields.phone?.[0]} />
+          <Field label={copy.email} name="email" type="email" required autoComplete="email" error={fields.email?.[0]} />
+          <Field label={copy.phone} name="phone" type="tel" autoComplete="tel" error={fields.phone?.[0]} />
         </div>
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>02</span> The business</legend>
+        <legend><span>02</span> {copy.stepBusiness}</legend>
         <Field
-          label="What does the business do?"
+          label={copy.businessType}
           name="businessType"
           required
-          placeholder="e.g. dental clinic, restaurant, electrician"
+          placeholder={copy.businessTypePlaceholder}
           error={fields.businessType?.[0]}
         />
         <div className="form-row">
-          <SelectField label="Area" name="city" options={cityOptions} placeholder="Choose an area" />
-          <SelectField label="What should visitors do?" name="goal" options={goalOptions} placeholder="Choose the main action" />
+          <SelectField label={copy.area} name="city" options={cityOptions} optionLabels={copy.optionLabels} placeholder={copy.chooseArea} />
+          <SelectField label={copy.goal} name="goal" options={goalOptions} optionLabels={copy.optionLabels} placeholder={copy.chooseGoal} />
         </div>
         <Field
-          label="Current website or social page"
+          label={copy.website}
           name="website"
           type="url"
-          placeholder="Leave empty if you do not have one yet"
+          placeholder={copy.websitePlaceholder}
           error={fields.website?.[0]}
         />
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>03</span> Your taste</legend>
-        <p className="form-step-hint">Pick the feel closest to what you have in mind. We design the prototype around it.</p>
-        <div className="style-chips" role="group" aria-label="Preferred style">
+        <legend><span>03</span> {copy.stepTaste}</legend>
+        <p className="form-step-hint">{copy.tasteHint}</p>
+        <div className="style-chips" role="group" aria-label={copy.styleLabel}>
           {styleOptions.map((option) => (
             <button type="button" key={option} className="booking-chip" aria-pressed={style === option} onClick={() => setStyle(style === option ? "" : option)}>
-              {option}
+              {copy.optionLabels[option] ?? option}
             </button>
           ))}
         </div>
         <div className="form-field">
-          <Label htmlFor="prototype-notes">Anything we should know?</Label>
+          <Label htmlFor="prototype-notes">{copy.notes}</Label>
           <Textarea
             id="prototype-notes"
             name="notes"
             rows={4}
-            placeholder="Websites you like, colours, services you want to highlight..."
+            placeholder={copy.notesPlaceholder}
           />
         </div>
       </fieldset>
@@ -181,7 +188,7 @@ export function PrototypeForm() {
       )}
 
       <button className="button button-accent button-large form-submit" type="submit" disabled={status === "loading"}>
-        {status === "loading" ? "Sending..." : <>Request My Free Prototype <ArrowRight /></>}
+        {status === "loading" ? copy.sending : <>{copy.submit} <ArrowRight /></>}
       </button>
     </form>
   );
@@ -224,7 +231,7 @@ function Field({
   );
 }
 
-function SelectField({ label, name, options, placeholder }: { label: string; name: string; options: readonly string[]; placeholder: string }) {
+function SelectField({ label, name, options, optionLabels, placeholder }: { label: string; name: string; options: readonly string[]; optionLabels: Record<string, string>; placeholder: string }) {
   return (
     <div className="form-field">
       <Label htmlFor={name}>{label}</Label>
@@ -232,7 +239,7 @@ function SelectField({ label, name, options, placeholder }: { label: string; nam
         <option value="">{placeholder}</option>
         {options.map((item) => (
           <option key={item} value={item}>
-            {item}
+            {optionLabels[item] ?? item}
           </option>
         ))}
       </select>

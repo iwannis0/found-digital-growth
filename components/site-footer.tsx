@@ -3,42 +3,10 @@
 import Link from "next/link";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 
+import type { Dictionary } from "@/lib/dictionaries";
+import { localizePath, type Locale } from "@/lib/i18n";
 import { siteConfig } from "@/lib/site-config";
 
-const columns = [
-  {
-    title: "Navigate",
-    links: [
-      ["Services", "/services"],
-      ["Work", "/work"],
-      ["Pricing", "/pricing"],
-      ["Free Audit", "/free-audit"],
-      ["Free Prototype", "/free-prototype"],
-      ["Book a Call", "/book"],
-      ["Articles", "/articles"],
-      ["Contact", "/contact"],
-    ],
-  },
-  {
-    title: "Services",
-    links: [
-      ["Website Design & Development", "/services/web-design"],
-      ["Local SEO", "/services/local-seo"],
-      ["Google Business", "/services/google-business"],
-      ["Website Care", "/services/website-care"],
-      ["Analytics & Tracking", "/services/analytics"],
-      ["Conversion Design", "/services/conversion-design"],
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      ["Privacy", "/privacy"],
-      ["Terms", "/terms"],
-      ["Cookie Settings", "#cookie-settings"],
-    ],
-  },
-] as const;
 
 // lucide-react no longer ships brand icons, so these two are inline.
 function InstagramMark() {
@@ -59,7 +27,7 @@ function FacebookMark() {
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ locale, copy, tagline }: { locale: Locale; copy: Dictionary["footer"]; tagline: string }) {
   function openCookieSettings(
     event: React.MouseEvent<HTMLAnchorElement>
   ) {
@@ -80,31 +48,31 @@ export function SiteFooter() {
         <div className="footer-statement">
           <Link
             className="wordmark wordmark-light"
-            href="/"
+            href={localizePath(locale, "/")}
           >
             VISION<span>.</span>
           </Link>
 
-          <p>{siteConfig.tagline}</p>
+          <p>{tagline}</p>
 
           <Link
-            href="/free-audit"
+            href={localizePath(locale, "/free-audit")}
             className="footer-big-link"
           >
-            Start with a free audit
+            {copy.startAudit}
             <ArrowUpRight aria-hidden="true" />
           </Link>
         </div>
 
         <div className="footer-columns">
-          {columns.map((column) => (
+          {copy.columns.map((column) => (
             <div key={column.title}>
               <h2>{column.title}</h2>
 
               {column.links.map(([label, href]) => (
                 <Link
                   key={href}
-                  href={href}
+                  href={localizePath(locale, href)}
                   onClick={openCookieSettings}
                 >
                   {label}
@@ -114,7 +82,7 @@ export function SiteFooter() {
           ))}
 
           <div className="footer-contact">
-            <h2>Contact</h2>
+            <h2>{copy.contact}</h2>
 
             <a
               href={`mailto:${siteConfig.email}`}
@@ -140,7 +108,7 @@ export function SiteFooter() {
                   href={siteConfig.socials.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="VISION. on Instagram"
+                  aria-label={copy.instagram}
                   data-track="social_click"
                   data-track-label="instagram"
                 >
@@ -153,7 +121,7 @@ export function SiteFooter() {
                   href={siteConfig.socials.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="VISION. on Facebook"
+                  aria-label={copy.facebook}
                   data-track="social_click"
                   data-track-label="facebook"
                 >
@@ -167,12 +135,12 @@ export function SiteFooter() {
 
       <div className="site-container footer-bottom">
         <p>
-          © {new Date().getFullYear()} VISION. Cyprus.
+          © {new Date().getFullYear()} {copy.copyright}
         </p>
 
         <div className="footer-bottom-end">
           <p>
-            Websites and digital growth for Cyprus businesses.
+            {copy.strapline}
           </p>
         </div>
       </div>

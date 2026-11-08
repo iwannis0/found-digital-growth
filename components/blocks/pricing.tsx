@@ -9,9 +9,11 @@ import { ArrowRight, Check, Star } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import type { Dictionary } from "@/lib/dictionaries";
 import { cn } from "@/lib/utils";
 
 export interface PricingPlan {
+  /** The package's English name: shown, and sent to the contact form and analytics as is. */
   name: string;
   short: string;
   setup: string;
@@ -35,8 +37,10 @@ const toAmount = (value: string) =>
 
 export function Pricing({
   plans,
+  copy,
 }: {
   plans: readonly PricingPlan[];
+  copy: Dictionary["pricing"];
 }) {
   const [showCare, setShowCare] = useState(false);
 
@@ -104,7 +108,7 @@ export function Pricing({
               : "text-muted-foreground"
           )}
         >
-          One-off setup
+          {copy.oneOff}
         </span>
 
         <Label className="cursor-pointer">
@@ -112,7 +116,7 @@ export function Pricing({
             ref={switchRef}
             checked={showCare}
             onCheckedChange={handleToggle}
-            aria-label="Show monthly Website Care pricing"
+            aria-label={copy.toggle}
             className="data-[size=default]:h-7 data-[size=default]:w-12 data-[state=unchecked]:bg-[#bdb9ae] data-[state=checked]:bg-[var(--acid)] [&_[data-slot=switch-thumb]]:!size-6 data-[state=checked]:[&_[data-slot=switch-thumb]]:!translate-x-[calc(100%-2px)]"
           />
         </Label>
@@ -125,16 +129,16 @@ export function Pricing({
               : "text-muted-foreground"
           )}
         >
-          Website Care{" "}
+          {copy.care}{" "}
           <span className="text-[var(--acid)] max-md:hidden">
-            (optional, monthly)
+            {copy.careNote}
           </span>
         </span>
       </div>
 
       <div
         className="pricing-tabs md:hidden"
-        aria-label="Choose a plan"
+        aria-label={copy.choosePlan}
       >
         {plans.map((plan, index) => (
           <button
@@ -155,7 +159,7 @@ export function Pricing({
               value={toAmount(
                 showCare ? plan.monthly : plan.setup
               )}
-              locales="en-GB"
+              locales={copy.numberLocale}
               format={{
                 style: "currency",
                 currency: "EUR",
@@ -215,7 +219,7 @@ export function Pricing({
                   aria-hidden="true"
                 />
                 <span className="ml-1 text-xs font-bold tracking-wide">
-                  Most Popular
+                  {copy.popular}
                 </span>
               </div>
             )}
@@ -229,7 +233,7 @@ export function Pricing({
                 value={toAmount(
                   showCare ? plan.monthly : plan.setup
                 )}
-                locales="en-GB"
+                locales={copy.numberLocale}
                 format={{
                   style: "currency",
                   currency: "EUR",
@@ -245,14 +249,14 @@ export function Pricing({
               />
 
               <span className="text-sm font-semibold tracking-wide text-muted-foreground">
-                {showCare ? "/ month" : "setup"}
+                {showCare ? copy.perMonth : copy.setup}
               </span>
             </div>
 
             <p className="mt-1 text-xs leading-5 text-muted-foreground md:min-h-[3.75em]">
               {showCare
-                ? "Optional Website Care after launch. 3-month minimum term, then month-to-month."
-                : `One-off. 50% deposit to begin, 50% before launch. Optional Website Care after launch: ${plan.monthly} / month.`}
+                ? copy.careTerm
+                : copy.setupTerm.replace("{monthly}", plan.monthly)}
             </p>
 
             <p className="mx-auto mt-3 max-w-[24em] text-sm leading-relaxed text-muted-foreground md:mt-4 md:min-h-[6.5em]">
@@ -263,7 +267,7 @@ export function Pricing({
 
             <div className="flex flex-1 flex-col text-left">
               <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">
-                Included in setup
+                {copy.included}
               </p>
 
               <ul className="flex flex-col gap-2.5">
@@ -283,13 +287,13 @@ export function Pricing({
 
               <div className="mt-5 rounded-xl bg-[var(--paper-deep)] p-4">
                 <p className="mb-3 text-[.66rem] font-extrabold uppercase tracking-[.16em] text-muted-foreground">
-                  With Website Care · {plan.monthly} / month
+                  {copy.withCare.replace("{monthly}", plan.monthly)}
                 </p>
 
                 <ul className="flex flex-col gap-2">
                   {[
                     ...plan.care,
-                    `Up to ${plan.minutes} of minor updates / month`,
+                    copy.minorUpdates.replace("{minutes}", plan.minutes),
                   ].map((item) => (
                     <li
                       key={item}
@@ -313,7 +317,7 @@ export function Pricing({
                   ? "button-accent"
                   : "button-dark"
               )}
-              href={`/contact?package=${encodeURIComponent(
+              href={`${copy.contactPath}?package=${encodeURIComponent(
                 plan.name
               )}`}
               data-track="package_click"
@@ -321,7 +325,7 @@ export function Pricing({
               data-track-package-name={plan.name}
               data-track-location="pricing"
             >
-              Choose this package
+              {copy.choose}
               <ArrowRight aria-hidden="true" />
             </Link>
           </motion.article>

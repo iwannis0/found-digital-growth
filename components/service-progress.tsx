@@ -12,7 +12,7 @@ const defaultSections: Section[] = [
   { id: "service-approach", label: "Approach" },
 ];
 
-export function ServiceProgress({ sections = defaultSections }: { sections?: Section[] }) {
+export function ServiceProgress({ sections = defaultSections, label = "Service page sections" }: { sections?: Section[]; label?: string }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export function ServiceProgress({ sections = defaultSections }: { sections?: Sec
     };
   }, [sections]);
 
-  return <nav className="service-progress" aria-label="Service page sections">
+  return <nav className="service-progress" aria-label={label}>
     <span className="service-progress-count">{String(active + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}</span>
     <div className="service-progress-track" aria-hidden="true"><span style={{ height: `${(active / (sections.length - 1)) * 100}%` }} /></div>
     {sections.map(({ id, label }, index) => <a key={id} href={`#${id}`} className={active === index ? "is-active" : ""} aria-label={label} aria-current={active === index ? "location" : undefined}><span>{label}</span></a>)}
