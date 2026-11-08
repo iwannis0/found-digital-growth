@@ -16,9 +16,9 @@ const ACID_LIGHT = "#A29BF6";
 const LINE = "#e2ded3";
 const FONT = "Arial, Helvetica, sans-serif";
 
-function shell(preheader: string, content: string) {
+function shell(preheader: string, content: string, lang: "en" | "el" = "en") {
   return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="color-scheme" content="light" /><title>VISION.</title></head>
+<html lang="${lang}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="color-scheme" content="light" /><title>VISION.</title></head>
 <body style="margin:0;padding:0;background:${PAPER};font-family:${FONT};-webkit-font-smoothing:antialiased">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0">${preheader}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${PAPER};padding:28px 14px">
@@ -34,7 +34,7 @@ function shell(preheader: string, content: string) {
           &nbsp;·&nbsp; <a href="tel:${siteConfig.phone.replace(/\s/g, "")}" style="color:${ACID};text-decoration:none">${siteConfig.phone}</a>
         </p>
         <p style="margin:0;font-size:12px;color:#8a8a80;line-height:1.6">
-          <a href="${siteConfig.url}" style="color:#8a8a80;text-decoration:none">vision.cy</a> — website development services in Cyprus
+          <a href="${siteConfig.url}" style="color:#8a8a80;text-decoration:none">vision.cy</a> — ${lang === "el" ? "κατασκευή ιστοσελίδων στην Κύπρο" : "website development services in Cyprus"}
         </p>
       </td></tr>
     </table>
@@ -88,67 +88,130 @@ function spacer(height = 34) {
 
 const str = (value: unknown) => (value == null ? "" : String(value));
 
+// The confirmation email follows the language of the form the person used.
+const confirmationCopy = {
+  en: {
+    there: "there",
+    yourWebsite: "your website",
+    businessWebsite: (business: string) => business,
+    auditSubject: "Your free website audit is on the way | VISION.",
+    contactSubject: "Thanks for getting in touch | VISION.",
+    auditPreheader: "We have your details and will send your written review within two working days.",
+    contactPreheader: "We have your message and will reply within two working days.",
+    auditSteps: [
+      "We go through your website across design, mobile experience, speed, SEO, Google presence, conversion, trust and content.",
+      "We pick out the changes that would make the biggest difference to enquiries, not a list of everything.",
+      "You get the written review by email, with clear priorities and no obligation.",
+    ],
+    contactSteps: [
+      "We read your message and take a proper look at your current setup.",
+      "We reply with honest next steps and what they would involve.",
+      "If a short call would help, we suggest a time that suits you.",
+    ],
+    business: "Business",
+    website: "Website",
+    goal: "Main goal",
+    service: "Service",
+    auditHeading: (person: string) => `Your audit is booked in,<br />${person}.`,
+    contactHeading: (person: string) => `Thanks for reaching out,<br />${person}.`,
+    auditTextHeading: (person: string) => `Your audit is booked in, ${person}.`,
+    contactTextHeading: (person: string) => `Thanks for reaching out, ${person}.`,
+    auditBody: (subject: string, deadline: (text: string) => string) => `We have everything we need to review ${subject}. You will have the written review by email ${deadline("within two working days")}.`,
+    contactBody: (about: string, deadline: (text: string) => string) => `We have your message${about ? ` about ${about}` : ""} and will get back to you ${deadline("within two working days")}.`,
+    nextLabel: "What happens next",
+    noReply: "No reply needed for now. If anything changes in the meantime, just reply to this email and it reaches us directly.",
+    noReplyText: "No reply needed for now. If anything changes, just reply to this email and it reaches us directly.",
+    auditButton: "See the kind of work we do",
+    contactButton: "Explore our work",
+    workPath: "/work",
+    footer: "website development services in Cyprus",
+  },
+  el: {
+    there: "",
+    yourWebsite: "την ιστοσελίδα σας",
+    businessWebsite: (business: string) => `την ιστοσελίδα της επιχείρησης ${business}`,
+    auditSubject: "Η δωρεάν αξιολόγηση της ιστοσελίδας σας ξεκινά | VISION.",
+    contactSubject: "Σας ευχαριστούμε για το μήνυμά σας | VISION.",
+    auditPreheader: "Λάβαμε τα στοιχεία σας και θα σας στείλουμε τη γραπτή αξιολόγηση μέσα σε δύο εργάσιμες ημέρες.",
+    contactPreheader: "Λάβαμε το μήνυμά σας και θα σας απαντήσουμε μέσα σε δύο εργάσιμες ημέρες.",
+    auditSteps: [
+      "Εξετάζουμε την ιστοσελίδα σας ως προς τον σχεδιασμό, την εμπειρία στο κινητό, την ταχύτητα, το SEO, την παρουσία στο Google, τις μετατροπές, την αξιοπιστία και το περιεχόμενο.",
+      "Ξεχωρίζουμε τις αλλαγές που θα κάνουν τη μεγαλύτερη διαφορά στα αιτήματα πελατών, όχι μια λίστα με τα πάντα.",
+      "Λαμβάνετε τη γραπτή αξιολόγηση με email, με ξεκάθαρες προτεραιότητες και χωρίς καμία δέσμευση.",
+    ],
+    contactSteps: [
+      "Διαβάζουμε το μήνυμά σας και εξετάζουμε προσεκτικά τι έχετε σήμερα.",
+      "Σας απαντάμε με ειλικρινή επόμενα βήματα και τι θα περιλάμβαναν.",
+      "Αν βοηθά μια σύντομη κλήση, σας προτείνουμε μια ώρα που σας εξυπηρετεί.",
+    ],
+    business: "Επιχείρηση",
+    website: "Ιστοσελίδα",
+    goal: "Κύριος στόχος",
+    service: "Υπηρεσία",
+    auditHeading: (person: string) => (person ? `Η αξιολόγησή σας προγραμματίστηκε,<br />${person}.` : "Η αξιολόγησή σας προγραμματίστηκε."),
+    contactHeading: (person: string) => (person ? `Ευχαριστούμε που επικοινωνήσατε,<br />${person}.` : "Ευχαριστούμε που επικοινωνήσατε."),
+    auditTextHeading: (person: string) => (person ? `Η αξιολόγησή σας προγραμματίστηκε, ${person}.` : "Η αξιολόγησή σας προγραμματίστηκε."),
+    contactTextHeading: (person: string) => (person ? `Ευχαριστούμε που επικοινωνήσατε, ${person}.` : "Ευχαριστούμε που επικοινωνήσατε."),
+    auditBody: (subject: string, deadline: (text: string) => string) => `Έχουμε ό,τι χρειαζόμαστε για να εξετάσουμε ${subject}. Θα λάβετε τη γραπτή αξιολόγηση με email ${deadline("μέσα σε δύο εργάσιμες ημέρες")}.`,
+    contactBody: (about: string, deadline: (text: string) => string) => `Λάβαμε το μήνυμά σας${about ? ` σχετικά με την επιχείρηση ${about}` : ""} και θα σας απαντήσουμε ${deadline("μέσα σε δύο εργάσιμες ημέρες")}.`,
+    nextLabel: "Τι ακολουθεί",
+    noReply: "Δεν χρειάζεται να απαντήσετε προς το παρόν. Αν αλλάξει κάτι στο μεταξύ, απλώς απαντήστε σε αυτό το email και θα το λάβουμε απευθείας.",
+    noReplyText: "Δεν χρειάζεται να απαντήσετε προς το παρόν. Αν αλλάξει κάτι, απλώς απαντήστε σε αυτό το email και θα το λάβουμε απευθείας.",
+    auditButton: "Δείτε τη δουλειά μας",
+    contactButton: "Δείτε τη δουλειά μας",
+    workPath: "/gr/work",
+    footer: "κατασκευή ιστοσελίδων στην Κύπρο",
+  },
+};
+
 /** Sent to the person who filled in the form. */
 export function clientConfirmationEmail(kind: "contact" | "audit", payload: Payload): Email {
-  const person = str(payload.name).trim().split(/\s+/)[0] || "there";
+  const t = confirmationCopy[payload.locale === "el" ? "el" : "en"];
+  const person = str(payload.name).trim().split(/\s+/)[0] || t.there;
   const business = str(payload.businessName).trim();
   const isAudit = kind === "audit";
 
-  const subject = isAudit
-    ? "Your free website audit is on the way | VISION."
-    : "Thanks for getting in touch | VISION.";
-  const preheader = isAudit
-    ? "We have your details and will send your written review within two working days."
-    : "We have your message and will reply within two working days.";
-
-  const nextSteps = isAudit
-    ? [
-        "We go through your website across design, mobile experience, speed, SEO, Google presence, conversion, trust and content.",
-        "We pick out the changes that would make the biggest difference to enquiries, not a list of everything.",
-        "You get the written review by email, with clear priorities and no obligation.",
-      ]
-    : [
-        "We read your message and take a proper look at your current setup.",
-        "We reply with honest next steps and what they would involve.",
-        "If a short call would help, we suggest a time that suits you.",
-      ];
+  const subject = isAudit ? t.auditSubject : t.contactSubject;
+  const preheader = isAudit ? t.auditPreheader : t.contactPreheader;
+  const nextSteps = isAudit ? t.auditSteps : t.contactSteps;
 
   const details = summary([
-    ["Business", business],
-    ["Website", str(payload.website)],
-    [isAudit ? "Main goal" : "Service", str(isAudit ? payload.goal : payload.service || payload.packageName)],
+    [t.business, business],
+    [t.website, str(payload.website)],
+    [isAudit ? t.goal : t.service, str(isAudit ? payload.goal : payload.service || payload.packageName)],
   ]);
 
+  const strong = (text: string) => `<strong style="color:${INK}">${text}</strong>`;
+  const plain = (text: string) => text;
+
   const html = shell(preheader, [
-    heading(isAudit ? `Your audit is booked in,<br />${safeHtml(person)}.` : `Thanks for reaching out,<br />${safeHtml(person)}.`),
+    heading(isAudit ? t.auditHeading(safeHtml(person)) : t.contactHeading(safeHtml(person))),
     paragraph(
       isAudit
-        ? `We have everything we need to review ${business ? `<strong style="color:${INK}">${safeHtml(business)}</strong>` : "your website"}. You will have the written review by email <strong style="color:${INK}">within two working days</strong>.`
-        : `We have your message${business ? ` about <strong style="color:${INK}">${safeHtml(business)}</strong>` : ""} and will get back to you <strong style="color:${INK}">within two working days</strong>.`,
+        ? t.auditBody(business ? t.businessWebsite(strong(safeHtml(business))) : t.yourWebsite, strong)
+        : t.contactBody(business ? strong(safeHtml(business)) : "", strong),
       18,
     ),
     details,
-    paragraph(`<strong style="color:${INK};font-size:12px;text-transform:uppercase;letter-spacing:1px">What happens next</strong>`, 28),
+    paragraph(`<strong style="color:${INK};font-size:12px;text-transform:uppercase;letter-spacing:1px">${t.nextLabel}</strong>`, 28),
     steps(nextSteps),
-    paragraph("No reply needed for now. If anything changes in the meantime, just reply to this email and it reaches us directly.", 10),
-    button(isAudit ? "See the kind of work we do" : "Explore our work", `${siteConfig.url}/work`),
+    paragraph(t.noReply, 10),
+    button(isAudit ? t.auditButton : t.contactButton, `${siteConfig.url}${t.workPath}`),
     spacer(),
-  ].join(""));
+  ].join(""), payload.locale === "el" ? "el" : "en");
 
   const text = [
-    isAudit ? `Your audit is booked in, ${person}.` : `Thanks for reaching out, ${person}.`,
+    isAudit ? t.auditTextHeading(person) : t.contactTextHeading(person),
     "",
-    isAudit
-      ? `We have everything we need to review ${business || "your website"}. You will have the written review by email within two working days.`
-      : `We have your message${business ? ` about ${business}` : ""} and will get back to you within two working days.`,
+    isAudit ? t.auditBody(business ? t.businessWebsite(business) : t.yourWebsite, plain) : t.contactBody(business, plain),
     "",
-    "What happens next",
+    t.nextLabel,
     ...nextSteps.map((item, index) => `${index + 1}. ${item.replace(/<[^>]+>/g, "")}`),
     "",
-    "No reply needed for now. If anything changes, just reply to this email and it reaches us directly.",
+    t.noReplyText,
     "",
     `${siteConfig.email} · ${siteConfig.phone}`,
-    `${siteConfig.url} — website development services in Cyprus`,
+    `${siteConfig.url} — ${t.footer}`,
   ].join("\n");
 
   return { subject, html, text };
@@ -166,7 +229,7 @@ export function teamNotificationEmail(kind: "contact" | "audit", payload: Payloa
     service: "Service", packageName: "Package", industry: "Industry", city: "City", goal: "Main goal",
     problem: "Current problem", budget: "Budget", message: "Message",
     utmSource: "UTM source", utmMedium: "UTM medium", utmCampaign: "UTM campaign",
-    utmContent: "UTM content", utmTerm: "UTM term",
+    utmContent: "UTM content", utmTerm: "UTM term", locale: "Site language",
   };
   const skip = new Set(["companyWebsite", "consent"]);
   const order = Object.keys(labels);
@@ -177,9 +240,10 @@ export function teamNotificationEmail(kind: "contact" | "audit", payload: Payloa
       return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
     });
 
+  const languageNames: Record<string, string> = { en: "English", el: "Greek" };
   const rows = entries.map(([key, value]) => {
     const label = labels[key] ?? key;
-    const raw = str(value);
+    const raw = key === "locale" ? languageNames[str(value)] ?? str(value) : str(value);
     const cell = /^https?:\/\//i.test(raw)
       ? `<a href="${safeHtml(raw)}" style="color:${ACID}">${safeHtml(raw)}</a>`
       : key === "email"
@@ -203,7 +267,7 @@ export function teamNotificationEmail(kind: "contact" | "audit", payload: Payloa
     isAudit ? "New audit request" : "New enquiry",
     `From ${business}`,
     "",
-    ...entries.map(([key, value]) => `${labels[key] ?? key}: ${str(value)}`),
+    ...entries.map(([key, value]) => `${labels[key] ?? key}: ${key === "locale" ? languageNames[str(value)] ?? str(value) : str(value)}`),
     "",
     `Admin: ${siteConfig.url}/admin`,
   ].join("\n");

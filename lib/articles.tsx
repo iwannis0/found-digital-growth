@@ -37,7 +37,8 @@ const contactCta: ArticleCta = {
   href: "/contact",
 };
 
-// Newest first. To add an article, add an entry here: the index, sitemap and article page pick it up.
+// Newest first. To add an article, add an entry here, its Greek version in lib/articles-el.tsx
+// and its slug in lib/routes.ts: the index, sitemap and article pages pick it up.
 export const articles: Article[] = [
   {
     slug: "website-vs-social-media",
@@ -344,6 +345,6 @@ export function getArticle(slug: string) {
   return articles.find((article) => article.slug === slug);
 }
 
-export function formatArticleDate(date: string) {
-  return new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+export function formatArticleDate(date: string, dateLocale = "en-GB") {
+  return new Date(`${date}T00:00:00Z`).toLocaleDateString(dateLocale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 }

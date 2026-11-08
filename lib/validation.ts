@@ -7,6 +7,9 @@ const attribution = {
   utmCampaign: z.string().trim().max(160).optional().default(""),
   utmContent: z.string().trim().max(160).optional().default(""),
   utmTerm: z.string().trim().max(160).optional().default(""),
+  // The language the form was sent from: picks the confirmation email's language. Not stored.
+  // Anything unexpected falls back to English rather than rejecting the lead.
+  locale: z.enum(["en", "el"]).catch("en"),
 };
 
 export const contactSchema = z.object({

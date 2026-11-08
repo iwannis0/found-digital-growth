@@ -8,20 +8,29 @@ const images = [
   "og-free-audit.jpg",
 ];
 
+const html = (file) => readFile(new URL(`../.next/server/app/${file}.html`, import.meta.url), "utf8");
+const head = async (file) => { const source = await html(file); return source.slice(0, source.indexOf("</head>")); };
+
 test("all configured social sharing image assets exist", async () => {
   await Promise.all(images.map((image) => access(new URL(`../public/images/social/${image}`, import.meta.url))));
 });
 
-test("root metadata configures the default OG and Twitter image", async () => {
-  const source = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
-  assert.match(source, /openGraph:[\s\S]*images: \["\/images\/social\/og-default\.jpg"\]/);
-  assert.match(source, /twitter:\s*\{[\s\S]*?card:\s*"summary_large_image"[\s\S]*?images:\s*\[\s*"\/images\/social\/og-default\.jpg"\s*\]/);
+test("pages share their own title with the default OG and Twitter image", async () => {
+  for (const file of ["index", "gr", "pricing", "gr/pricing", "services/local-seo", "gr/services/local-seo"]) {
+    const source = await head(file);
+    const title = source.match(/<title>([^<]+)<\/title>/)[1];
+    assert.ok(source.includes(`<meta property="og:title" content="${title}"/>`), `${file} og:title`);
+    assert.ok(source.includes(`<meta name="twitter:title" content="${title}"/>`), `${file} twitter:title`);
+    assert.match(source, /<meta property="og:image" content="https:\/\/vision\.cy\/images\/social\/og-default\.jpg"\/>/, `${file} og:image`);
+    assert.match(source, /<meta name="twitter:card" content="summary_large_image"\/>/, `${file} twitter:card`);
+    assert.match(source, /<meta name="twitter:image" content="https:\/\/vision\.cy\/images\/social\/og-default\.jpg"\/>/, `${file} twitter:image`);
+  }
 });
 
-test("Work and Free Audit override both social image formats", async () => {
-  for (const [page, image] of [["work", "og-work.jpg"], ["free-audit", "og-free-audit.jpg"]]) {
-    const source = await readFile(new URL(`../app/${page}/page.tsx`, import.meta.url), "utf8");
-    assert.match(source, new RegExp(`openGraph: \\{ images: \\["/images/social/${image.replace(".", "\\.")}"\\] \\}`));
-    assert.match(source, new RegExp(`twitter: \\{ card: "summary_large_image", images: \\["/images/social/${image.replace(".", "\\.")}"\\] \\}`));
+test("Work and Free Audit override both social image formats in both languages", async () => {
+  for (const [file, image] of [["work", "og-work.jpg"], ["gr/work", "og-work.jpg"], ["free-audit", "og-free-audit.jpg"], ["gr/free-audit", "og-free-audit.jpg"]]) {
+    const source = await head(file);
+    assert.ok(source.includes(`<meta property="og:image" content="https://vision.cy/images/social/${image}"/>`), `${file} og:image`);
+    assert.ok(source.includes(`<meta name="twitter:image" content="https://vision.cy/images/social/${image}"/>`), `${file} twitter:image`);
   }
 });

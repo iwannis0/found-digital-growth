@@ -119,6 +119,19 @@ button { cursor: pointer; }
 .mobile-nav > a:not(.button) { border-bottom: 1px solid #33332f; padding: 20px 0; font-size: 1.5rem; letter-spacing: -.04em; }
 .mobile-nav > a:not(.button).is-active { color: var(--acid-light); }
 .mobile-nav .button { margin-top: auto; }
+/* EN | ΕΛ language switcher: header (all widths) and the mobile menu. */
+.lang-switch { display: flex; align-items: center; gap: 4px; font-size: .78rem; font-weight: 800; letter-spacing: .08em; }
+.lang-switch-item { display: inline-flex; align-items: center; gap: 4px; }
+.lang-switch a { display: inline-flex; min-width: 28px; min-height: 32px; align-items: center; justify-content: center; border-radius: 5px; color: #5f5e57; transition: color .18s ease; }
+.lang-switch a:hover { color: var(--ink); }
+.lang-switch a.is-active { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.lang-switch a:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+.lang-switch-divider { color: #c4c1b8; font-weight: 400; }
+.lang-switch-header { margin-right: 24px; }
+.mobile-nav .lang-switch-mobile { border-bottom: 1px solid #33332f; padding: 14px 0; font-size: 1rem; }
+.lang-switch-mobile a { min-width: 40px; min-height: 40px; color: #9c9b91; }
+.lang-switch-mobile a:hover, .lang-switch-mobile a.is-active { color: var(--white); }
+.lang-switch-mobile .lang-switch-divider { color: #4a4a44; }
 
 .home-hero { overflow: hidden; background: #f7f6f3; color: #0b0b0d; }
 .home-hero .site-container { width: min(1380px, calc(100% - 112px)); }
@@ -475,6 +488,7 @@ button { cursor: pointer; }
   .site-container { width: min(100% - 40px, 920px); }
   .header-inner, .home-hero .site-container { width: min(100% - 48px, 920px); }
   .desktop-nav { gap: 18px; margin-right: 22px; }
+  .lang-switch-header { margin-right: 16px; }
   .home-hero-grid { grid-template-columns: 1fr; grid-template-rows: auto auto auto; min-height: 0; padding-top: 86px; }
   .home-hero-copy { grid-column: 1; grid-row: 1; padding: 0; }
   .home-hero-copy h1 { max-width: 780px; font-size: clamp(4.5rem, 9vw, 6rem); }
@@ -488,6 +502,12 @@ button { cursor: pointer; }
   .footer-top { grid-template-columns: 1fr; }
 }
 
+/* Greek navigation labels run longer, so the Greek header switches to the menu button a little earlier. */
+@media (max-width: 900px) {
+  html[lang="el"] .desktop-nav, html[lang="el"] .header-cta { display: none; }
+  html[lang="el"] .mobile-menu-trigger { display: grid; width: 44px; height: 44px; margin-left: 0; place-items: center; }
+  html[lang="el"] .lang-switch-header { margin-left: auto; margin-right: 4px; }
+}
 @media (max-width: 760px) {
   .site-container { width: min(100% - 32px, 620px); }
   .section-pad { padding: 82px 0; }
@@ -495,6 +515,8 @@ button { cursor: pointer; }
   .section-heading h2 { font-size: clamp(2.65rem, 12vw, 4.2rem); }
   .desktop-nav, .header-cta { display: none; }
   .mobile-menu-trigger { display: grid; width: 44px; height: 44px; place-items: center; }
+  .lang-switch-header { margin-left: auto; margin-right: 4px; }
+  .lang-switch-header ~ .mobile-menu-trigger { margin-left: 0; }
   .header-inner, .home-hero .site-container { width: min(100% - 36px, 620px); }
   .header-inner { height: 76px; }
   .site-header .wordmark { font-size: 1.6rem; }

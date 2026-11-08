@@ -2,13 +2,14 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const [page, block, faqs] = await Promise.all([
-  readFile(new URL("../app/pricing/page.tsx", import.meta.url), "utf8"),
+const [page, block, dictionary, faqs] = await Promise.all([
+  readFile(new URL("../views/pricing.tsx", import.meta.url), "utf8"),
   readFile(new URL("../components/blocks/pricing.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../lib/dictionaries.ts", import.meta.url), "utf8"),
   readFile(new URL("../lib/faqs.ts", import.meta.url), "utf8"),
 ]);
-// Plan data and policy copy live in the page; card wording lives in the Pricing block.
-const pricing = `${page}\n${block}`;
+// Plan data and policy copy live in the pricing view; card wording lives in the shared dictionary.
+const pricing = `${page}\n${block}\n${dictionary}`;
 
 test("pricing packages show their included design revision rounds", () => {
   assert.match(pricing, /Professional Website Foundation[\s\S]*"1 design revision round"/);

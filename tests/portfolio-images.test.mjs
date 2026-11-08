@@ -30,7 +30,7 @@ test("every project image referenced in content actually exists", async () => {
 test("deployed projects link straight to their live deployment", async () => {
   const [content, work] = await Promise.all([
     readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
-    readFile(new URL("../app/work/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../views/work.tsx", import.meta.url), "utf8"),
   ]);
   const urls = [...content.matchAll(/url: ["'](https:\/\/[^"']+)["']/g)].map(([, value]) => value);
   assert.equal(urls.length, 2);
@@ -40,9 +40,9 @@ test("deployed projects link straight to their live deployment", async () => {
 
 test("image rendering props and portfolio CSS remain unchanged", async () => {
   const [home, work, detail, css] = await Promise.all([
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/work/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/work/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../views/home.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../views/work.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../views/project.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
   assert.match(home, /fill sizes="\(max-width: 900px\) 100vw, 50vw" className="project-image"/);
