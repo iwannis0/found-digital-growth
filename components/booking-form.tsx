@@ -14,7 +14,9 @@ import type { Locale } from "@/lib/i18n";
 import { callRequestService } from "@/lib/validation";
 
 const meetingTypes = [["Microsoft Teams", Video], ["Zoom", Video], ["Google Meet", Video], ["Phone call", Phone]] as const;
-const times = ["20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00"];
+const times = ["17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"];
+// Picked instead of a slot when none of them suit: the visitor types what does.
+const otherTime = "other";
 // Requests open from tomorrow, on weekdays, up to six weeks ahead.
 const bookingWindowDays = 42;
 
@@ -33,6 +35,7 @@ export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: 
   const [monthOffset, setMonthOffset] = useState(0);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [customTime, setCustomTime] = useState("");
   const [meetingType, setMeetingType] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -55,8 +58,9 @@ export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: 
     const text = (name: string) => String(data.get(name) ?? "").trim();
 
     const missing: Record<string, string[]> = {};
-    if (!date) missing.meetingDate = [copy.chooseDay];
+    if (!date && time !== otherTime) missing.meetingDate = [copy.chooseDay];
     if (!time) missing.meetingTime = [copy.chooseTime];
+    if (time === otherTime && !customTime.trim()) missing.meetingTime = [copy.addCustomTime];
     if (!meetingType) missing.meetingType = [copy.chooseMeeting];
     if (meetingType === "Phone call" && !text("phone")) missing.phone = [copy.addPhone];
     if (Object.keys(missing).length) {
@@ -67,7 +71,10 @@ export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: 
     }
 
     // In the visitor's language: this exact text appears in their confirmation email.
-    const when = copy.when.replace("{date}", format(new Date(`${date}T00:00`), "EEEE d MMMM yyyy", { locale: dateLocale })).replace("{time}", time);
+    const longDate = date ? format(new Date(`${date}T00:00`), "EEEE d MMMM yyyy", { locale: dateLocale }) : "";
+    const when = time === otherTime
+      ? (longDate ? copy.whenOther.replace("{date}", longDate) : copy.whenOtherNoDate).replace("{time}", customTime.trim())
+      : copy.when.replace("{date}", longDate).replace("{time}", time);
 
     const summary = [
       "Call request",
@@ -122,7 +129,7 @@ export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: 
         <p className="eyebrow">{copy.successEyebrow}</p>
         <h2>{copy.successTitle}</h2>
         <p>{copy.successBody.replace("{meeting}", meetingType === "Phone call" ? copy.phoneCall : copy.videoCall.replace("{type}", meetingType)).replace("{when}", requested)}</p>
-        <button className="text-link" onClick={() => { setStatus("idle"); setDate(""); setTime(""); setMeetingType(""); setRequested(""); }}>
+        <button className="text-link" onClick={() => { setStatus("idle"); setDate(""); setTime(""); setCustomTime(""); setMeetingType(""); setRequested(""); }}>
           {copy.again}
         </button>
       </div>
@@ -132,18 +139,27 @@ export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: 
   return (
     <form className="site-form booking-form" onSubmit={submit} noValidate>
       <fieldset className="form-step">
-        <legend><span>01</span> {copy.stepWhen}</legend>
+        <legend><span>1</span> {copy.stepWhen}</legend>
         <div className="booking-when">
           {today ? <MonthGrid copy={copy} dateLocale={dateLocale} today={today} offset={monthOffset} onOffset={setMonthOffset} selected={date} onSelect={(day) => { setDate(day); clearError("meetingDate"); }} /> : <div className="booking-calendar booking-calendar-loading" aria-hidden="true" />}
           <div className="booking-times">
-            <p>{date ? format(new Date(`${date}T00:00`), "EEEE d MMMM", { locale: dateLocale }) : copy.chooseDayFirst}</p>
+            <p>{date ? format(new Date(`${date}T00:00`), "EEEE d MMMM", { locale: dateLocale }) : time === otherTime ? copy.otherTime : copy.chooseDayFirst}</p>
             <div role="group" aria-label={copy.availableTimes}>
               {times.map((slot) => (
                 <button type="button" key={slot} className="booking-chip" aria-pressed={time === slot} disabled={!date} onClick={() => { setTime(slot); clearError("meetingTime"); }}>
                   {slot}
                 </button>
               ))}
+              <button type="button" className="booking-chip" aria-pressed={time === otherTime} onClick={() => { setTime(otherTime); clearError("meetingDate"); clearError("meetingTime"); }}>
+                {copy.otherTime}
+              </button>
             </div>
+            {time === otherTime && (
+              <div className="form-field booking-custom-time">
+                <Label htmlFor="custom-time">{copy.customTimeLabel}</Label>
+                <Input id="custom-time" value={customTime} maxLength={60} placeholder={copy.customTimePlaceholder} aria-invalid={Boolean(fields.meetingTime)} onChange={(event) => { setCustomTime(event.target.value); clearError("meetingTime"); }} />
+              </div>
+            )}
             <small>{copy.timeNote}</small>
           </div>
         </div>
@@ -151,7 +167,7 @@ export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: 
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>02</span> {copy.stepHow}</legend>
+        <legend><span>2</span> {copy.stepHow}</legend>
         <div className="booking-types" role="group" aria-label={copy.meetingTypeLabel}>
           {meetingTypes.map(([label, Icon]) => (
             <button type="button" key={label} className="booking-type" aria-pressed={meetingType === label} onClick={() => { setMeetingType(label); clearError("meetingType"); }}>
@@ -164,7 +180,7 @@ export function BookingForm({ locale, copy, formCopy }: { locale: Locale; copy: 
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>03</span> {copy.stepDetails}</legend>
+        <legend><span>3</span> {copy.stepDetails}</legend>
         <p className="form-required-note">
           {formCopy.requiredBefore} <strong>*</strong> {formCopy.requiredAfter}
         </p>

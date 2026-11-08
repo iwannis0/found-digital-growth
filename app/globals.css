@@ -2068,3 +2068,38 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .service-emblem::before { animation: emblemGlow 5s ease-in-out infinite alternate; }
 }
 @keyframes emblemGlow { from { opacity: .65; transform: scale(.94); } to { opacity: 1; transform: scale(1.04); } }
+
+/* Form refresh: numbered stepper, softer fields and quieter selected states. */
+.site-form:has(.form-step) { gap: 34px; }
+.form-step { position: relative; gap: 20px; border-top: 0; padding: 0 0 0 48px; }
+.site-form > .form-step:not(:last-of-type)::before { position: absolute; top: 40px; bottom: -26px; left: 16px; width: 1px; background: var(--line); content: ""; }
+.form-step legend { gap: 14px; margin-left: -48px; width: calc(100% + 48px); font-size: 1.12rem; }
+.form-step legend span { display: inline-grid; width: 33px; height: 33px; flex: 0 0 33px; place-items: center; border-radius: 50%; background: var(--acid); color: var(--white); font-size: .86rem; font-weight: 700; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.site-form .form-field label { color: var(--ink-soft); font-size: .8rem; font-weight: 600; }
+.site-form input:not([type="checkbox"]), .site-form textarea, .site-form select.site-select { min-height: 54px; border-color: #e3dfd6; border-radius: 14px; background-color: #faf9f5 !important; padding-right: 16px; padding-left: 16px; }
+.site-form select.site-select { padding-right: 40px; }
+.site-form textarea { padding-top: 14px; padding-bottom: 14px; }
+.site-form .consent-field { border-color: #e3dfd6; border-radius: 14px; background: #faf9f5; }
+.site-form .form-submit { min-height: 58px; border-radius: 14px !important; }
+.booking-calendar { border-color: #e3dfd6; background: #faf9f5; }
+.booking-day { background: var(--white); }
+.booking-chip, .booking-type { border-color: #e3dfd6; background: var(--white); }
+.booking-chip { border-radius: 12px; }
+.booking-type { border-radius: 16px; }
+.booking-chip[aria-pressed="true"], .booking-type[aria-pressed="true"] { border-color: var(--acid); background: #3f35b510; box-shadow: inset 0 0 0 1px var(--acid); color: var(--acid-dark); }
+.booking-type[aria-pressed="true"] svg { color: var(--acid); }
+.booking-times > .booking-custom-time { display: flex; margin-top: 14px; }
+@media (max-width: 760px) {
+  .site-form:has(.form-step) { gap: 28px; }
+  .form-step { gap: 16px; padding-left: 0; }
+  .site-form > .form-step:not(:last-of-type)::before { display: none; }
+  .form-step legend { margin-left: 0; width: 100%; font-size: 1.05rem; }
+  .site-form input:not([type="checkbox"]), .site-form textarea, .site-form select.site-select { min-height: 52px; }
+}
+/* As on the free audit, the form comes first on phones; the hero button would only point back up at it. */
+@media (max-width: 1050px) {
+  .prototype-page, .book-page { display: flex; flex-direction: column; }
+  .prototype-page .audit-form-section { order: -1; padding-top: 34px; }
+  .book-page .book-section { order: -1; padding-top: 34px; }
+  .prototype-page .prototype-hero-cta, .book-page .prototype-hero-cta { display: none; }
+}

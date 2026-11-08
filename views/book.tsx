@@ -17,7 +17,7 @@ const en = {
     ["Phone call", "We call the number you give us"],
   ] as [string, string][],
   callSteps: [
-    ["Pick a day and time", "Any weekday evening, 20:00 to 23:00 Cyprus time."],
+    ["Pick a day and time", "Any weekday, 17:00 to 22:00 Cyprus time, or suggest a time of your own."],
     ["Choose how we meet", "Teams, Zoom, Google Meet or a phone call."],
     ["We confirm with you", "By email or phone, with the meeting link or the number we will call. If the slot is taken, we suggest the nearest free one."],
   ] as [string, string][],
@@ -50,7 +50,7 @@ const el: typeof en = {
     ["Τηλεφωνική κλήση", "Σας καλούμε στον αριθμό που μας δίνετε"],
   ],
   callSteps: [
-    ["Διαλέξτε ημέρα και ώρα", "Οποιοδήποτε βράδυ καθημερινής, 20:00 με 23:00 ώρα Κύπρου."],
+    ["Διαλέξτε ημέρα και ώρα", "Οποιαδήποτε καθημερινή, 17:00 με 22:00 ώρα Κύπρου, ή προτείνετε τη δική σας ώρα."],
     ["Επιλέξτε πώς θα μιλήσουμε", "Teams, Zoom, Google Meet ή τηλέφωνο."],
     ["Επιβεβαιώνουμε μαζί σας", "Με email ή τηλέφωνο, με τον σύνδεσμο της συνάντησης ή τον αριθμό που θα καλέσουμε. Αν η ώρα δεν είναι διαθέσιμη, σας προτείνουμε την πιο κοντινή ελεύθερη."],
   ],

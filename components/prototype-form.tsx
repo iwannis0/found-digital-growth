@@ -120,7 +120,7 @@ export function PrototypeForm({ locale, copy, formCopy }: { locale: Locale; copy
       </p>
 
       <fieldset className="form-step">
-        <legend><span>01</span> {copy.stepAbout}</legend>
+        <legend><span>1</span> {copy.stepAbout}</legend>
         <div className="form-row">
           <Field label={copy.name} name="name" required autoComplete="name" error={fields.name?.[0]} />
           <Field label={copy.business} name="businessName" required autoComplete="organization" error={fields.businessName?.[0]} />
@@ -132,7 +132,7 @@ export function PrototypeForm({ locale, copy, formCopy }: { locale: Locale; copy
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>02</span> {copy.stepBusiness}</legend>
+        <legend><span>2</span> {copy.stepBusiness}</legend>
         <Field
           label={copy.businessType}
           name="businessType"
@@ -154,7 +154,7 @@ export function PrototypeForm({ locale, copy, formCopy }: { locale: Locale; copy
       </fieldset>
 
       <fieldset className="form-step">
-        <legend><span>03</span> {copy.stepTaste}</legend>
+        <legend><span>3</span> {copy.stepTaste}</legend>
         <p className="form-step-hint">{copy.tasteHint}</p>
         <div className="style-chips" role="group" aria-label={copy.styleLabel}>
           {styleOptions.map((option) => (

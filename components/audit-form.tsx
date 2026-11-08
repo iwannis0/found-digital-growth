@@ -158,7 +158,7 @@ export function AuditForm({
       </p>
 
       <fieldset className="form-step">
-      <legend><span>01</span> {copy.stepAbout}</legend>
+      <legend><span>1</span> {copy.stepAbout}</legend>
 
       <div className="form-row">
         <Field
@@ -195,7 +195,7 @@ export function AuditForm({
       </fieldset>
 
       <fieldset className="form-step">
-      <legend><span>02</span> {copy.stepWebsite}</legend>
+      <legend><span>2</span> {copy.stepWebsite}</legend>
 
       <Field
         label={copy.website}
@@ -224,7 +224,7 @@ export function AuditForm({
       </fieldset>
 
       <fieldset className="form-step">
-      <legend><span>03</span> {copy.stepNeeds}</legend>
+      <legend><span>3</span> {copy.stepNeeds}</legend>
 
       <div className="form-row">
         <SelectField
