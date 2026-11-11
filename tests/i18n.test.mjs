@@ -72,10 +72,10 @@ test("prices and terms in Greek match the English pricing", async () => {
     readFile(new URL("../views/pricing.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/faqs-el.ts", import.meta.url), "utf8"),
   ]);
-  for (const [en, el] of [["€599", "599 €"], ["€899", "899 €"], ["€1,399", "1.399 €"], ["€49", "49 €"], ["€69", "69 €"], ["€119", "119 €"]]) {
+  for (const [en, el] of [["€499", "499 €"], ["€699", "699 €"], ["€999", "999 €"], ["€49", "49 €"], ["€69", "69 €"], ["€119", "119 €"]]) {
     assert.ok(pricing.includes(`"${en}"`) && pricing.includes(`"${el}"`), `${en} / ${el}`);
   }
-  assert.match(faqsEl, /599 €/);
+  assert.match(faqsEl, /499 €/);
   assert.match(faqsEl, /ειδοποίηση 30 ημερών/);
   assert.match(faqsEl, /3 μηνών/);
 });

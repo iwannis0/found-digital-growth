@@ -11,32 +11,32 @@ import { pageMetadata } from "@/lib/seo";
 // Package names stay in English in both languages: they are the product names, and the
 // same values travel to the contact form, the lead record and the package_click event.
 const enPlans: PricingPlan[] = [
-  { name: "Professional Website Foundation", short: "Foundation", setup: "€599", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,
+  { name: "Professional Website Foundation", short: "Foundation", setup: "€499", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,
     items: ["Up to 4 pages", "1 design revision round", "Responsive, mobile-first design", "Contact form", "Google Maps", "WhatsApp / click-to-call", "SEO foundations: titles, sitemap and structured data", "Google Analytics setup", "Launch on your domain with SSL"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates"] },
-  { name: "Custom Growth Website", short: "Growth", setup: "€899", monthly: "€69", best: "Businesses that want a stronger website built around visibility, enquiries and bookings.", minutes: "30 minutes", popular: true,
+  { name: "Custom Growth Website", short: "Growth", setup: "€699", monthly: "€69", best: "Businesses that want a stronger website built around visibility, enquiries and bookings.", minutes: "30 minutes", popular: true,
     items: ["5 to 7 pages", "2 design revision rounds", "Custom design direction", "Conversion-focused page structure", "Content refinement", "Google Business Profile setup & optimisation", "Local SEO foundations", "Analytics, Search Console & conversion tracking", "Enquiry or booking form", "WhatsApp and click-to-call", "Speed optimisation"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates", "Monthly analytics check"] },
-  { name: "Advanced Digital Presence", short: "Advanced", setup: "€1,399", monthly: "€119", best: "Businesses that need a larger website with more functionality, a stronger conversion structure and priority care.", minutes: "60 minutes", popular: false,
+  { name: "Advanced Digital Presence", short: "Advanced", setup: "€999", monthly: "€119", best: "Businesses that need a larger website with more functionality, a stronger conversion structure and priority care.", minutes: "60 minutes", popular: false,
     items: ["8 to 10 pages", "3 design revision rounds", "Tailored design direction", "Advanced conversion-focused structure", "Refined interactions and animations", "Editable content / blog (CMS) or booking system integration", "Multilingual-ready structure", "Enhanced Local SEO foundations", "Analytics, Search Console & conversion tracking"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates", "Priority support: reply within one working day", "Quarterly technical & SEO health check"] },
 ];
 
 const elPlans: PricingPlan[] = [
-  { name: "Professional Website Foundation", short: "Foundation", setup: "599 €", monthly: "49 €", best: "Μικρές επιχειρήσεις που χρειάζονται μια επαγγελματική, αξιόπιστη online παρουσία.", minutes: "15 λεπτά", popular: false,
+  { name: "Professional Website Foundation", short: "Foundation", setup: "499 €", monthly: "49 €", best: "Μικρές επιχειρήσεις που χρειάζονται μια επαγγελματική, αξιόπιστη online παρουσία.", minutes: "15 λεπτά", popular: false,
     items: ["Έως 4 σελίδες", "1 γύρος αλλαγών στον σχεδιασμό", "Responsive σχεδιασμός, με προτεραιότητα στο κινητό", "Φόρμα επικοινωνίας", "Google Maps", "WhatsApp / κλήση με ένα πάτημα", "Βάσεις SEO: τίτλοι, sitemap και δομημένα δεδομένα", "Ρύθμιση Google Analytics", "Δημοσίευση στο domain σας με SSL"],
     care: ["Hosting, SSL και αντίγραφα ασφαλείας", "Παρακολούθηση διαθεσιμότητας και ασφάλειας", "Τεχνικές ενημερώσεις"] },
-  { name: "Custom Growth Website", short: "Growth", setup: "899 €", monthly: "69 €", best: "Επιχειρήσεις που θέλουν μια πιο δυνατή ιστοσελίδα, χτισμένη γύρω από την ορατότητα, τα αιτήματα και τις κρατήσεις.", minutes: "30 λεπτά", popular: true,
+  { name: "Custom Growth Website", short: "Growth", setup: "699 €", monthly: "69 €", best: "Επιχειρήσεις που θέλουν μια πιο δυνατή ιστοσελίδα, χτισμένη γύρω από την ορατότητα, τα αιτήματα και τις κρατήσεις.", minutes: "30 λεπτά", popular: true,
     items: ["5 έως 7 σελίδες", "2 γύροι αλλαγών στον σχεδιασμό", "Εξατομικευμένη σχεδιαστική κατεύθυνση", "Δομή σελίδων με στόχο τις μετατροπές", "Βελτίωση κειμένων", "Δημιουργία & βελτιστοποίηση Google Business Profile", "Βάσεις τοπικού SEO", "Analytics, Search Console & μέτρηση μετατροπών", "Φόρμα αιτήματος ή κράτησης", "WhatsApp και κλήση με ένα πάτημα", "Βελτιστοποίηση ταχύτητας"],
     care: ["Hosting, SSL και αντίγραφα ασφαλείας", "Παρακολούθηση διαθεσιμότητας και ασφάλειας", "Τεχνικές ενημερώσεις", "Μηνιαίος έλεγχος analytics"] },
-  { name: "Advanced Digital Presence", short: "Advanced", setup: "1.399 €", monthly: "119 €", best: "Επιχειρήσεις που χρειάζονται μεγαλύτερη ιστοσελίδα, με περισσότερες λειτουργίες, πιο δυνατή δομή μετατροπών και προτεραιότητα στην υποστήριξη.", minutes: "60 λεπτά", popular: false,
+  { name: "Advanced Digital Presence", short: "Advanced", setup: "999 €", monthly: "119 €", best: "Επιχειρήσεις που χρειάζονται μεγαλύτερη ιστοσελίδα, με περισσότερες λειτουργίες, πιο δυνατή δομή μετατροπών και προτεραιότητα στην υποστήριξη.", minutes: "60 λεπτά", popular: false,
     items: ["8 έως 10 σελίδες", "3 γύροι αλλαγών στον σχεδιασμό", "Σχεδιαστική κατεύθυνση στα μέτρα σας", "Προηγμένη δομή με στόχο τις μετατροπές", "Προσεγμένες αλληλεπιδράσεις και animations", "Επεξεργάσιμο περιεχόμενο / blog (CMS) ή σύνδεση συστήματος κρατήσεων", "Δομή έτοιμη για πολλές γλώσσες", "Ενισχυμένες βάσεις τοπικού SEO", "Analytics, Search Console & μέτρηση μετατροπών"],
     care: ["Hosting, SSL και αντίγραφα ασφαλείας", "Παρακολούθηση διαθεσιμότητας και ασφάλειας", "Τεχνικές ενημερώσεις", "Προτεραιότητα στην υποστήριξη: απάντηση μέσα σε μία εργάσιμη ημέρα", "Τριμηνιαίος τεχνικός έλεγχος και έλεγχος SEO"] },
 ];
 
 const en = {
   metaTitle: "Website Design Pricing Cyprus",
-  metaDescription: "Website design packages for Cyprus businesses from €599 setup, with optional Website Care from €49 a month. See exactly what each package includes.",
+  metaDescription: "Website design packages for Cyprus businesses from €499 setup, with optional Website Care from €49 a month. See exactly what each package includes.",
   plans: enPlans,
   addons: [["Additional page", "Quote"], ["Extra language setup (translation separate)", "€150 to €300+"], ["Advanced third party booking workflow", "€150 to €400+"], ["E-commerce", "Quote"], ["Domain and DNS setup", "Quote"], ["Business email setup", "Quote"], ["Ongoing Local SEO and Google Business", "Quote"], ["Google Ads setup & conversion tracking", "Quote"], ["Lead & booking automation", "Quote"], ["Custom AI integrations", "On request"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Monthly analytics reporting", "Quote"], ["Photography & video (through a partner)", "Quote"], ["Website migration after technical review", "Quote"]] as [string, string][],
   eyebrow: "Transparent pricing",
@@ -64,7 +64,7 @@ const en = {
 
 const el: typeof en = {
   metaTitle: "Πακέτα & Τιμές Κατασκευής Ιστοσελίδων",
-  metaDescription: "Πακέτα κατασκευής ιστοσελίδων για επιχειρήσεις στην Κύπρο από 599 €, με προαιρετικό Website Care από 49 € τον μήνα. Δείτε τι ακριβώς περιλαμβάνει κάθε πακέτο.",
+  metaDescription: "Πακέτα κατασκευής ιστοσελίδων για επιχειρήσεις στην Κύπρο από 499 €, με προαιρετικό Website Care από 49 € τον μήνα. Δείτε τι ακριβώς περιλαμβάνει κάθε πακέτο.",
   plans: elPlans,
   addons: [["Επιπλέον σελίδα", "Με προσφορά"], ["Ρύθμιση επιπλέον γλώσσας (η μετάφραση χρεώνεται ξεχωριστά)", "150 € έως 300 €+"], ["Προηγμένη ροή κρατήσεων μέσω τρίτης πλατφόρμας", "150 € έως 400 €+"], ["E-commerce", "Με προσφορά"], ["Ρύθμιση domain και DNS", "Με προσφορά"], ["Ρύθμιση εταιρικού email", "Με προσφορά"], ["Συνεχές τοπικό SEO και Google Business", "Με προσφορά"], ["Ρύθμιση Google Ads & μέτρηση μετατροπών", "Με προσφορά"], ["Αυτοματοποίηση αιτημάτων & κρατήσεων", "Με προσφορά"], ["Εξειδικευμένες διασυνδέσεις AI", "Κατόπιν αιτήματος"], ["Διασύνδεση με CRM", "Με προσφορά"], ["Διασύνδεση newsletter", "Με προσφορά"], ["Μηνιαίες αναφορές analytics", "Με προσφορά"], ["Φωτογράφιση & βίντεο (μέσω συνεργάτη)", "Με προσφορά"], ["Μεταφορά ιστοσελίδας μετά από τεχνικό έλεγχο", "Με προσφορά"]],
   eyebrow: "Διαφανείς τιμές",
