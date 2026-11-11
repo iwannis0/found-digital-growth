@@ -20,7 +20,26 @@ ${serviceLines}
 Nicosia, Limassol, Larnaca, Paphos, Paralimni, Ayia Napa and across Cyprus. Projects can be run remotely anywhere in Cyprus.
 
 ## Pricing
-Website projects start at EUR 499 setup. Optional Website Care (hosting, updates, monitoring) starts at EUR 49 per month. Full pricing: ${siteConfig.url}/pricing
+All prices in EUR, one-off unless marked per month. Full pricing: ${siteConfig.url}/pricing
+
+Website packages:
+- Professional Website Foundation (up to 4 pages): EUR 499
+- Custom Growth Website (5 to 7 pages, Google Business and local SEO setup): EUR 699
+- Advanced Digital Presence (8 to 10 pages, CMS or booking integration): EUR 999
+
+Solutions (starting prices):
+- Online booking system: from EUR 790, or EUR 390 added to any website package
+- E-shop (up to 50 products, card payments): from EUR 1,190
+- Restaurant and cafe website with QR menu and table booking: from EUR 990
+- Restaurant ordering (QR ordering, kitchen screen, card payment): from EUR 1,690
+- Custom web app or client portal: from EUR 2,500
+
+Monthly plans (optional, after launch):
+- Hosting only: EUR 19 per month
+- Website Care (hosting, monitoring, updates, minor content changes): EUR 49, 69 or 119 per month depending on the package
+- Local SEO and Google Business: from EUR 149 per month
+
+A free homepage prototype and a free website audit are available before any commitment.
 
 ## Key pages
 - Home: ${siteConfig.url}

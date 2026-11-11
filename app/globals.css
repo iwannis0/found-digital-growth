@@ -2103,3 +2103,45 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .book-page .book-section { order: -1; padding-top: 34px; }
   .prototype-page .prototype-hero-cta, .book-page .prototype-hero-cta { display: none; }
 }
+
+/* Pricing: solutions, monthly plans and industry cards */
+.solutions-section, .industries-section { background: var(--white); }
+.monthly-section { background: var(--paper); }
+.pricing-section-head { max-width: 760px; margin-bottom: 48px; }
+.pricing-section-head h2 { margin: 0 0 18px; font-size: clamp(2.2rem, 4.4vw, 4.2rem); font-weight: 500; letter-spacing: -.055em; line-height: 1; }
+.pricing-section-head p:not(.eyebrow) { margin: 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.6; }
+.solution-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.solution-card, .monthly-card, .industry-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--line); border-radius: 22px; background: var(--paper); padding: 26px; }
+.monthly-card { background: var(--white); }
+.solution-card i { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 14px; background: var(--acid); color: var(--white); box-shadow: 0 10px 26px #3F35B53d; }
+.solution-card i svg { width: 21px; height: 21px; }
+.solution-card h3, .monthly-card h3, .industry-card h3 { margin: 22px 0 10px; font-size: 1.2rem; font-weight: 650; letter-spacing: -.02em; }
+.monthly-card h3 { margin-top: 0; }
+.solution-card > p, .monthly-card > p, .industry-card > p { margin: 0; color: var(--ink-soft); font-size: .92rem; line-height: 1.55; }
+.solution-card > p:first-of-type, .industry-card > p { flex: 1; }
+.solution-price { display: flex; align-items: baseline; gap: 8px; margin: 22px 0 6px; }
+.monthly-card .solution-price { margin: 4px 0 14px; }
+.solution-price small { color: var(--ink-soft); font-size: .68rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.solution-price strong { font-size: 2rem; font-weight: 700; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.solution-price span { color: var(--ink-soft); font-size: .9rem; font-weight: 600; }
+.solution-card .solution-note { flex: 0; min-height: 2.8em; font-size: .78rem; }
+.solution-card a, .industry-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; color: var(--acid); font-size: .9rem; font-weight: 700; }
+.solution-card a svg, .industry-cta svg { width: 15px; transition: transform .2s ease; }
+.solution-card a:hover svg, .industry-card:hover .industry-cta svg { transform: translateX(3px); }
+.monthly-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.industry-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.industry-card { color: inherit; text-decoration: none; transition: border-color .2s ease, transform .2s ease; }
+.industry-card:hover { border-color: var(--acid); transform: translateY(-2px); }
+.industry-card h3 { margin-top: 0; }
+@media (max-width: 1050px) {
+  .solution-grid, .industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .solution-grid, .monthly-grid, .industry-grid { grid-template-columns: 1fr; gap: 10px; }
+  .solution-card, .monthly-card, .industry-card { padding: 22px; }
+  .pricing-section-head { margin-bottom: 32px; }
+  .solution-card .solution-note { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .industry-card, .industry-card:hover { transform: none; }
+}

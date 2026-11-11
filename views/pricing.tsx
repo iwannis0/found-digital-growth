@@ -1,5 +1,8 @@
-import { CalendarClock, PencilLine, Receipt } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CalendarCheck, CalendarClock, ChefHat, LayoutDashboard, PencilLine, Receipt, ShoppingBag, UtensilsCrossed, type LucideIcon } from "lucide-react";
 import { Pricing, type PricingPlan } from "@/components/blocks/pricing";
+import { localizePath } from "@/lib/i18n";
+import { siteConfig } from "@/lib/site-config";
 import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
 import { PageMotion } from "@/components/page-motion";
@@ -10,6 +13,15 @@ import { pageMetadata } from "@/lib/seo";
 
 // Package names stay in English in both languages: they are the product names, and the
 // same values travel to the contact form, the lead record and the package_click event.
+// Solution names stay in English for the same reason: they travel to the contact form as the package.
+type Solution = { name: string; icon: keyof typeof solutionIcons; title: string; body: string; from: string; unit: string; note: string };
+type MonthlyPlan = { name: string; price: string; unit: string; body: string; from?: boolean };
+type Industry = { title: string; body: string; from: string; href: string; cta: string };
+
+const solutionIcons = { booking: CalendarCheck, shop: ShoppingBag, restaurant: UtensilsCrossed, ordering: ChefHat, app: LayoutDashboard } satisfies Record<string, LucideIcon>;
+
+const toNumber = (price: string) => price.replace(/[^\d]/g, "");
+
 const enPlans: PricingPlan[] = [
   { name: "Professional Website Foundation", short: "Foundation", setup: "€499", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,
     items: ["Up to 4 pages", "1 design revision round", "Responsive, mobile-first design", "Contact form", "Google Maps", "WhatsApp / click-to-call", "SEO foundations: titles, sitemap and structured data", "Google Analytics setup", "Launch on your domain with SSL"],
@@ -36,9 +48,38 @@ const elPlans: PricingPlan[] = [
 
 const en = {
   metaTitle: "Website Design Pricing Cyprus",
-  metaDescription: "Website design packages for Cyprus businesses from €499 setup, with optional Website Care from €49 a month. See exactly what each package includes.",
+  metaDescription: "Website packages for Cyprus businesses from €499, online booking from €790, e-shops from €1,190 and hosting from €19 a month. See exactly what each includes.",
   plans: enPlans,
-  addons: [["Additional page", "Quote"], ["Extra language setup (translation separate)", "€150 to €300+"], ["Advanced third party booking workflow", "€150 to €400+"], ["E-commerce", "Quote"], ["Domain and DNS setup", "Quote"], ["Business email setup", "Quote"], ["Ongoing Local SEO and Google Business", "Quote"], ["Google Ads setup & conversion tracking", "Quote"], ["Lead & booking automation", "Quote"], ["Custom AI integrations", "On request"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Monthly analytics reporting", "Quote"], ["Photography & video (through a partner)", "Quote"], ["Website migration after technical review", "Quote"]] as [string, string][],
+  solutions: [
+    { name: "Online Booking System", icon: "booking", title: "Online bookings", body: "Live availability, email confirmations and reminders, and a calendar you manage yourself. SMS reminders are optional, charged at cost.", from: "€790", unit: "", note: "or +€390 added to any website package" },
+    { name: "E-shop", icon: "shop", title: "E-shops", body: "Up to 50 products, card payments through Viva Wallet or Stripe, delivery options, discount codes and stock you can update yourself.", from: "€1,190", unit: "", note: "Payment provider fees are paid to the provider" },
+    { name: "Restaurant & Café Website", icon: "restaurant", title: "Restaurants & cafés", body: "A website with your menu, a QR menu for every table and online table booking, in English and Greek.", from: "€990", unit: "", note: "Menu updates included with Website Care" },
+    { name: "Restaurant Ordering", icon: "ordering", title: "Restaurant ordering", body: "Customers order from the QR menu, orders go straight to a kitchen screen and they can pay by card at the table.", from: "€1,690", unit: "", note: "Includes the restaurant website" },
+    { name: "Custom Web App", icon: "app", title: "Custom web apps", body: "Client portals, dashboards, staff tools and automations that work in the browser and install on any phone, with no app-store fees.", from: "€2,500", unit: "", note: "Fixed quote after a scoping call" },
+  ] as Solution[],
+  monthlyEyebrow: "Monthly plans",
+  monthlyTitle: "Keep it running. Keep it growing.",
+  monthlyLead: "All monthly plans are optional and start after launch.",
+  monthly: [
+    { name: "Hosting only", price: "€19", unit: "/month", body: "Hosting, SSL and backups. Content changes are quoted when you need them." },
+    { name: "Website Care", price: "€49", unit: "/month", body: "Hosting, monitoring, technical updates and minor content updates. €69 or €119 a month for the Growth and Advanced packages." },
+    { name: "Local SEO & Google Business", price: "€149", unit: "/month", body: "Google Business updates, review requests, local page improvements and a short monthly report.", from: true },
+  ] as MonthlyPlan[],
+  industriesEyebrow: "Built for your type of business",
+  industriesTitle: "See what it looks like for a business like yours.",
+  industries: [
+    { title: "Dental & medical clinics", body: "Clear treatment pages that answer patients’ worries, with booking one step away.", from: "€699", href: "/work/aura-dental", cta: "See the Aura Dental concept" },
+    { title: "Real estate agencies", body: "Property search with filters, editorial listing pages and private enquiries.", from: "€999", href: "/work/nova-estates", cta: "See the Nova Estates concept" },
+    { title: "Beauty & wellness studios", body: "A short treatment menu, therapists by name and booking or WhatsApp on every page.", from: "€699", href: "/work/vela-studio", cta: "See the Vela Studio concept" },
+    { title: "Restaurants, cafés & taverns", body: "Menu, QR menu and table booking, with ordering to the kitchen when you are ready.", from: "€990", href: "/free-prototype", cta: "Get a free homepage prototype" },
+  ] as Industry[],
+  addons: [["Additional page", "from €69"], ["Extra language setup (translation separate)", "€150 to €300"], ["Business email setup", "€49"], ["Domain and DNS setup (plus the domain itself)", "€29"], ["Google Ads setup & conversion tracking", "Quote"], ["CRM integration", "Quote"], ["Newsletter integration", "Quote"], ["Custom AI integrations", "On request"], ["Monthly analytics reporting", "Quote"], ["Photography & video (through a partner)", "Quote"], ["Website migration after technical review", "Quote"]] as [string, string][],
+  solutionsEyebrow: "Beyond a website",
+  solutionsTitle: "Solutions with clear starting prices.",
+  solutionsLead: "For businesses that need more than pages: bookings, online sales, restaurant ordering or a tool built around how you work.",
+  fromLabel: "From",
+  ask: "Ask about this",
+  finalNote: "Prices in euro. No hidden fees.",
   eyebrow: "Transparent pricing",
   titleLead: "Start with the",
   titleAccent: "right foundation.",
@@ -64,9 +105,38 @@ const en = {
 
 const el: typeof en = {
   metaTitle: "Πακέτα & Τιμές Κατασκευής Ιστοσελίδων",
-  metaDescription: "Πακέτα κατασκευής ιστοσελίδων για επιχειρήσεις στην Κύπρο από 499 €, με προαιρετικό Website Care από 49 € τον μήνα. Δείτε τι ακριβώς περιλαμβάνει κάθε πακέτο.",
+  metaDescription: "Πακέτα ιστοσελίδων για επιχειρήσεις στην Κύπρο από 499 €, online κρατήσεις από 790 €, e-shops από 1.190 € και hosting από 19 € τον μήνα. Δείτε τι περιλαμβάνει το καθένα.",
   plans: elPlans,
-  addons: [["Επιπλέον σελίδα", "Με προσφορά"], ["Ρύθμιση επιπλέον γλώσσας (η μετάφραση χρεώνεται ξεχωριστά)", "150 € έως 300 €+"], ["Προηγμένη ροή κρατήσεων μέσω τρίτης πλατφόρμας", "150 € έως 400 €+"], ["E-commerce", "Με προσφορά"], ["Ρύθμιση domain και DNS", "Με προσφορά"], ["Ρύθμιση εταιρικού email", "Με προσφορά"], ["Συνεχές τοπικό SEO και Google Business", "Με προσφορά"], ["Ρύθμιση Google Ads & μέτρηση μετατροπών", "Με προσφορά"], ["Αυτοματοποίηση αιτημάτων & κρατήσεων", "Με προσφορά"], ["Εξειδικευμένες διασυνδέσεις AI", "Κατόπιν αιτήματος"], ["Διασύνδεση με CRM", "Με προσφορά"], ["Διασύνδεση newsletter", "Με προσφορά"], ["Μηνιαίες αναφορές analytics", "Με προσφορά"], ["Φωτογράφιση & βίντεο (μέσω συνεργάτη)", "Με προσφορά"], ["Μεταφορά ιστοσελίδας μετά από τεχνικό έλεγχο", "Με προσφορά"]],
+  solutions: [
+    { name: "Online Booking System", icon: "booking", title: "Online κρατήσεις", body: "Διαθεσιμότητα σε πραγματικό χρόνο, επιβεβαιώσεις και υπενθυμίσεις με email και ημερολόγιο που διαχειρίζεστε εσείς. Οι υπενθυμίσεις SMS είναι προαιρετικές και χρεώνονται στο κόστος.", from: "790 €", unit: "", note: "ή +390 € μαζί με οποιοδήποτε πακέτο ιστοσελίδας" },
+    { name: "E-shop", icon: "shop", title: "E-shops", body: "Έως 50 προϊόντα, πληρωμές με κάρτα μέσω Viva Wallet ή Stripe, επιλογές αποστολής, εκπτωτικοί κωδικοί και απόθεμα που ενημερώνετε εσείς.", from: "1.190 €", unit: "", note: "Οι χρεώσεις του παρόχου πληρωμών πληρώνονται στον πάροχο" },
+    { name: "Restaurant & Café Website", icon: "restaurant", title: "Εστιατόρια & καφέ", body: "Ιστοσελίδα με το μενού σας, QR μενού σε κάθε τραπέζι και online κράτηση τραπεζιού, στα ελληνικά και στα αγγλικά.", from: "990 €", unit: "", note: "Οι αλλαγές στο μενού περιλαμβάνονται στο Website Care" },
+    { name: "Restaurant Ordering", icon: "ordering", title: "Παραγγελίες εστιατορίου", body: "Οι πελάτες παραγγέλνουν από το QR μενού, οι παραγγελίες πάνε κατευθείαν σε οθόνη στην κουζίνα και πληρώνουν με κάρτα στο τραπέζι.", from: "1.690 €", unit: "", note: "Περιλαμβάνει την ιστοσελίδα του εστιατορίου" },
+    { name: "Custom Web App", icon: "app", title: "Εξειδικευμένες web εφαρμογές", body: "Πύλες πελατών, dashboards, εργαλεία προσωπικού και αυτοματοποιήσεις που δουλεύουν στον browser και εγκαθίστανται σε κάθε κινητό, χωρίς χρεώσεις app store.", from: "2.500 €", unit: "", note: "Σταθερή προσφορά μετά από μια κλήση γνωριμίας" },
+  ],
+  monthlyEyebrow: "Μηνιαία πλάνα",
+  monthlyTitle: "Να δουλεύει. Να μεγαλώνει.",
+  monthlyLead: "Όλα τα μηνιαία πλάνα είναι προαιρετικά και ξεκινούν μετά το λανσάρισμα.",
+  monthly: [
+    { name: "Μόνο hosting", price: "19 €", unit: "/μήνα", body: "Hosting, SSL και αντίγραφα ασφαλείας. Οι αλλαγές περιεχομένου κοστολογούνται όταν τις χρειαστείτε." },
+    { name: "Website Care", price: "49 €", unit: "/μήνα", body: "Hosting, παρακολούθηση, τεχνικές ενημερώσεις και μικρές αλλαγές περιεχομένου. 69 € ή 119 € τον μήνα για τα πακέτα Growth και Advanced." },
+    { name: "Τοπικό SEO & Google Business", price: "149 €", unit: "/μήνα", body: "Ενημερώσεις στο Google Business, αιτήματα για κριτικές, βελτιώσεις τοπικών σελίδων και σύντομη μηνιαία αναφορά.", from: true },
+  ],
+  industriesEyebrow: "Για το είδος της επιχείρησής σας",
+  industriesTitle: "Δείτε πώς φαίνεται για μια επιχείρηση σαν τη δική σας.",
+  industries: [
+    { title: "Οδοντιατρεία & ιατρεία", body: "Ξεκάθαρες σελίδες θεραπειών που απαντούν στις ανησυχίες των ασθενών, με την κράτηση ένα βήμα μακριά.", from: "699 €", href: "/work/aura-dental", cta: "Δείτε το concept Aura Dental" },
+    { title: "Μεσιτικά γραφεία", body: "Αναζήτηση ακινήτων με φίλτρα, προσεγμένες σελίδες ακινήτων και ιδιωτικά αιτήματα.", from: "999 €", href: "/work/nova-estates", cta: "Δείτε το concept Nova Estates" },
+    { title: "Studios ομορφιάς & ευεξίας", body: "Σύντομο μενού θεραπειών, οι θεραπευτές με το όνομά τους και κράτηση ή WhatsApp σε κάθε σελίδα.", from: "699 €", href: "/work/vela-studio", cta: "Δείτε το concept Vela Studio" },
+    { title: "Εστιατόρια, καφέ & ταβέρνες", body: "Μενού, QR μενού και κράτηση τραπεζιού, με παραγγελίες στην κουζίνα όταν είστε έτοιμοι.", from: "990 €", href: "/free-prototype", cta: "Πάρτε δωρεάν πρωτότυπο αρχικής σελίδας" },
+  ],
+  addons: [["Επιπλέον σελίδα", "από 69 €"], ["Ρύθμιση επιπλέον γλώσσας (η μετάφραση χρεώνεται ξεχωριστά)", "150 € έως 300 €"], ["Ρύθμιση εταιρικού email", "49 €"], ["Ρύθμιση domain και DNS (συν το κόστος του domain)", "29 €"], ["Ρύθμιση Google Ads & μέτρηση μετατροπών", "Με προσφορά"], ["Διασύνδεση με CRM", "Με προσφορά"], ["Διασύνδεση newsletter", "Με προσφορά"], ["Εξειδικευμένες διασυνδέσεις AI", "Κατόπιν αιτήματος"], ["Μηνιαίες αναφορές analytics", "Με προσφορά"], ["Φωτογράφιση & βίντεο (μέσω συνεργάτη)", "Με προσφορά"], ["Μεταφορά ιστοσελίδας μετά από τεχνικό έλεγχο", "Με προσφορά"]],
+  solutionsEyebrow: "Πέρα από μια ιστοσελίδα",
+  solutionsTitle: "Λύσεις με ξεκάθαρες τιμές εκκίνησης.",
+  solutionsLead: "Για επιχειρήσεις που χρειάζονται κάτι παραπάνω από σελίδες: κρατήσεις, online πωλήσεις, παραγγελίες εστιατορίου ή ένα εργαλείο φτιαγμένο γύρω από τον τρόπο που δουλεύετε.",
+  fromLabel: "Από",
+  ask: "Ρωτήστε μας",
+  finalNote: "Τιμές σε ευρώ. Χωρίς κρυφές χρεώσεις.",
   eyebrow: "Διαφανείς τιμές",
   titleLead: "Ξεκινήστε με",
   titleAccent: "τη σωστή βάση.",
@@ -97,9 +167,39 @@ export function pricingMetadata(locale: Locale) {
   return pageMetadata({ locale, path: "/pricing", title: t.metaTitle, description: t.metaDescription });
 }
 
+/** Every price on the page as schema.org offers, so search and AI answers can quote them exactly. */
+function pricingSchema(locale: Locale) {
+  const t = copy[locale];
+  const url = `${siteConfig.url}${localizePath(locale, "/pricing")}`;
+  const provider = { "@id": `${siteConfig.url}/#business` };
+  const offer = (name: string, description: string, price: string, perMonth = false) => ({
+    "@type": "Offer",
+    price: toNumber(price),
+    priceCurrency: "EUR",
+    url,
+    itemOffered: { "@type": "Service", name, description, provider, areaServed: { "@type": "Country", name: "Cyprus" } },
+    ...(perMonth ? { priceSpecification: { "@type": "UnitPriceSpecification", price: toNumber(price), priceCurrency: "EUR", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } } : {}),
+  });
+  return {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name: t.metaTitle,
+    url,
+    inLanguage: locale,
+    itemListElement: [
+      ...t.plans.map((plan) => offer(plan.name, plan.best, plan.setup)),
+      ...t.plans.map((plan) => offer(`Website Care: ${plan.short}`, plan.care.join(", "), plan.monthly, true)),
+      ...t.solutions.map((s) => offer(s.title, s.body, s.from)),
+      ...t.monthly.filter((m) => m.name !== "Website Care").map((m) => offer(m.name, m.body, m.price, true)),
+    ],
+  };
+}
+
 export function PricingView({ locale }: { locale: Locale }) {
   const t = copy[locale];
+  const contactPath = getDictionary(locale).pricing.contactPath;
   return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema(locale)).replace(/</g, "\\u003c") }} />
     <section className="lit-hero pricing-lit-hero"><div className="site-container lit-hero-grid">
       <div><p className="eyebrow">{t.eyebrow}</p><h1>{t.titleLead} <em>{t.titleAccent}</em></h1><p className="lit-hero-lead">{t.lead}</p></div>
       <div className="price-summary">
@@ -108,7 +208,35 @@ export function PricingView({ locale }: { locale: Locale }) {
         <div className="price-summary-foot"><span><b>50%</b> {t.summary.deposit}</span><span><b>50%</b> {t.summary.beforeLaunch}</span><span>{t.summary.optional}</span></div>
       </div>
     </div></section>
-    <section className="pricing-section section-pad"><div className="site-container"><Pricing plans={t.plans} copy={getDictionary(locale).pricing} /><p className="pricing-scope-note">{t.scopeNote}</p></div></section>
+    <section className="pricing-section section-pad"><div className="site-container"><Pricing plans={t.plans} copy={getDictionary(locale).pricing} /><p className="pricing-scope-note">{t.scopeNote} {t.finalNote}</p></div></section>
+    <section className="solutions-section section-pad"><div className="site-container">
+      <div className="pricing-section-head" data-motion="rise"><p className="eyebrow">{t.solutionsEyebrow}</p><h2>{t.solutionsTitle}</h2><p>{t.solutionsLead}</p></div>
+      <div className="solution-grid">{t.solutions.map((s) => { const Icon = solutionIcons[s.icon]; return <article className="solution-card" key={s.name} data-motion="rise">
+        <i aria-hidden="true"><Icon /></i>
+        <h3>{s.title}</h3>
+        <p>{s.body}</p>
+        <div className="solution-price"><small>{t.fromLabel}</small><strong>{s.from}</strong></div>
+        <p className="solution-note">{s.note}</p>
+        <Link href={`${contactPath}?package=${encodeURIComponent(s.name)}`} data-track="package_click" data-track-label={s.name} data-track-package-name={s.name} data-track-location="pricing_solutions">{t.ask}<ArrowRight aria-hidden="true" /></Link>
+      </article>; })}</div>
+    </div></section>
+    <section className="monthly-section section-pad"><div className="site-container">
+      <div className="pricing-section-head" data-motion="rise"><p className="eyebrow">{t.monthlyEyebrow}</p><h2>{t.monthlyTitle}</h2><p>{t.monthlyLead}</p></div>
+      <div className="monthly-grid">{t.monthly.map((m) => <article className="monthly-card" key={m.name} data-motion="rise">
+        <h3>{m.name}</h3>
+        <div className="solution-price">{(m.from || m.name === "Website Care") && <small>{t.fromLabel}</small>}<strong>{m.price}</strong><span>{m.unit}</span></div>
+        <p>{m.body}</p>
+      </article>)}</div>
+    </div></section>
+    <section className="industries-section section-pad"><div className="site-container">
+      <div className="pricing-section-head" data-motion="rise"><p className="eyebrow">{t.industriesEyebrow}</p><h2>{t.industriesTitle}</h2></div>
+      <div className="industry-grid">{t.industries.map((ind) => <Link className="industry-card" key={ind.title} href={localizePath(locale, ind.href)} data-motion="rise" data-track="industry_click" data-track-label={ind.title} data-track-location="pricing">
+        <h3>{ind.title}</h3>
+        <p>{ind.body}</p>
+        <div className="solution-price"><small>{t.fromLabel}</small><strong>{ind.from}</strong></div>
+        <span className="industry-cta">{ind.cta}<ArrowRight aria-hidden="true" /></span>
+      </Link>)}</div>
+    </div></section>
     <section className="maintenance-policy"><div className="site-container policy-grid"><div data-motion="rise"><p className="eyebrow">{t.policy.eyebrow}</p><h2>{t.policy.title}</h2><p>{t.policy.body}</p></div><div className="policy-item" data-motion="rise"><i aria-hidden="true"><PencilLine /></i><h3>{t.policy.includedTitle}</h3><p>{t.policy.includedBody}</p></div><div className="policy-item" data-motion="rise"><i aria-hidden="true"><Receipt /></i><h3>{t.policy.quotedTitle}</h3><p>{t.policy.quotedBody}</p></div><div className="policy-note" data-motion="rise"><i aria-hidden="true"><CalendarClock /></i><div><p>{t.policy.rollover}</p><p>{t.policy.term}</p></div></div></div></section>
     <section className="addons-section section-pad"><div className="site-container"><div data-motion="rise"><p className="eyebrow">{t.addonsEyebrow}</p><h2>{t.addonsTitle}</h2></div><div className="addons-list">{t.addons.map(([name, price]) => <div key={name} data-motion="rise"><span>{name}</span><strong>{price}</strong></div>)}</div></div></section>
     <section className="pricing-faq section-pad"><div className="site-container faq-grid"><div data-motion="rise"><p className="eyebrow">{t.faqEyebrow}</p><h2>{t.faqTitle}</h2></div><FAQList list={getFaqs(locale)} limit={8} /></div></section>

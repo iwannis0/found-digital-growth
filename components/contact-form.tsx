@@ -26,6 +26,11 @@ const packageOptions = [
   "Professional Website Foundation",
   "Custom Growth Website",
   "Advanced Digital Presence",
+  "Online Booking System",
+  "E-shop",
+  "Restaurant & Café Website",
+  "Restaurant Ordering",
+  "Custom Web App",
   "Not sure",
   "Custom",
 ];
