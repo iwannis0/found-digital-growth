@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowRight, CalendarCheck, CalendarClock, ChefHat, LayoutDashboard, PencilLine, Receipt, ShoppingBag, UtensilsCrossed, type LucideIcon } from "lucide-react";
 import { Pricing, type PricingPlan } from "@/components/blocks/pricing";
 import { localizePath } from "@/lib/i18n";
-import { blackFriday, priced } from "@/lib/offers";
+import { blackFriday, priced, savingLabel } from "@/lib/offers";
+import { OfferCountdown } from "@/components/offer-countdown";
 import { siteConfig } from "@/lib/site-config";
 import { FAQList } from "@/components/faq-list";
 import { PageTracker } from "@/components/analytics";
@@ -168,7 +169,7 @@ const copy = { en, el };
 /** The page copy with the offer applied: offer prices shown, regular ones kept as `was`. */
 function resolved(locale: Locale) {
   const t = copy[locale];
-  const plans = t.plans.map((plan) => blackFriday.active && plan.sale ? { ...plan, setup: plan.sale, was: plan.setup } : plan);
+  const plans = t.plans.map((plan) => blackFriday.active && plan.sale ? { ...plan, setup: plan.sale, was: plan.setup, saving: savingLabel(locale, plan.setup, plan.sale) } : plan);
   const solutions = t.solutions.map((s) => { const x = priced(s); return blackFriday.active && s.saleNote ? { ...x, note: s.saleNote } : x; });
   const industries = t.industries.map(priced);
   const solutionPrice = (name: string) => solutions.find((s) => s.name === name)?.price ?? "";
@@ -213,11 +214,14 @@ function pricingSchema(locale: Locale) {
 export function PricingView({ locale }: { locale: Locale }) {
   const t = resolved(locale);
   const was = (price?: string) => price ? <s className="price-was"><span className="sr-only">{t.offer.was}: </span>{price}</s> : null;
+  const save = (regular: string | undefined, now: string) => regular ? <span className="save-chip">{savingLabel(locale, regular, now)}</span> : null;
+  const ribbon = blackFriday.ribbon[locale];
   const contactPath = getDictionary(locale).pricing.contactPath;
   return <main className="motion-page pricing-motion-page"><PageMotion /><PageTracker event="pricing_view" />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema(locale)).replace(/</g, "\\u003c") }} />
-    <section className="lit-hero pricing-lit-hero"><div className="site-container lit-hero-grid">
-      <div>{blackFriday.active ? <p className="offer-badge"><b>{blackFriday.label[locale]}</b><span>{blackFriday.ends[locale]}</span></p> : <p className="eyebrow">{t.eyebrow}</p>}<h1>{t.titleLead} <em>{t.titleAccent}</em></h1><p className="lit-hero-lead">{blackFriday.active ? t.offer.lead : t.lead}</p></div>
+    {blackFriday.active && <div className="offer-ribbon"><div className="offer-ribbon-track">{[0, 1].map((copyIndex) => <p key={copyIndex} aria-hidden={copyIndex === 1 || undefined}>{[...ribbon, ...ribbon].map((item, i) => <span key={i}>{item}</span>)}</p>)}</div></div>}
+    <section className={`lit-hero pricing-lit-hero${blackFriday.active ? " is-offer" : ""}`}><div className="site-container lit-hero-grid">
+      <div>{blackFriday.active ? <p className="offer-badge"><b>{blackFriday.label[locale]}</b><span>{blackFriday.ends[locale]}</span></p> : <p className="eyebrow">{t.eyebrow}</p>}<h1>{t.titleLead} <em>{t.titleAccent}</em></h1><p className="lit-hero-lead">{blackFriday.active ? t.offer.lead : t.lead}</p>{blackFriday.active && <OfferCountdown endsAt={blackFriday.endsAt} labels={blackFriday.countdown[locale]} />}</div>
       <div className="price-summary">
         <div className="price-summary-head"><span>{t.summary.head}</span><span>{t.summary.setup}</span><span>{t.summary.care}</span></div>
         {t.plans.map((plan) => <div className={`price-summary-row${plan.popular ? " is-popular" : ""}`} key={plan.name}><span>{plan.name}{plan.popular && <em>{t.summary.popular}</em>}</span><strong>{was(plan.was)}{plan.setup}</strong><small>{plan.monthly}</small></div>)}
@@ -231,7 +235,7 @@ export function PricingView({ locale }: { locale: Locale }) {
         <i aria-hidden="true"><Icon /></i>
         <h3>{s.title}</h3>
         <p>{s.body}</p>
-        <div className="solution-price"><small>{t.fromLabel}</small>{was(s.was)}<strong>{s.price}</strong></div>
+        <div className="solution-price"><small>{t.fromLabel}</small>{was(s.was)}<strong>{s.price}</strong>{save(s.was, s.price)}</div>
         <p className="solution-note">{s.note}</p>
         <Link href={`${contactPath}?package=${encodeURIComponent(s.name)}`} data-track="package_click" data-track-label={s.name} data-track-package-name={s.name} data-track-location="pricing_solutions">{t.ask}<ArrowRight aria-hidden="true" /></Link>
       </article>; })}</div>
@@ -249,7 +253,7 @@ export function PricingView({ locale }: { locale: Locale }) {
       <div className="industry-grid">{t.industries.map((ind) => <Link className="industry-card" key={ind.title} href={localizePath(locale, ind.href)} data-motion="rise" data-track="industry_click" data-track-label={ind.title} data-track-location="pricing">
         <h3>{ind.title}</h3>
         <p>{ind.body}</p>
-        <div className="solution-price"><small>{t.fromLabel}</small>{was(ind.was)}<strong>{ind.price}</strong></div>
+        <div className="solution-price"><small>{t.fromLabel}</small>{was(ind.was)}<strong>{ind.price}</strong>{save(ind.was, ind.price)}</div>
         <span className="industry-cta">{ind.cta}<ArrowRight aria-hidden="true" /></span>
       </Link>)}</div>
     </div></section>

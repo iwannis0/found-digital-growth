@@ -2146,10 +2146,44 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
   .industry-card, .industry-card:hover { transform: none; }
 }
 
-/* Offer (Black Friday): badge in the pricing hero and crossed-out regular prices */
-.offer-badge { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 24px; border: 1px solid #ffffff2e; border-radius: 999px; background: #ffffff0f; padding: 6px 14px 6px 6px; font-size: .78rem; }
-.offer-badge b { border-radius: 999px; background: var(--acid); color: var(--white); padding: 5px 12px; font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.offer-badge span { color: #d8d7cf; }
-.price-was { color: var(--ink-soft); font-size: .8em; font-weight: 600; letter-spacing: -.02em; text-decoration-thickness: 1.5px; }
+/* Offer (Black Friday): black, yellow and a red strike, used only while lib/offers.ts has the offer on */
+:root { --bf-yellow: #FFE14D; --bf-yellow-deep: #F5C400; --bf-red: #E5383B; --bf-black: #0b0b0a; }
+
+.offer-ribbon { position: relative; z-index: 2; overflow: hidden; background: var(--bf-yellow); color: var(--bf-black); border-bottom: 1px solid #00000022; }
+.offer-ribbon-track { display: flex; width: max-content; animation: offer-marquee 38s linear infinite; }
+.offer-ribbon-track p { display: flex; flex-shrink: 0; margin: 0; }
+.offer-ribbon-track span { display: inline-flex; align-items: center; gap: 22px; padding: 11px 0 11px 22px; font-size: .74rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+.offer-ribbon-track span::after { content: "º6"; font-size: .7rem; }
+@keyframes offer-marquee { to { transform: translateX(-50%); } }
+
+.pricing-lit-hero.is-offer .price-summary { border-color: #FFE14D4d; box-shadow: 0 40px 90px #00000099, 0 0 0 1px #FFE14D1a inset, 0 0 90px #FFE14D24; }
+.pricing-lit-hero.is-offer .price-summary-head span:first-child { color: var(--bf-yellow); }
+.pricing-lit-hero.is-offer h1 em { background: linear-gradient(95deg, #FFF6C2 0%, var(--bf-yellow) 55%, var(--bf-yellow-deep) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.offer-badge { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 24px; border: 1px solid #FFE14D59; border-radius: 999px; background: #FFE14D14; padding: 5px 16px 5px 5px; font-size: .8rem; }
+.offer-badge b { border-radius: 999px; background: var(--bf-yellow); color: var(--bf-black); padding: 6px 14px; font-size: .74rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; box-shadow: 0 0 24px #FFE14D59; }
+.offer-badge span { color: #f1efe4; }
+
+.offer-countdown { margin-top: 28px; }
+.offer-countdown p { margin: 0 0 10px; color: #aaa99f; font-size: .7rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
+.offer-countdown ol { display: flex; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.offer-countdown li { display: grid; min-width: 68px; justify-items: center; border: 1px solid #ffffff1f; border-radius: 14px; background: linear-gradient(160deg, #1d1d1a 0%, #121211 100%); padding: 10px 8px 9px; }
+.offer-countdown strong { color: var(--bf-yellow); font-size: 1.7rem; font-weight: 700; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.offer-countdown span { margin-top: 5px; color: #aaa99f; font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+
+.price-was { color: var(--bf-red); font-size: .8em; font-weight: 600; letter-spacing: -.02em; text-decoration-color: var(--bf-red); text-decoration-thickness: 2px; }
+.solution-price { flex-wrap: wrap; }
 .solution-price .price-was { font-size: 1.05rem; }
-.price-summary-row strong .price-was { display: block; color: #8f8e86; font-size: .5em; letter-spacing: 0; line-height: 1.1; }
+.price-summary-row strong .price-was { display: block; color: #ff7b7d; font-size: .5em; letter-spacing: 0; line-height: 1.1; text-decoration-color: #ff7b7d; }
+
+.save-chip { display: inline-flex; align-self: center; align-items: center; gap: 6px; width: max-content; border-radius: 999px; background: var(--bf-black); color: var(--bf-yellow); padding: 5px 11px; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.save-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--bf-yellow); box-shadow: 0 0 8px var(--bf-yellow); }
+.solution-price .save-chip { margin-left: 4px; }
+
+@media (max-width: 760px) {
+  .offer-countdown li { min-width: 0; flex: 1; }
+  .offer-countdown strong { font-size: 1.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .offer-ribbon-track { animation: none; }
+}

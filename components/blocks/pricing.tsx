@@ -21,6 +21,8 @@ export interface PricingPlan {
   sale?: string;
   /** The regular setup price, shown crossed out while an offer runs. */
   was?: string;
+  /** "Save €200"-style label while an offer runs. */
+  saving?: string;
   monthly: string;
   best: string;
   minutes: string;
@@ -231,13 +233,19 @@ export function Pricing({
               </div>
             )}
 
+            {plan.saving && (
+              <span className={cn("save-chip mx-auto mb-3", showCare && "invisible")}>
+                {plan.saving}
+              </span>
+            )}
+
             <p className="mx-auto max-w-[16em] text-xs font-extrabold uppercase leading-snug tracking-[.16em] text-muted-foreground md:min-h-[2.6em]">
               {plan.name}
             </p>
 
             <div className="mt-4 flex items-baseline justify-center gap-x-2 md:mt-5">
               {plan.was && !showCare && (
-                <s className="text-xl font-semibold text-muted-foreground tabular-nums md:text-2xl">
+                <s className="price-was text-xl font-semibold tabular-nums md:text-2xl">
                   <span className="sr-only">{wasLabel}: </span>
                   {plan.was}
                 </s>
