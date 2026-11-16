@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import { localizePath, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
+import { startingPrice } from "@/lib/offers";
 
 const includedIcons = [LayoutTemplate, MonitorSmartphone, Target, Palette] as const;
 const reassuranceIcons = [ShieldCheck, Clock, Users] as const;
@@ -34,7 +35,7 @@ const en = {
     ["What exactly do I receive?", "A designed homepage for your business on desktop and mobile, shared through a private link or on a short call. It is a design prototype, not a live website, so it is not published under your domain."],
     ["Do I need an existing website?", "No. Many requests come from businesses that only have a Facebook or Instagram page, or nothing online yet. Tell us what the business does and who it serves, and we design from there."],
     ["How is this different from the free audit?", "The audit reviews a website you already have and lists what to fix. The prototype shows what a new website could look like, so you can judge whether our style suits the business."],
-    ["What happens if I want the full website?", "We send a fixed quote based on the pages and features you need. Website packages start at €499. The prototype becomes the starting point of the design, so the work is not wasted."],
+    ["What happens if I want the full website?", `We send a fixed quote based on the pages and features you need. Website packages start at ${startingPrice.en}. The prototype becomes the starting point of the design, so the work is not wasted.`],
   ] as [string, string][],
   eyebrow: "Free website prototype",
   titleLead: "See your new website",
@@ -81,7 +82,7 @@ const el: typeof en = {
     ["Τι ακριβώς θα λάβω;", "Μια σχεδιασμένη αρχική σελίδα για την επιχείρησή σας, για υπολογιστή και κινητό, μέσω ιδιωτικού συνδέσμου ή σε μια σύντομη κλήση. Είναι σχεδιαστικό πρωτότυπο και όχι ζωντανή ιστοσελίδα, οπότε δεν δημοσιεύεται στο domain σας."],
     ["Χρειάζεται να έχω ήδη ιστοσελίδα;", "Όχι. Πολλά αιτήματα έρχονται από επιχειρήσεις που έχουν μόνο σελίδα στο Facebook ή στο Instagram ή τίποτα ακόμη στο διαδίκτυο. Πείτε μας τι κάνει η επιχείρησή σας και σε ποιους απευθύνεται, και ξεκινάμε τον σχεδιασμό από εκεί."],
     ["Σε τι διαφέρει από τη δωρεάν αξιολόγηση;", "Η αξιολόγηση εξετάζει μια ιστοσελίδα που ήδη έχετε και καταγράφει τι πρέπει να διορθωθεί. Το πρωτότυπο δείχνει πώς θα μπορούσε να είναι μια νέα ιστοσελίδα, ώστε να κρίνετε αν το στυλ μας ταιριάζει στην επιχείρησή σας."],
-    ["Τι γίνεται αν θέλω ολόκληρη την ιστοσελίδα;", "Σας στέλνουμε σταθερή προσφορά με βάση τις σελίδες και τις λειτουργίες που χρειάζεστε. Τα πακέτα ιστοσελίδων ξεκινούν από 499 €. Το πρωτότυπο γίνεται η αφετηρία του σχεδιασμού, οπότε η δουλειά δεν πάει χαμένη."],
+    ["Τι γίνεται αν θέλω ολόκληρη την ιστοσελίδα;", `Σας στέλνουμε σταθερή προσφορά με βάση τις σελίδες και τις λειτουργίες που χρειάζεστε. Τα πακέτα ιστοσελίδων ξεκινούν από ${startingPrice.el}. Το πρωτότυπο γίνεται η αφετηρία του σχεδιασμού, οπότε η δουλειά δεν πάει χαμένη.`],
   ],
   eyebrow: "Δωρεάν πρωτότυπο ιστοσελίδας",
   titleLead: "Δείτε τη νέα σας ιστοσελίδα",

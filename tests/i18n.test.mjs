@@ -72,10 +72,12 @@ test("prices and terms in Greek match the English pricing", async () => {
     readFile(new URL("../views/pricing.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/faqs-el.ts", import.meta.url), "utf8"),
   ]);
-  for (const [en, el] of [["€499", "499 €"], ["€699", "699 €"], ["€999", "999 €"], ["€49", "49 €"], ["€69", "69 €"], ["€119", "119 €"]]) {
+  // Regular and Black Friday prices, then Website Care.
+  for (const [en, el] of [["€699", "699 €"], ["€899", "899 €"], ["€1,099", "1.099 €"], ["€599", "599 €"], ["€49", "49 €"], ["€69", "69 €"], ["€119", "119 €"]]) {
     assert.ok(pricing.includes(`"${en}"`) && pricing.includes(`"${el}"`), `${en} / ${el}`);
   }
-  assert.match(faqsEl, /499 €/);
+  // The FAQ's starting price comes from the offer settings, shared with the English answer.
+  assert.match(faqsEl, /\$\{startingPrice\.el\}/);
   assert.match(faqsEl, /ειδοποίηση 30 ημερών/);
   assert.match(faqsEl, /3 μηνών/);
 });

@@ -1,4 +1,5 @@
 import { siteConfig } from "@/lib/site-config";
+import { blackFriday } from "@/lib/offers";
 import { services } from "@/lib/content";
 
 // A plain-text summary for AI answer engines (the emerging llms.txt convention).
@@ -21,11 +22,14 @@ Nicosia, Limassol, Larnaca, Paphos, Paralimni, Ayia Napa and across Cyprus. Proj
 
 ## Pricing
 All prices in EUR, one-off unless marked per month. Full pricing: ${siteConfig.url}/pricing
+${blackFriday.active ? `
+Black Friday offer until ${blackFriday.until}: website packages at EUR 599, 699 and 899, and EUR 100 to 150 off each solution (booking from EUR 690, e-shop from EUR 1,050, restaurant website from EUR 890, restaurant ordering from EUR 1,550, custom web app from EUR 2,350). Regular prices are listed below.
+` : ""}
 
 Website packages:
-- Professional Website Foundation (up to 4 pages): EUR 499
-- Custom Growth Website (5 to 7 pages, Google Business and local SEO setup): EUR 699
-- Advanced Digital Presence (8 to 10 pages, CMS or booking integration): EUR 999
+- Professional Website Foundation (up to 4 pages): EUR 699
+- Custom Growth Website (5 to 7 pages, Google Business and local SEO setup): EUR 899
+- Advanced Digital Presence (8 to 10 pages, CMS or booking integration): EUR 1,099
 
 Solutions (starting prices):
 - Online booking system: from EUR 790, or EUR 390 added to any website package

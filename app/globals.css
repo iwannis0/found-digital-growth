@@ -2145,3 +2145,11 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
 @media (prefers-reduced-motion: reduce) {
   .industry-card, .industry-card:hover { transform: none; }
 }
+
+/* Offer (Black Friday): badge in the pricing hero and crossed-out regular prices */
+.offer-badge { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 24px; border: 1px solid #ffffff2e; border-radius: 999px; background: #ffffff0f; padding: 6px 14px 6px 6px; font-size: .78rem; }
+.offer-badge b { border-radius: 999px; background: var(--acid); color: var(--white); padding: 5px 12px; font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.offer-badge span { color: #d8d7cf; }
+.price-was { color: var(--ink-soft); font-size: .8em; font-weight: 600; letter-spacing: -.02em; text-decoration-thickness: 1.5px; }
+.solution-price .price-was { font-size: 1.05rem; }
+.price-summary-row strong .price-was { display: block; color: #8f8e86; font-size: .5em; letter-spacing: 0; line-height: 1.1; }

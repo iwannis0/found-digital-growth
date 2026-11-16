@@ -17,6 +17,10 @@ export interface PricingPlan {
   name: string;
   short: string;
   setup: string;
+  /** Offer price for the setup, used while an offer runs (see lib/offers.ts). */
+  sale?: string;
+  /** The regular setup price, shown crossed out while an offer runs. */
+  was?: string;
   monthly: string;
   best: string;
   minutes: string;
@@ -38,9 +42,12 @@ const toAmount = (value: string) =>
 export function Pricing({
   plans,
   copy,
+  wasLabel = "",
 }: {
   plans: readonly PricingPlan[];
   copy: Dictionary["pricing"];
+  /** Screen-reader label for a crossed-out regular price. */
+  wasLabel?: string;
 }) {
   const [showCare, setShowCare] = useState(false);
 
@@ -229,6 +236,13 @@ export function Pricing({
             </p>
 
             <div className="mt-4 flex items-baseline justify-center gap-x-2 md:mt-5">
+              {plan.was && !showCare && (
+                <s className="text-xl font-semibold text-muted-foreground tabular-nums md:text-2xl">
+                  <span className="sr-only">{wasLabel}: </span>
+                  {plan.was}
+                </s>
+              )}
+
               <NumberFlow
                 value={toAmount(
                   showCare ? plan.monthly : plan.setup
