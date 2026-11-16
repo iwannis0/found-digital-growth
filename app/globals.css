@@ -2153,7 +2153,7 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
 .offer-ribbon-track { display: flex; width: max-content; animation: offer-marquee 38s linear infinite; }
 .offer-ribbon-track p { display: flex; flex-shrink: 0; margin: 0; }
 .offer-ribbon-track span { display: inline-flex; align-items: center; gap: 22px; padding: 11px 0 11px 22px; font-size: .74rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
-.offer-ribbon-track span::after { content: "º6"; font-size: .7rem; }
+.offer-ribbon-track span::after { content: "\2726"; font-size: .7rem; }
 @keyframes offer-marquee { to { transform: translateX(-50%); } }
 
 .pricing-lit-hero.is-offer .price-summary { border-color: #FFE14D4d; box-shadow: 0 40px 90px #00000099, 0 0 0 1px #FFE14D1a inset, 0 0 90px #FFE14D24; }
