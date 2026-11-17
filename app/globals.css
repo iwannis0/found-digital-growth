@@ -2187,3 +2187,44 @@ body:has(.admin-login) > .site-header, body:has(.admin-login) > .site-footer { d
 @media (prefers-reduced-motion: reduce) {
   .offer-ribbon-track { animation: none; }
 }
+
+/* Website Care: band under the packages, Care line on each card, featured monthly card */
+.care-band { background: var(--ink); color: var(--white); }
+.care-band-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 56px; }
+.care-band .eyebrow { color: #aaa99f; }
+.care-band h2 { margin: 0 0 20px; font-size: clamp(2.1rem, 4vw, 3.6rem); font-weight: 500; letter-spacing: -.055em; line-height: 1; text-wrap: balance; }
+.care-band-grid > div:first-child > p:not(.eyebrow) { max-width: 520px; margin: 0; color: #bcbcb2; font-size: 1.02rem; line-height: 1.65; }
+.care-band .care-terms { margin-top: 18px !important; color: #8f8e86 !important; font-size: .84rem !important; }
+.care-tiers { display: grid; gap: 10px; border: 1px solid #ffffff1f; border-radius: 22px; background: linear-gradient(160deg, #1d1d1a 0%, #121211 100%); padding: 22px; box-shadow: 0 30px 70px #00000066; }
+.care-offer { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 6px; font-size: .78rem; }
+.care-offer b { border-radius: 999px; background: var(--bf-yellow); color: var(--bf-black); padding: 4px 11px; font-size: .68rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.care-offer span { color: #e3e2dc; }
+.care-tier { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid #ffffff14; border-radius: 14px; background: #ffffff06; padding: 16px 18px; }
+.care-tier.is-popular { border-color: #A29BF666; background: #3F35B524; }
+.care-tier > div:first-child { display: grid; gap: 4px; min-width: 0; }
+.care-tier-name { font-size: 1.05rem; }
+.care-tier > div:first-child span { color: #aaa99f; font-size: .8rem; }
+.care-tier-price { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: 4px 8px; text-align: right; }
+.care-tier-price strong { font-size: 1.9rem; font-weight: 700; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.care-tier-price small { color: #aaa99f; font-size: .8rem; }
+.care-tier-price .price-was { color: #ff7b7d; font-size: 1rem; text-decoration-color: #ff7b7d; }
+.care-tier-price .save-chip { flex-basis: 100%; justify-content: flex-end; width: auto; margin-left: auto; background: var(--bf-yellow); color: var(--bf-black); max-width: max-content; }
+.care-tier-price .save-chip::before { background: var(--bf-black); box-shadow: none; }
+.care-tiers .button { margin-top: 8px; }
+
+.care-pill { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px; margin: 12px auto 0; border: 1px dashed #3F35B566; border-radius: 999px; background: #EFEDFF; color: var(--acid-dark); padding: 7px 14px; font-size: .8rem; font-weight: 600; transition: background .2s ease, border-color .2s ease; }
+.care-pill:hover { border-color: var(--acid); background: #e2dfff; }
+.care-pill s { color: var(--bf-red); text-decoration-thickness: 1.5px; }
+.care-pill b { font-weight: 800; }
+
+.monthly-card.is-featured { border: 2px solid var(--acid); box-shadow: 0 18px 40px #3F35B51f; }
+.price-summary-row small .price-was { display: block; color: #ff7b7d; font-size: .85em; text-decoration-color: #ff7b7d; }
+
+@media (max-width: 900px) {
+  .care-band-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 480px) {
+  .care-tiers { padding: 14px; }
+  .care-tier { padding: 14px; }
+  .care-tier-price strong { font-size: 1.5rem; }
+}

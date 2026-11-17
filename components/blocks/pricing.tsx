@@ -23,6 +23,10 @@ export interface PricingPlan {
   was?: string;
   /** "Save €200"-style label while an offer runs. */
   saving?: string;
+  /** Offer price for Website Care, and the regular one shown crossed out while an offer runs. */
+  monthlySale?: string;
+  monthlyWas?: string;
+  careSaving?: string;
   monthly: string;
   best: string;
   minutes: string;
@@ -45,11 +49,14 @@ export function Pricing({
   plans,
   copy,
   wasLabel = "",
+  careOffer = "",
 }: {
   plans: readonly PricingPlan[];
   copy: Dictionary["pricing"];
   /** Screen-reader label for a crossed-out regular price. */
   wasLabel?: string;
+  /** Short offer line next to the Website Care toggle, empty when there is no offer. */
+  careOffer?: string;
 }) {
   const [showCare, setShowCare] = useState(false);
 
@@ -143,6 +150,8 @@ export function Pricing({
             {copy.careNote}
           </span>
         </span>
+
+        {careOffer && <span className="save-chip">{careOffer}</span>}
       </div>
 
       <div
@@ -233,9 +242,9 @@ export function Pricing({
               </div>
             )}
 
-            {plan.saving && (
-              <span className={cn("save-chip mx-auto mb-3", showCare && "invisible")}>
-                {plan.saving}
+            {(plan.saving || plan.careSaving) && (
+              <span className={cn("save-chip mx-auto mb-3", !(showCare ? plan.careSaving : plan.saving) && "invisible")}>
+                {showCare ? `${plan.careSaving ?? ""} ${copy.perMonth}` : plan.saving}
               </span>
             )}
 
@@ -244,6 +253,13 @@ export function Pricing({
             </p>
 
             <div className="mt-4 flex items-baseline justify-center gap-x-2 md:mt-5">
+              {plan.monthlyWas && showCare && (
+                <s className="price-was text-xl font-semibold tabular-nums md:text-2xl">
+                  <span className="sr-only">{wasLabel}: </span>
+                  {plan.monthlyWas}
+                </s>
+              )}
+
               {plan.was && !showCare && (
                 <s className="price-was text-xl font-semibold tabular-nums md:text-2xl">
                   <span className="sr-only">{wasLabel}: </span>
@@ -280,6 +296,14 @@ export function Pricing({
                 ? copy.careTerm
                 : copy.setupTerm.replace("{monthly}", plan.monthly)}
             </p>
+
+            {!showCare && (
+              <button type="button" className="care-pill" onClick={() => handleToggle(true)}>
+                + {copy.care}{" "}
+                {plan.monthlyWas && <s>{plan.monthlyWas}</s>}{" "}
+                <b>{plan.monthly}</b> {copy.perMonth}
+              </button>
+            )}
 
             <p className="mx-auto mt-3 max-w-[24em] text-sm leading-relaxed text-muted-foreground md:mt-4 md:min-h-[6.5em]">
               {plan.best}

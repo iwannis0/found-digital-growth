@@ -1,3 +1,4 @@
+import { startingCare } from "@/lib/offers";
 import {
   BarChart3,
   Bot,
@@ -83,7 +84,7 @@ export const services = [
   {
     slug: "website-care",
     seoTitle: "Website Care, Hosting & Maintenance Cyprus",
-    seoDescription: "Managed hosting, SSL, backups, monitoring and monthly content updates for your website, from €49 a month. Keep your site fast, secure and up to date.",
+    seoDescription: `Managed hosting, SSL, backups, monitoring and monthly content updates for your website, from ${startingCare.en} a month. Keep your site fast, secure and up to date.`,
     title: "Website Care",
     short: "Hosting, monitoring, backups and routine updates that keep the website dependable after launch.",
     icon: ShieldCheck,

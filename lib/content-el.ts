@@ -1,3 +1,4 @@
+import { startingCare } from "@/lib/offers";
 import type { customCapabilities, deployedProjects, projects, services } from "@/lib/content";
 
 // Greek copy for lib/content.ts, keyed by slug. Slugs, icons, images and URLs come from
@@ -82,7 +83,7 @@ export const servicesEl: Record<ServiceSlug, ServiceText> = {
   },
   "website-care": {
     seoTitle: "Website Care: Hosting & Συντήρηση Ιστοσελίδων στην Κύπρο",
-    seoDescription: "Διαχειριζόμενο hosting, SSL, αντίγραφα ασφαλείας, παρακολούθηση και μηνιαίες αλλαγές περιεχομένου για την ιστοσελίδα σας, από 49 € τον μήνα. Γρήγορη, ασφαλής και πάντα ενημερωμένη.",
+    seoDescription: `Διαχειριζόμενο hosting, SSL, αντίγραφα ασφαλείας, παρακολούθηση και μηνιαίες αλλαγές περιεχομένου για την ιστοσελίδα σας, από ${startingCare.el} τον μήνα. Γρήγορη, ασφαλής και πάντα ενημερωμένη.`,
     title: "Website Care",
     short: "Hosting, παρακολούθηση, αντίγραφα ασφαλείας και τακτικές ενημερώσεις που κρατούν την ιστοσελίδα αξιόπιστη μετά το λανσάρισμα.",
     eyebrow: "Συνεχής φροντίδα",

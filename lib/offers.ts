@@ -29,6 +29,11 @@ export const startingPrice: Record<Locale, string> = blackFriday.active
   ? { en: "€599", el: "599 €" }
   : { en: "€699", el: "699 €" };
 
+/** The lowest Website Care price, for "Website Care starts at …" copy outside the pricing page. */
+export const startingCare: Record<Locale, string> = blackFriday.active
+  ? { en: "€29", el: "29 €" }
+  : { en: "€49", el: "49 €" };
+
 /** Picks the price to show: the offer price while the offer runs, otherwise the regular one. */
 export function priced<T extends { price: string; sale?: string }>(item: T): T & { was?: string } {
   return blackFriday.active && item.sale ? { ...item, price: item.sale, was: item.price } : item;

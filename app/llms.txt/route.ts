@@ -23,7 +23,7 @@ Nicosia, Limassol, Larnaca, Paphos, Paralimni, Ayia Napa and across Cyprus. Proj
 ## Pricing
 All prices in EUR, one-off unless marked per month. Full pricing: ${siteConfig.url}/pricing
 ${blackFriday.active ? `
-Black Friday offer until ${blackFriday.until}: website packages at EUR 599, 699 and 899, and EUR 100 to 150 off each solution (booking from EUR 690, e-shop from EUR 1,050, restaurant website from EUR 890, restaurant ordering from EUR 1,550, custom web app from EUR 2,350). Regular prices are listed below.
+Black Friday offer until ${blackFriday.until}: website packages at EUR 599, 699 and 899, and EUR 100 to 150 off each solution (booking from EUR 690, e-shop from EUR 1,050, restaurant website from EUR 890, restaurant ordering from EUR 1,550, custom web app from EUR 2,350), and Website Care at EUR 29, 49 or 89 per month depending on the package. Regular prices are listed below.
 ` : ""}
 
 Website packages:

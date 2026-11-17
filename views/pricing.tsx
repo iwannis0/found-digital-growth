@@ -17,7 +17,7 @@ import { pageMetadata } from "@/lib/seo";
 // same values travel to the contact form, the lead record and the package_click event.
 // Solution names stay in English for the same reason: they travel to the contact form as the package.
 type Solution = { name: string; icon: keyof typeof solutionIcons; title: string; body: string; price: string; sale?: string; unit: string; note: string; saleNote?: string };
-type MonthlyPlan = { name: string; price: string; unit: string; body: string; from?: boolean };
+type MonthlyPlan = { name: string; price: string; sale?: string; unit: string; body: string; from?: boolean; featured?: boolean };
 type Industry = { title: string; body: string; price: string; sale?: string; href: string; cta: string };
 
 const solutionIcons = { booking: CalendarCheck, shop: ShoppingBag, restaurant: UtensilsCrossed, ordering: ChefHat, app: LayoutDashboard } satisfies Record<string, LucideIcon>;
@@ -25,25 +25,25 @@ const solutionIcons = { booking: CalendarCheck, shop: ShoppingBag, restaurant: U
 const toNumber = (price: string) => price.replace(/[^\d]/g, "");
 
 const enPlans: PricingPlan[] = [
-  { name: "Professional Website Foundation", short: "Foundation", setup: "€699", sale: "€599", monthly: "€49", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,
+  { name: "Professional Website Foundation", short: "Foundation", setup: "€699", sale: "€599", monthly: "€49", monthlySale: "€29", best: "Small businesses that need a professional, credible online presence.", minutes: "15 minutes", popular: false,
     items: ["Up to 4 pages", "1 design revision round", "Responsive, mobile-first design", "Contact form", "Google Maps", "WhatsApp / click-to-call", "SEO foundations: titles, sitemap and structured data", "Google Analytics setup", "Launch on your domain with SSL"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates"] },
-  { name: "Custom Growth Website", short: "Growth", setup: "€899", sale: "€699", monthly: "€69", best: "Businesses that want a stronger website built around visibility, enquiries and bookings.", minutes: "30 minutes", popular: true,
+  { name: "Custom Growth Website", short: "Growth", setup: "€899", sale: "€699", monthly: "€69", monthlySale: "€49", best: "Businesses that want a stronger website built around visibility, enquiries and bookings.", minutes: "30 minutes", popular: true,
     items: ["5 to 7 pages", "2 design revision rounds", "Custom design direction", "Conversion-focused page structure", "Content refinement", "Google Business Profile setup & optimisation", "Local SEO foundations", "Analytics, Search Console & conversion tracking", "Enquiry or booking form", "WhatsApp and click-to-call", "Speed optimisation"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates", "Monthly analytics check"] },
-  { name: "Advanced Digital Presence", short: "Advanced", setup: "€1,099", sale: "€899", monthly: "€119", best: "Businesses that need a larger website with more functionality, a stronger conversion structure and priority care.", minutes: "60 minutes", popular: false,
+  { name: "Advanced Digital Presence", short: "Advanced", setup: "€1,099", sale: "€899", monthly: "€119", monthlySale: "€89", best: "Businesses that need a larger website with more functionality, a stronger conversion structure and priority care.", minutes: "60 minutes", popular: false,
     items: ["8 to 10 pages", "3 design revision rounds", "Tailored design direction", "Advanced conversion-focused structure", "Refined interactions and animations", "Editable content / blog (CMS) or booking system integration", "Multilingual-ready structure", "Enhanced Local SEO foundations", "Analytics, Search Console & conversion tracking"],
     care: ["Hosting, SSL and backups", "Uptime and security monitoring", "Technical updates", "Priority support: reply within one working day", "Quarterly technical & SEO health check"] },
 ];
 
 const elPlans: PricingPlan[] = [
-  { name: "Professional Website Foundation", short: "Foundation", setup: "699 €", sale: "599 €", monthly: "49 €", best: "Μικρές επιχειρήσεις που χρειάζονται μια επαγγελματική, αξιόπιστη online παρουσία.", minutes: "15 λεπτά", popular: false,
+  { name: "Professional Website Foundation", short: "Foundation", setup: "699 €", sale: "599 €", monthly: "49 €", monthlySale: "29 €", best: "Μικρές επιχειρήσεις που χρειάζονται μια επαγγελματική, αξιόπιστη online παρουσία.", minutes: "15 λεπτά", popular: false,
     items: ["Έως 4 σελίδες", "1 γύρος αλλαγών στον σχεδιασμό", "Responsive σχεδιασμός, με προτεραιότητα στο κινητό", "Φόρμα επικοινωνίας", "Google Maps", "WhatsApp / κλήση με ένα πάτημα", "Βάσεις SEO: τίτλοι, sitemap και δομημένα δεδομένα", "Ρύθμιση Google Analytics", "Δημοσίευση στο domain σας με SSL"],
     care: ["Hosting, SSL και αντίγραφα ασφαλείας", "Παρακολούθηση διαθεσιμότητας και ασφάλειας", "Τεχνικές ενημερώσεις"] },
-  { name: "Custom Growth Website", short: "Growth", setup: "899 €", sale: "699 €", monthly: "69 €", best: "Επιχειρήσεις που θέλουν μια πιο δυνατή ιστοσελίδα, χτισμένη γύρω από την ορατότητα, τα αιτήματα και τις κρατήσεις.", minutes: "30 λεπτά", popular: true,
+  { name: "Custom Growth Website", short: "Growth", setup: "899 €", sale: "699 €", monthly: "69 €", monthlySale: "49 €", best: "Επιχειρήσεις που θέλουν μια πιο δυνατή ιστοσελίδα, χτισμένη γύρω από την ορατότητα, τα αιτήματα και τις κρατήσεις.", minutes: "30 λεπτά", popular: true,
     items: ["5 έως 7 σελίδες", "2 γύροι αλλαγών στον σχεδιασμό", "Εξατομικευμένη σχεδιαστική κατεύθυνση", "Δομή σελίδων με στόχο τις μετατροπές", "Βελτίωση κειμένων", "Δημιουργία & βελτιστοποίηση Google Business Profile", "Βάσεις τοπικού SEO", "Analytics, Search Console & μέτρηση μετατροπών", "Φόρμα αιτήματος ή κράτησης", "WhatsApp και κλήση με ένα πάτημα", "Βελτιστοποίηση ταχύτητας"],
     care: ["Hosting, SSL και αντίγραφα ασφαλείας", "Παρακολούθηση διαθεσιμότητας και ασφάλειας", "Τεχνικές ενημερώσεις", "Μηνιαίος έλεγχος analytics"] },
-  { name: "Advanced Digital Presence", short: "Advanced", setup: "1.099 €", sale: "899 €", monthly: "119 €", best: "Επιχειρήσεις που χρειάζονται μεγαλύτερη ιστοσελίδα, με περισσότερες λειτουργίες, πιο δυνατή δομή μετατροπών και προτεραιότητα στην υποστήριξη.", minutes: "60 λεπτά", popular: false,
+  { name: "Advanced Digital Presence", short: "Advanced", setup: "1.099 €", sale: "899 €", monthly: "119 €", monthlySale: "89 €", best: "Επιχειρήσεις που χρειάζονται μεγαλύτερη ιστοσελίδα, με περισσότερες λειτουργίες, πιο δυνατή δομή μετατροπών και προτεραιότητα στην υποστήριξη.", minutes: "60 λεπτά", popular: false,
     items: ["8 έως 10 σελίδες", "3 γύροι αλλαγών στον σχεδιασμό", "Σχεδιαστική κατεύθυνση στα μέτρα σας", "Προηγμένη δομή με στόχο τις μετατροπές", "Προσεγμένες αλληλεπιδράσεις και animations", "Επεξεργάσιμο περιεχόμενο / blog (CMS) ή σύνδεση συστήματος κρατήσεων", "Δομή έτοιμη για πολλές γλώσσες", "Ενισχυμένες βάσεις τοπικού SEO", "Analytics, Search Console & μέτρηση μετατροπών"],
     care: ["Hosting, SSL και αντίγραφα ασφαλείας", "Παρακολούθηση διαθεσιμότητας και ασφάλειας", "Τεχνικές ενημερώσεις", "Προτεραιότητα στην υποστήριξη: απάντηση μέσα σε μία εργάσιμη ημέρα", "Τριμηνιαίος τεχνικός έλεγχος και έλεγχος SEO"] },
 ];
@@ -64,7 +64,7 @@ const en = {
   monthlyLead: "All monthly plans are optional and start after launch.",
   monthly: [
     { name: "Hosting only", price: "€19", unit: "/month", body: "Hosting, SSL and backups. Content changes are quoted when you need them." },
-    { name: "Website Care", price: "€49", unit: "/month", body: "Hosting, monitoring, technical updates and minor content updates. €69 or €119 a month for the Growth and Advanced packages." },
+    { name: "Website Care", price: "€49", sale: "€29", unit: "/month", body: "Hosting, monitoring, technical updates and minor content updates. {growth} or {advanced} a month for the Growth and Advanced packages.", featured: true },
     { name: "Local SEO & Google Business", price: "€149", unit: "/month", body: "Google Business updates, review requests, local page improvements and a short monthly report.", from: true },
   ] as MonthlyPlan[],
   industriesEyebrow: "Built for your type of business",
@@ -82,7 +82,17 @@ const en = {
   fromLabel: "From",
   ask: "Ask about this",
   finalNote: "Prices in euro. No hidden fees.",
-  offer: { lead: "Black Friday: up to €200 off every website package and €100 to €150 off every solution, for projects agreed by Monday 30 November.", was: "Regular price" },
+  care: {
+    eyebrow: "Website Care",
+    title: "Launch is the start. We look after it every month.",
+    body: "Hosting, SSL, backups, uptime and security monitoring, technical updates and minor content changes, handled for you so the site stays fast, secure and current.",
+    perMonth: "/ month",
+    updates: "Up to {minutes} of updates a month",
+    terms: "Optional. 3-month minimum, then month-to-month, cancel with 30 days’ notice.",
+    offerNote: "Black Friday Website Care prices",
+    cta: "Add Website Care",
+  },
+  offer: { lead: "Black Friday: up to €200 off every website package, €100 to €150 off every solution and Website Care from €29 a month, for projects agreed by Monday 30 November.", was: "Regular price" },
   eyebrow: "Transparent pricing",
   titleLead: "Start with the",
   titleAccent: "right foundation.",
@@ -122,7 +132,7 @@ const el: typeof en = {
   monthlyLead: "Όλα τα μηνιαία πλάνα είναι προαιρετικά και ξεκινούν μετά το λανσάρισμα.",
   monthly: [
     { name: "Μόνο hosting", price: "19 €", unit: "/μήνα", body: "Hosting, SSL και αντίγραφα ασφαλείας. Οι αλλαγές περιεχομένου κοστολογούνται όταν τις χρειαστείτε." },
-    { name: "Website Care", price: "49 €", unit: "/μήνα", body: "Hosting, παρακολούθηση, τεχνικές ενημερώσεις και μικρές αλλαγές περιεχομένου. 69 € ή 119 € τον μήνα για τα πακέτα Growth και Advanced." },
+    { name: "Website Care", price: "49 €", sale: "29 €", unit: "/μήνα", body: "Hosting, παρακολούθηση, τεχνικές ενημερώσεις και μικρές αλλαγές περιεχομένου. {growth} ή {advanced} τον μήνα για τα πακέτα Growth και Advanced.", featured: true },
     { name: "Τοπικό SEO & Google Business", price: "149 €", unit: "/μήνα", body: "Ενημερώσεις στο Google Business, αιτήματα για κριτικές, βελτιώσεις τοπικών σελίδων και σύντομη μηνιαία αναφορά.", from: true },
   ],
   industriesEyebrow: "Για το είδος της επιχείρησής σας",
@@ -140,7 +150,17 @@ const el: typeof en = {
   fromLabel: "Από",
   ask: "Ρωτήστε μας",
   finalNote: "Τιμές σε ευρώ. Χωρίς κρυφές χρεώσεις.",
-  offer: { lead: "Black Friday: έως 200 € έκπτωση σε κάθε πακέτο ιστοσελίδας και 100 € έως 150 € σε κάθε λύση, για έργα που θα συμφωνηθούν έως τη Δευτέρα 30 Νοεμβρίου.", was: "Κανονική τιμή" },
+  care: {
+    eyebrow: "Website Care",
+    title: "Το λανσάρισμα είναι η αρχή. Τη φροντίζουμε κάθε μήνα.",
+    body: "Hosting, SSL, αντίγραφα ασφαλείας, παρακολούθηση διαθεσιμότητας και ασφάλειας, τεχνικές ενημερώσεις και μικρές αλλαγές περιεχομένου, για να μένει η ιστοσελίδα γρήγορη, ασφαλής και ενημερωμένη.",
+    perMonth: "/ μήνα",
+    updates: "Έως {minutes} αλλαγές τον μήνα",
+    terms: "Προαιρετικό. Ελάχιστη διάρκεια 3 μηνών, μετά ανά μήνα, με ειδοποίηση διακοπής 30 ημερών.",
+    offerNote: "Τιμές Website Care για τη Black Friday",
+    cta: "Προσθήκη Website Care",
+  },
+  offer: { lead: "Black Friday: έως 200 € έκπτωση σε κάθε πακέτο ιστοσελίδας, 100 € έως 150 € σε κάθε λύση και Website Care από 29 € τον μήνα, για έργα που θα συμφωνηθούν έως τη Δευτέρα 30 Νοεμβρίου.", was: "Κανονική τιμή" },
   eyebrow: "Διαφανείς τιμές",
   titleLead: "Ξεκινήστε με",
   titleAccent: "τη σωστή βάση.",
@@ -169,12 +189,18 @@ const copy = { en, el };
 /** The page copy with the offer applied: offer prices shown, regular ones kept as `was`. */
 function resolved(locale: Locale) {
   const t = copy[locale];
-  const plans = t.plans.map((plan) => blackFriday.active && plan.sale ? { ...plan, setup: plan.sale, was: plan.setup, saving: savingLabel(locale, plan.setup, plan.sale) } : plan);
+  const plans = t.plans.map((plan) => {
+    if (!blackFriday.active) return plan;
+    const setup = plan.sale ? { setup: plan.sale, was: plan.setup, saving: savingLabel(locale, plan.setup, plan.sale) } : {};
+    const care = plan.monthlySale ? { monthly: plan.monthlySale, monthlyWas: plan.monthly, careSaving: savingLabel(locale, plan.monthly, plan.monthlySale) } : {};
+    return { ...plan, ...setup, ...care };
+  });
+  const monthly = t.monthly.map((m) => { const x = priced(m); return { ...x, body: x.body.replace("{growth}", plans[1].monthly).replace("{advanced}", plans[2].monthly) }; });
   const solutions = t.solutions.map((s) => { const x = priced(s); return blackFriday.active && s.saleNote ? { ...x, note: s.saleNote } : x; });
   const industries = t.industries.map(priced);
   const solutionPrice = (name: string) => solutions.find((s) => s.name === name)?.price ?? "";
   const metaDescription = t.metaDescription.replace("{website}", plans[0].setup).replace("{booking}", solutionPrice("Online Booking System")).replace("{shop}", solutionPrice("E-shop"));
-  return { ...t, plans, solutions, industries, metaDescription };
+  return { ...t, plans, solutions, industries, monthly, metaDescription };
 }
 
 export function pricingMetadata(locale: Locale) {
@@ -192,7 +218,7 @@ function pricingSchema(locale: Locale) {
     price: toNumber(price),
     priceCurrency: "EUR",
     url,
-    ...(blackFriday.active && !perMonth ? { priceValidUntil: blackFriday.until } : {}),
+    ...(blackFriday.active ? { priceValidUntil: blackFriday.until } : {}),
     itemOffered: { "@type": "Service", name, description, provider, areaServed: { "@type": "Country", name: "Cyprus" } },
     ...(perMonth ? { priceSpecification: { "@type": "UnitPriceSpecification", price: toNumber(price), priceCurrency: "EUR", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } } : {}),
   });
@@ -224,11 +250,22 @@ export function PricingView({ locale }: { locale: Locale }) {
       <div>{blackFriday.active ? <p className="offer-badge"><b>{blackFriday.label[locale]}</b><span>{blackFriday.ends[locale]}</span></p> : <p className="eyebrow">{t.eyebrow}</p>}<h1>{t.titleLead} <em>{t.titleAccent}</em></h1><p className="lit-hero-lead">{blackFriday.active ? t.offer.lead : t.lead}</p>{blackFriday.active && <OfferCountdown endsAt={blackFriday.endsAt} labels={blackFriday.countdown[locale]} />}</div>
       <div className="price-summary">
         <div className="price-summary-head"><span>{t.summary.head}</span><span>{t.summary.setup}</span><span>{t.summary.care}</span></div>
-        {t.plans.map((plan) => <div className={`price-summary-row${plan.popular ? " is-popular" : ""}`} key={plan.name}><span>{plan.name}{plan.popular && <em>{t.summary.popular}</em>}</span><strong>{was(plan.was)}{plan.setup}</strong><small>{plan.monthly}</small></div>)}
+        {t.plans.map((plan) => <div className={`price-summary-row${plan.popular ? " is-popular" : ""}`} key={plan.name}><span>{plan.name}{plan.popular && <em>{t.summary.popular}</em>}</span><strong>{was(plan.was)}{plan.setup}</strong><small>{was(plan.monthlyWas)}{plan.monthly}</small></div>)}
         <div className="price-summary-foot"><span><b>50%</b> {t.summary.deposit}</span><span><b>50%</b> {t.summary.beforeLaunch}</span><span>{t.summary.optional}</span></div>
       </div>
     </div></section>
-    <section className="pricing-section section-pad"><div className="site-container"><Pricing plans={t.plans} copy={getDictionary(locale).pricing} wasLabel={t.offer.was} /><p className="pricing-scope-note">{t.scopeNote} {t.finalNote}</p></div></section>
+    <section className="pricing-section section-pad"><div className="site-container"><Pricing plans={t.plans} copy={getDictionary(locale).pricing} wasLabel={t.offer.was} careOffer={blackFriday.active ? `${blackFriday.label[locale]} · ${t.fromLabel.toLowerCase()} ${t.plans[0].monthly}${t.care.perMonth}` : ""} /><p className="pricing-scope-note">{t.scopeNote} {t.finalNote}</p></div></section>
+    <section className="care-band section-pad" id="website-care"><div className="site-container care-band-grid">
+      <div data-motion="rise"><p className="eyebrow">{t.care.eyebrow}</p><h2>{t.care.title}</h2><p>{t.care.body}</p><p className="care-terms">{t.care.terms}</p></div>
+      <div className="care-tiers" data-motion="rise">
+        {blackFriday.active && <p className="care-offer"><b>{blackFriday.label[locale]}</b><span>{t.care.offerNote}</span></p>}
+        {t.plans.map((plan) => <div className={`care-tier${plan.popular ? " is-popular" : ""}`} key={plan.name}>
+          <div><strong className="care-tier-name">{plan.short}</strong><span>{t.care.updates.replace("{minutes}", plan.minutes)}</span></div>
+          <div className="care-tier-price">{was(plan.monthlyWas)}<strong>{plan.monthly}</strong><small>{t.care.perMonth}</small>{plan.careSaving && <span className="save-chip">{plan.careSaving} {t.care.perMonth}</span>}</div>
+        </div>)}
+        <Link className="button button-accent button-large" href={`${contactPath}?service=${encodeURIComponent("Website Care")}`} data-track="care_click" data-track-location="pricing_care">{t.care.cta}<ArrowRight aria-hidden="true" /></Link>
+      </div>
+    </div></section>
     <section className="solutions-section section-pad"><div className="site-container">
       <div className="pricing-section-head" data-motion="rise"><p className="eyebrow">{t.solutionsEyebrow}</p><h2>{t.solutionsTitle}</h2><p>{t.solutionsLead}</p></div>
       <div className="solution-grid">{t.solutions.map((s) => { const Icon = solutionIcons[s.icon]; return <article className="solution-card" key={s.name} data-motion="rise">
@@ -242,9 +279,9 @@ export function PricingView({ locale }: { locale: Locale }) {
     </div></section>
     <section className="monthly-section section-pad"><div className="site-container">
       <div className="pricing-section-head" data-motion="rise"><p className="eyebrow">{t.monthlyEyebrow}</p><h2>{t.monthlyTitle}</h2><p>{t.monthlyLead}</p></div>
-      <div className="monthly-grid">{t.monthly.map((m) => <article className="monthly-card" key={m.name} data-motion="rise">
+      <div className="monthly-grid">{t.monthly.map((m) => <article className={`monthly-card${m.featured ? " is-featured" : ""}`} key={m.name} data-motion="rise">
         <h3>{m.name}</h3>
-        <div className="solution-price">{(m.from || m.name === "Website Care") && <small>{t.fromLabel}</small>}<strong>{m.price}</strong><span>{m.unit}</span></div>
+        <div className="solution-price">{(m.from || m.name === "Website Care") && <small>{t.fromLabel}</small>}{was(m.was)}<strong>{m.price}</strong><span>{m.unit}</span></div>
         <p>{m.body}</p>
       </article>)}</div>
     </div></section>
